@@ -26,6 +26,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+        yield MenuItem::linkTo(OfferCrudController::class, 'Services', 'fa fa-briefcase');
         yield MenuItem::linkTo(ProjectCrudController::class, 'Projets', 'fa fa-folder-open');
         yield MenuItem::linkTo(ExperienceCrudController::class, 'Parcours', 'fa fa-timeline');
         yield MenuItem::linkToUrl('Voir le site', 'fa fa-arrow-up-right-from-square', '/')->setLinkTarget('_blank');

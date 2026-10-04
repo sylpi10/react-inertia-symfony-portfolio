@@ -4,6 +4,7 @@ import { useState, useRef, ReactNode } from "react";
 
 const links = [
     // { href: "/", label: "Home" },
+    { href: "/#services", label: "Services" },
     { href: "/#projects", label: "Projets" },
     { href: "/#a-propos", label: "À propos" },
     { href: "/#parcours", label: "Parcours" },

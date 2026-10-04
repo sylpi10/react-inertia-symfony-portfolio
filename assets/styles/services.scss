@@ -1,0 +1,111 @@
+@use "variables" as *;
+
+.section-container.services-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 20px 40px;
+
+    .services-intro {
+        max-width: 640px;
+        margin: 0 auto 40px;
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .services-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        padding: 0;
+        margin: 0;
+        @media screen and (max-width: 768px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .service {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 28px 28px 24px;
+        border: 1px solid rgba($main_color, 0.12);
+        border-radius: 12px;
+        background-color: #fff;
+        transition:
+            border-color 0.25s ease,
+            box-shadow 0.25s ease,
+            transform 0.25s ease;
+        // filet jaune qui se déploie au survol
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 28px;
+            right: 28px;
+            height: 3px;
+            border-radius: 0 0 3px 3px;
+            background-color: $yellow;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        &:hover {
+            border-color: rgba($main_color, 0.25);
+            box-shadow: 0 12px 30px rgba($main_color, 0.08);
+            transform: translateY(-2px);
+            &::before {
+                transform: scaleX(1);
+            }
+        }
+
+        .service-number {
+            font-family: effortless, serif;
+            font-size: 1.6rem;
+            line-height: 1;
+            color: $yellow;
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: $main_color;
+        }
+
+        .service-description {
+            color: #333;
+            line-height: 1.6;
+            p {
+                margin: 0;
+            }
+        }
+
+        .service-examples {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin: auto 0 0;
+            padding-top: 8px;
+            font-size: 0.9rem;
+            .label {
+                color: #555;
+            }
+            a {
+                padding: 3px 10px;
+                border-radius: 999px;
+                background-color: $light-yellow;
+                color: $main_color;
+                font-weight: 600;
+                text-decoration: none;
+                transition: background-color 0.2s ease;
+                &:hover,
+                &:focus-visible {
+                    background-color: $yellow;
+                }
+            }
+        }
+    }
+}

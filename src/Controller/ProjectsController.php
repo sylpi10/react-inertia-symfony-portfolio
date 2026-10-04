@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Repository\ExperienceRepository;
+use App\Repository\OfferRepository;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectShareImage;
 use App\Service\ProjectSummary;
@@ -31,6 +32,7 @@ class ProjectsController extends AbstractController
         private readonly ProjectSummary $summary,
         private readonly ProjectShareImage $shareImage,
         private readonly ExperienceRepository $experienceRepository,
+        private readonly OfferRepository $offerRepository,
         private readonly NormalizerInterface $normalizer,
     ) {}
 
@@ -39,7 +41,11 @@ class ProjectsController extends AbstractController
     {
         try {
             $projects = $this->projectRepository->findAll();
-            // normalisé à part : les projets liés au parcours n'exposent que nom et slug
+            // normalisés à part : les projets cités n'exposent que nom et slug
+            $offers = $this->normalizer->normalize(
+                $this->offerRepository->findForHome(),
+                context: ["groups" => ["offer:list"]],
+            );
             $experiences = $this->normalizer->normalize(
                 $this->experienceRepository->findForTimeline(),
                 context: ["groups" => ["experience:list"]],
@@ -49,6 +55,7 @@ class ProjectsController extends AbstractController
                 "Home",
                 [
                     "projects" => $projects,
+                    "offers" => $offers,
                     "experiences" => $experiences,
                     "seo" => [
                         "title" => self::HOME_TITLE,

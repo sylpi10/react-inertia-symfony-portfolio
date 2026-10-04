@@ -20,7 +20,8 @@ export default function Hero() {
     const lineStarts: number[] = lines.map((_, i) =>
         lines.slice(0, i).reduce((n, line) => n + line.length + 1, 0),
     );
-    const cursorLine: number = lineStarts.filter((start) => start <= index).length - 1;
+    const cursorLine: number =
+        lineStarts.filter((start) => start <= index).length - 1;
 
     const [hasScrolledPast, setHasScrolledPast] = useState(false);
 
@@ -58,7 +59,9 @@ export default function Hero() {
                                         <span key={i} aria-hidden="true">
                                             {line.slice(0, typed)}
                                             {i === cursorLine && (
-                                                <span className="cursor">|</span>
+                                                <span className="cursor">
+                                                    |
+                                                </span>
                                             )}
                                             <span className="typewriter-rest">
                                                 {line.slice(typed)}
@@ -74,9 +77,8 @@ export default function Hero() {
                                     conçois des sites et applications sur mesure
                                     pour les indépendants et les petites
                                     entreprises : sites vitrines avec
-                                    back-office, refontes techniques,
-                                    applications React et Next.js. 5 ans
-                                    d’expérience en e-commerce.
+                                    back-office, refontes techniques. <br />5
+                                    ans d’expérience en e-commerce.
                                 </p>
                                 <a href="#contact" className="hero-cta">
                                     Discutons de votre projet
