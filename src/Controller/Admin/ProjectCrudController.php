@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Service\ProjectImageStorage;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -63,6 +64,12 @@ class ProjectCrudController extends AbstractCrudController
         yield UrlField::new('githublink', 'GitHub')->hideOnIndex();
 
         yield FormField::addColumn(4);
+        // côté inverse de la relation : by_reference=false pour passer par
+        // addExperience()/removeExperience(), qui mettent à jour Experience
+        yield AssociationField::new('experiences', 'Étapes du parcours')
+            ->autocomplete()
+            ->setFormTypeOption('by_reference', false)
+            ->hideOnIndex();
         yield $this->imageField('background', 'Vignette (accueil)', $pageName);
         yield $this->imageField('detailPic', 'Capture desktop (pleine page)', $pageName)->hideOnIndex();
         yield $this->imageField('detail_pic_mobile', 'Capture mobile', $pageName, required: false)->hideOnIndex();

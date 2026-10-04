@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
-    // un seul contenu à gérer pour l'instant : on arrive directement sur les projets
+    // page d'accueil de l'admin : la liste des projets
     public function index(): Response
     {
         return $this->redirectToRoute('admin_project_index');
@@ -27,6 +27,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkTo(ProjectCrudController::class, 'Projets', 'fa fa-folder-open');
+        yield MenuItem::linkTo(ExperienceCrudController::class, 'Parcours', 'fa fa-timeline');
         yield MenuItem::linkToUrl('Voir le site', 'fa fa-arrow-up-right-from-square', '/')->setLinkTarget('_blank');
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
     }

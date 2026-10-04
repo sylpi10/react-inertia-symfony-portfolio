@@ -5,13 +5,15 @@ import Parcours from "../components/sections/Parcours";
 import Projects from "../components/sections/Projects";
 import Contact from "../components/sections/Contact";
 import { ProjectProps } from "../types/projects";
+import { ExperienceProps } from "../types/experiences";
 
 type HomeProps = {
     projects: ProjectProps[];
+    experiences: ExperienceProps[];
 };
 
 // les id servent d'ancres pour la nav et de racine aux styles (#home, #a-propos...)
-export default function Home({ projects }: HomeProps) {
+export default function Home({ projects, experiences }: HomeProps) {
     return (
         <>
             <section id="home">
@@ -23,7 +25,7 @@ export default function Home({ projects }: HomeProps) {
             <section id="a-propos">
                 <About />
                 <section id="parcours">
-                    <Parcours />
+                    <Parcours experiences={experiences} />
                 </section>
             </section>
             <section id="contact">

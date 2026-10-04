@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -17,12 +19,12 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(["project:list", "project:detail", "experience:list"])]
     private string $name;
 
     // segment d'URL (/projets/{slug}), généré depuis le nom à la création
     #[ORM\Column(length: 100, unique: true)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(["project:list", "project:detail", "experience:list"])]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255)]
@@ -56,6 +58,24 @@ class Project
     #[ORM\Column(length: 50, nullable: true)]
     #[Groups(["project:detail"])]
     private ?string $detail_pic_mobile = null;
+
+    /**
+     * Étapes du parcours liées au projet (côté inverse, géré par Experience).
+     *
+     * @var Collection<int, Experience>
+     */
+    #[ORM\ManyToMany(targetEntity: Experience::class, mappedBy: "projects")]
+    private Collection $experiences;
+
+    public function __construct()
+    {
+        $this->experiences = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->name ?? '';
+    }
 
     public function getId(): ?int
     {
@@ -178,6 +198,33 @@ class Project
     public function setDetailPicMobile(?string $detail_pic_mobile): static
     {
         $this->detail_pic_mobile = $detail_pic_mobile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Experience>
+     */
+    public function getExperiences(): Collection
+    {
+        return $this->experiences;
+    }
+
+    public function addExperience(Experience $experience): static
+    {
+        if (!$this->experiences->contains($experience)) {
+            $this->experiences->add($experience);
+            $experience->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(Experience $experience): static
+    {
+        if ($this->experiences->removeElement($experience)) {
+            $experience->removeProject($this);
+        }
 
         return $this;
     }

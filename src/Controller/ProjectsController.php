@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Repository\ExperienceRepository;
 use App\Repository\ProjectRepository;
 use App\Service\ProjectShareImage;
 use App\Service\ProjectSummary;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Nytodev\InertiaBundle\Service\Inertia;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ProjectsController extends AbstractController
 {
@@ -28,6 +30,8 @@ class ProjectsController extends AbstractController
         private readonly Inertia $inertia,
         private readonly ProjectSummary $summary,
         private readonly ProjectShareImage $shareImage,
+        private readonly ExperienceRepository $experienceRepository,
+        private readonly NormalizerInterface $normalizer,
     ) {}
 
     #[Route("/", name: "home", methods: ["GET"])]
@@ -35,10 +39,17 @@ class ProjectsController extends AbstractController
     {
         try {
             $projects = $this->projectRepository->findAll();
+            // normalisé à part : les projets liés au parcours n'exposent que nom et slug
+            $experiences = $this->normalizer->normalize(
+                $this->experienceRepository->findForTimeline(),
+                context: ["groups" => ["experience:list"]],
+            );
+
             return $this->inertia->render(
                 "Home",
                 [
                     "projects" => $projects,
+                    "experiences" => $experiences,
                     "seo" => [
                         "title" => self::HOME_TITLE,
                         "description" => self::HOME_DESCRIPTION,
