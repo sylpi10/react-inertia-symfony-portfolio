@@ -19,7 +19,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class ProjectsController extends AbstractController
 {
     private const string HOME_TITLE = "Sylvain Pillet – Développeur Frontend / fullstack freelance à Toulouse";
-    private const string HOME_DESCRIPTION = "Développeur web freelance basé à Toulouse, 5 ans d’expérience en e-commerce. Frontend, UI/UX et interfaces modernes, sans négliger le backend.";
+    // l'offre d'abord, l'expérience ensuite ; 155 caractères max pour ne pas être tronquée
+    private const string HOME_DESCRIPTION = "Développeur web freelance à Toulouse : sites vitrines avec back-office, refontes, applications React/Next.js pour indépendants et TPE. 5 ans d’expérience.";
     private const array ERROR_SEO = [
         "title" => "Page introuvable | Sylvain Pillet",
         "description" => self::HOME_DESCRIPTION,
