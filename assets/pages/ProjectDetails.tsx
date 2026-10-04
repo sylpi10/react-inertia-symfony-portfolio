@@ -110,11 +110,8 @@ export default function ProjectDetails({
                                             xmlns="http://www.w3.org/2000/svg"
                                         >
                                             <title>github</title>
-                                            <g id="Layer_2" data-name="Layer 2">
-                                                <g
-                                                    id="invisible_box"
-                                                    data-name="invisible box"
-                                                >
+                                            <g data-name="Layer 2">
+                                                <g data-name="invisible box">
                                                     <rect
                                                         width="48"
                                                         height="48"
@@ -127,7 +124,6 @@ export default function ProjectDetails({
                                                     />
                                                 </g>
                                                 <g
-                                                    id="icons_Q2"
                                                     data-name="icons Q2"
                                                     fill={"#E4D00A"}
                                                 >

@@ -3,3 +3,38 @@ $yellow: #e4d00a;
 $light-yellow: #f7f1b5;
 $purple: #36013f;
 $main_color: #0c1423;
+
+// pastille de techno : contour fin, point jaune en rappel de la charte,
+// remplie au survol (timeline du parcours, page détail d'un projet)
+@mixin tech-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border: 1px solid rgba($main_color, 0.18);
+    border-radius: 999px;
+    background-color: #fff;
+    color: $main_color;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+    &::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: $yellow;
+        box-shadow: 0 0 0 2px rgba($yellow, 0.25);
+    }
+    &:hover {
+        background-color: $light-yellow;
+        border-color: $yellow;
+        transform: translateY(-1px);
+    }
+}

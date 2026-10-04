@@ -92,20 +92,7 @@
             height: fit-content;
             border-bottom: solid 1px rgba(255, 255, 255, 0.4);
             li {
-                white-space: nowrap;
-                padding: 8px;
-                color: $main_color;
-                background-color: $yellow;
-                clip-path: polygon(
-                    0 0,
-                    10% 10%,
-                    90% 10%,
-                    100% 0,
-                    100% 100%,
-                    90% 90%,
-                    10% 90%,
-                    0 100%
-                );
+                @include tech-pill;
             }
         }
     }
