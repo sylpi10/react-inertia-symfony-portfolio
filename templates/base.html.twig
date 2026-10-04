@@ -7,13 +7,15 @@
         {% set seo_description = seo.description ?? '' %}
         {% set route = app.request.attributes.get('_route') %}
         {% set canonical = route ? url(route, app.request.attributes.get('_route_params')) : null %}
-        {% set share_image = absolute_url(asset('images/sylvain-pillet.jpg')) %}
+        {% set profile_image = absolute_url(asset('images/sylvain-pillet.jpg')) %}
+        {# visuel propre à la page (capture d'un projet), sinon la photo de profil #}
+        {% set share = seo.image ?? {url: asset('images/sylvain-pillet.jpg'), width: 421, height: 500, alt: 'Sylvain Pillet, développeur web freelance React et frontend à Toulouse'} %}
+        {% set share_image = absolute_url(share.url) %}
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ seo_title }}</title>
         <meta name="description" content="{{ seo_description }}">
-        <meta name="keywords" content="développeur React freelance, développeur frontend Toulouse, développeur web freelance, React, TypeScript, Symfony, performance web, SEO technique, UI/UX, développeur web France">
         <meta name="author" content="Sylvain Pillet">
         <meta name="robots" content="{{ seo.robots ?? 'index, follow' }}">
         {% if canonical %}
@@ -37,11 +39,11 @@
         <meta property="og:url" content="{{ canonical }}">
         {% endif %}
         <meta property="og:image" content="{{ share_image }}">
-        <meta property="og:image:width" content="421">
-        <meta property="og:image:height" content="500">
-        <meta property="og:image:alt" content="Sylvain Pillet, développeur web freelance React et frontend à Toulouse">
-        {# image portrait : carte "summary" (la grande carte attend du 2:1) #}
-        <meta name="twitter:card" content="summary">
+        <meta property="og:image:width" content="{{ share.width }}">
+        <meta property="og:image:height" content="{{ share.height }}">
+        <meta property="og:image:alt" content="{{ share.alt }}">
+        {# grande carte pour les visuels paysage, "summary" pour la photo portrait #}
+        <meta name="twitter:card" content="{{ (seo.image ?? null) ? 'summary_large_image' : 'summary' }}">
         <meta name="twitter:title" content="{{ seo_title }}">
         <meta name="twitter:description" content="{{ seo_description }}">
         <meta name="twitter:image" content="{{ share_image }}">
@@ -52,7 +54,7 @@
                 '@type': 'Person',
                 'name': 'Sylvain Pillet',
                 'url': url('home'),
-                'image': share_image,
+                'image': profile_image,
                 'jobTitle': 'Développeur web freelance – React & Frontend',
                 'description': 'Développeur web freelance à Toulouse, spécialisé React et frontend : interfaces modernes, performance web et SEO technique.',
                 'knowsAbout': ['React', 'TypeScript', 'JavaScript', 'Développement frontend', 'Performance web', 'SEO technique', 'UI/UX', 'Symfony', 'PHP'],
