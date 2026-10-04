@@ -30,16 +30,7 @@ export default function About() {
                     <h2 className={"section-title"}>En quelques mots</h2>
                     <div className="about-me-wrapper">
                         <div className="name">
-                            <h3 className={"person-title"}>
-                                Sylvain, {age} ans
-                            </h3>
-                            {/*<img
-                                src={arrow}
-                                className="arrow"
-                                alt="image de flèche"
-                                width="220"
-                                height="142"
-                            />*/}
+                            <h3 className={"person-title"}>Sylvain</h3>
                         </div>
                         <div className="image-wrapper">
                             <img
@@ -71,7 +62,7 @@ export default function About() {
                             <p>
                                 J'ai débuté par l'intégration web en <b>2017</b>{" "}
                                 avant de me former aux autres technologies web
-                                par moi-même pour ensuite de rejoindre en{" "}
+                                par moi-même pour ensuite rejoindre en{" "}
                                 <b>2019</b> une formation en développement à{" "}
                                 <b>Toulouse</b>.
                             </p>
@@ -110,7 +101,7 @@ export default function About() {
                             </p>
 
                             <p>
-                                Sinon je suis aussi passionné de <b>Cinéma</b>,
+                                Sinon je suis aussi passionné de <b>Cinéma</b>
                                 ou de sport, j'ai pratiqué le <b>foot</b>{" "}
                                 pendant 16 ans et je pratique maintenant{" "}
                                 <b>l'escalade</b> depuis 6 ans.
