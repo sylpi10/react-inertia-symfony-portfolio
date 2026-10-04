@@ -40,7 +40,10 @@ class ProjectsController extends AbstractController
     public function getProjects(): Response
     {
         try {
-            $projects = $this->projectRepository->findAll();
+            $projects = $this->projectRepository->findBy(
+                [],
+                ["position" => "ASC", "id" => "ASC"],
+            );
             // normalisés à part : les projets cités n'exposent que nom et slug
             $offers = $this->normalizer->normalize(
                 $this->offerRepository->findForHome(),
@@ -74,7 +77,14 @@ class ProjectsController extends AbstractController
     }
 
     // ancienne URL par id, conservée pour les liens et l'index existants
-    #[Route("/project/{id}", name: "projects_details_legacy", requirements: ["id" => "\\d+"], methods: ["GET"])]
+    #[
+        Route(
+            "/project/{id}",
+            name: "projects_details_legacy",
+            requirements: ["id" => "\\d+"],
+            methods: ["GET"],
+        ),
+    ]
     public function redirectLegacyProject(
         #[MapEntity(id: "id")] Project $project,
     ): Response {

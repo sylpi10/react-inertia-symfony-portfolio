@@ -3,8 +3,10 @@
 namespace App\Tests\Controller;
 
 use App\Entity\Experience;
+use App\Entity\Offer;
 use App\Entity\Project;
 use App\Repository\ExperienceRepository;
+use App\Repository\OfferRepository;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -17,6 +19,7 @@ final class ProjectsControllerSeoTest extends WebTestCase
         $repository->method('findAll')->willReturn([]);
         static::getContainer()->set(ProjectRepository::class, $repository);
         $this->stubTimeline([]);
+        $this->stubOffers([]);
 
         $crawler = $client->request('GET', '/');
 
@@ -60,6 +63,7 @@ final class ProjectsControllerSeoTest extends WebTestCase
             ->setTechnos('Php, Symfony')
             ->addProject($project);
         $this->stubTimeline([$experience]);
+        $this->stubOffers([]);
 
         $crawler = $client->request('GET', '/');
 
@@ -81,5 +85,38 @@ final class ProjectsControllerSeoTest extends WebTestCase
         $repository = $this->createStub(ExperienceRepository::class);
         $repository->method('findForTimeline')->willReturn($experiences);
         static::getContainer()->set(ExperienceRepository::class, $repository);
+    }
+
+    public function testHomeExposesOffersWithExampleProjects(): void
+    {
+        $client = static::createClient();
+        $projects = $this->createStub(ProjectRepository::class);
+        $projects->method('findAll')->willReturn([]);
+        static::getContainer()->set(ProjectRepository::class, $projects);
+        $this->stubTimeline([]);
+
+        $offer = (new Offer())
+            ->setTitle('Sites vitrines avec back-office')
+            ->setDescription('<p>Un site que vous modifiez vous-même.</p>')
+            ->addProject((new Project())->setName('La cuisine de Maha')->setSlug('la-cuisine-de-maha')->setTechnos('Symfony'));
+        $this->stubOffers([$offer]);
+
+        $crawler = $client->request('GET', '/');
+
+        self::assertResponseIsSuccessful();
+        $page = json_decode($crawler->filter('script[data-page="app"]')->text(), true, flags: \JSON_THROW_ON_ERROR);
+        $offers = $page['props']['offers'];
+        self::assertSame('Sites vitrines avec back-office', $offers[0]['title']);
+        self::assertSame([['name' => 'La cuisine de Maha', 'slug' => 'la-cuisine-de-maha']], $offers[0]['projects']);
+    }
+
+    /**
+     * @param list<Offer> $offers
+     */
+    private function stubOffers(array $offers): void
+    {
+        $repository = $this->createStub(OfferRepository::class);
+        $repository->method('findForHome')->willReturn($offers);
+        static::getContainer()->set(OfferRepository::class, $repository);
     }
 }

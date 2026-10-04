@@ -59,6 +59,10 @@ class Project
     #[Groups(["project:detail"])]
     private ?string $detail_pic_mobile = null;
 
+    // ordre d'affichage, du plus petit au plus grand
+    #[ORM\Column]
+    private int $position = 0;
+
     /**
      * Étapes du parcours liées au projet (côté inverse, géré par Experience).
      *
@@ -225,6 +229,18 @@ class Project
         if ($this->experiences->removeElement($experience)) {
             $experience->removeProject($this);
         }
+
+        return $this;
+    }
+
+    public function getPosition(): int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): static
+    {
+        $this->position = $position;
 
         return $this;
     }

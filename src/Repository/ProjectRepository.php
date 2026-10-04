@@ -24,28 +24,29 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findAdjacent(Project $project): array
     {
-        $previous = $this->createQueryBuilder('p')
-            ->andWhere('p.id < :id')
-            ->setParameter('id', $project->getId())
-            ->orderBy('p.id', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult()
-            ?? $this->findOneBy([], ['id' => 'DESC']);
+        $previous =
+            $this->createQueryBuilder("p")
+                ->andWhere("p.position < :position")
+                ->setParameter("position", $project->getPosition())
+                ->orderBy("p.position", "ASC")
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getOneOrNullResult() ??
+            $this->findOneBy([], ["id" => "DESC"]);
 
-        $next = $this->createQueryBuilder('p')
-            ->andWhere('p.id > :id')
-            ->setParameter('id', $project->getId())
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->getOneOrNullResult()
-            ?? $this->findOneBy([], ['id' => 'ASC']);
+        $next =
+            $this->createQueryBuilder("p")
+                ->andWhere("p.id > :id")
+                ->setParameter("id", $project->getId())
+                ->orderBy("p.id", "ASC")
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getOneOrNullResult() ?? $this->findOneBy([], ["id" => "ASC"]);
 
         // un seul projet en base : pas de navigation vers lui-même
         return [
-            'previous' => $previous === $project ? null : $previous,
-            'next' => $next === $project ? null : $next,
+            "previous" => $previous === $project ? null : $previous,
+            "next" => $next === $project ? null : $next,
         ];
     }
 

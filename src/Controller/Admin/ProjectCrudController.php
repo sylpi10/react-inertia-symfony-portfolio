@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
@@ -64,6 +65,8 @@ class ProjectCrudController extends AbstractCrudController
         yield UrlField::new('githublink', 'GitHub')->hideOnIndex();
 
         yield FormField::addColumn(4);
+        yield IntegerField::new('position', 'Ordre')
+            ->setHelp('Du plus petit (affiché en premier) au plus grand.');
         // côté inverse de la relation : by_reference=false pour passer par
         // addExperience()/removeExperience(), qui mettent à jour Experience
         yield AssociationField::new('experiences', 'Étapes du parcours')
