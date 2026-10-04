@@ -159,6 +159,15 @@
             gap: 10px;
             width: 100%;
         }
+        .text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .teaser {
+            font-size: 0.9rem;
+            color: #333;
+        }
         .nav-arrow {
             flex-shrink: 0;
             transition: transform ease 0.3s;

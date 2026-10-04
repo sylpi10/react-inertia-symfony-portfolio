@@ -15,9 +15,6 @@ export default function ProjectDetails({
         .split(",")
         .map((word: string) => word.trim());
 
-    console.log(project);
-    console.log(previous);
-
     return (
         <main className="section-container projects-container">
             <div className="content">
@@ -183,9 +180,8 @@ export default function ProjectDetails({
                     <nav className="projects-nav" aria-label="Autres projets">
                         {previous && (
                             <Link
-                                href={`/project/${previous.id}`}
+                                href={`/projets/${previous.slug}`}
                                 className="projects-nav-link previous"
-                                aria-label={`Projet précédent : ${previous.name}`}
                             >
                                 <img
                                     src={projectImageUrl(previous.background)}
@@ -193,24 +189,27 @@ export default function ProjectDetails({
                                 />
                                 <div className="labels-wrapper">
                                     <NavArrow direction="previous" />
-                                    <span className="name">
-                                        {previous.name}
-                                    </span>
+                                    <ProjectLinkText
+                                        label="Projet précédent"
+                                        project={previous}
+                                    />
                                 </div>
                             </Link>
                         )}
                         {next && (
                             <Link
-                                href={`/project/${next.id}`}
+                                href={`/projets/${next.slug}`}
                                 className="projects-nav-link next"
-                                aria-label={`Projet suivant : ${next.name}`}
                             >
                                 <img
                                     src={projectImageUrl(next.background)}
                                     alt={`${next.name}`}
                                 />
                                 <div className="labels-wrapper">
-                                    <span className="name">{next.name}</span>
+                                    <ProjectLinkText
+                                        label="Projet suivant"
+                                        project={next}
+                                    />
                                     <NavArrow direction="next" />
                                 </div>
                             </Link>
@@ -219,6 +218,23 @@ export default function ProjectDetails({
                 )}
             </div>
         </main>
+    );
+}
+
+// le libellé reste lu par les lecteurs d'écran, les flèches le remplacent à l'écran
+function ProjectLinkText({
+    label,
+    project,
+}: {
+    label: string;
+    project: ProjectLink;
+}) {
+    return (
+        <span className="text">
+            <span className="visually-hidden">{label} : </span>
+            <span className="name">{project.name}</span>{" "}
+            <span className="teaser">{project.teaser}</span>
+        </span>
     );
 }
 
