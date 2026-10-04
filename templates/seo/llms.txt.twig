@@ -10,5 +10,5 @@
 ## Projets
 
 {% for project in projects %}
-- [{{ project.name }}]({{ url('projects_details', {id: project.id}) }}): {{ project.technos }}
+- [{{ project.name }}]({{ url('projects_details', {slug: project.slug}) }}): {{ project.technos }}
 {% endfor %}

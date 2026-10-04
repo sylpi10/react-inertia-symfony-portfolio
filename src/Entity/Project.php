@@ -20,6 +20,11 @@ class Project
     #[Groups(["project:list", "project:detail"])]
     private string $name;
 
+    // segment d'URL (/projets/{slug}), généré depuis le nom à la création
+    #[ORM\Column(length: 100, unique: true)]
+    #[Groups(["project:list", "project:detail"])]
+    private ?string $slug = null;
+
     #[ORM\Column(length: 255)]
     #[Groups(["project:list", "project:detail"])]
     private ?string $date = null;
@@ -65,6 +70,18 @@ class Project
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

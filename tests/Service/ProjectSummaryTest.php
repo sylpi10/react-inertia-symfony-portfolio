@@ -3,11 +3,11 @@
 namespace App\Tests\Service;
 
 use App\Entity\Project;
-use App\Service\ProjectMetaDescription;
+use App\Service\ProjectSummary;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-final class ProjectMetaDescriptionTest extends TestCase
+final class ProjectSummaryTest extends TestCase
 {
     /**
      * @return iterable<string, array{?string}>
@@ -28,7 +28,7 @@ final class ProjectMetaDescriptionTest extends TestCase
             ->setTechnos('React, Symfony')
             ->setDescription($description);
 
-        $meta = (new ProjectMetaDescription())->forProject($project);
+        $meta = (new ProjectSummary())->metaDescription($project);
 
         self::assertGreaterThanOrEqual(120, mb_strlen($meta), $meta);
         self::assertLessThanOrEqual(155, mb_strlen($meta), $meta);
@@ -44,7 +44,31 @@ final class ProjectMetaDescriptionTest extends TestCase
 
         self::assertStringStartsWith(
             'Portfolio personnel. Projet Portfolio réalisé par Sylvain Pillet',
-            (new ProjectMetaDescription())->forProject($project),
+            (new ProjectSummary())->metaDescription($project),
         );
+    }
+
+    public function testTeaserIsTheFirstSentence(): void
+    {
+        $project = (new Project())
+            ->setName('Ava')
+            ->setTechnos('React, Symfony')
+            ->setDescription('<p>Application web de jeu de cartes. Mode multijoueurs et mode contre l\'ordinateur.</p>');
+
+        self::assertSame('Application web de jeu de cartes', (new ProjectSummary())->teaser($project));
+    }
+
+    public function testTeaserIsShortenedAndFallsBackToTechnos(): void
+    {
+        $summary = new ProjectSummary();
+        $long = (new Project())
+            ->setName('Utopix')
+            ->setTechnos('Next.js')
+            ->setDescription('<p>Site web de la maison-exposition de Jo Pillet sur le causse de Sauveterre, avec galerie et agenda.</p>');
+        $empty = (new Project())->setName('Portfolio')->setTechnos('React, Symfony');
+
+        self::assertLessThanOrEqual(60, mb_strlen($summary->teaser($long)));
+        self::assertStringEndsWith('…', $summary->teaser($long));
+        self::assertSame('React, Symfony', $summary->teaser($empty));
     }
 }

@@ -4,7 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Repository\ProjectRepository;
-use App\Service\ProjectMetaDescription;
+use App\Service\ProjectShareImage;
+use App\Service\ProjectSummary;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 // use Symfony\Component\HttpFoundation\JsonResponse;
@@ -25,7 +26,8 @@ class ProjectsController extends AbstractController
     public function __construct(
         protected ProjectRepository $projectRepository,
         private readonly Inertia $inertia,
-        private readonly ProjectMetaDescription $metaDescription,
+        private readonly ProjectSummary $summary,
+        private readonly ProjectShareImage $shareImage,
     ) {}
 
     #[Route("/", name: "home", methods: ["GET"])]
@@ -53,9 +55,21 @@ class ProjectsController extends AbstractController
         }
     }
 
-    #[Route("/project/{id}", name: "projects_details", methods: ["GET"])]
-    public function getProjectDetails(
+    // ancienne URL par id, conservée pour les liens et l'index existants
+    #[Route("/project/{id}", name: "projects_details_legacy", requirements: ["id" => "\\d+"], methods: ["GET"])]
+    public function redirectLegacyProject(
         #[MapEntity(id: "id")] Project $project,
+    ): Response {
+        return $this->redirectToRoute(
+            "projects_details",
+            ["slug" => $project->getSlug()],
+            Response::HTTP_MOVED_PERMANENTLY,
+        );
+    }
+
+    #[Route("/projets/{slug}", name: "projects_details", methods: ["GET"])]
+    public function getProjectDetails(
+        #[MapEntity(mapping: ["slug" => "slug"])] Project $project,
     ): Response {
         try {
             $adjacent = $this->projectRepository->findAdjacent($project);
@@ -70,9 +84,10 @@ class ProjectsController extends AbstractController
                         "title" =>
                             $project->getName() .
                             " – Projet web | Sylvain Pillet",
-                        "description" => $this->metaDescription->forProject(
+                        "description" => $this->summary->metaDescription(
                             $project,
                         ),
+                        "image" => $this->shareImageSeo($project),
                     ],
                 ],
                 ["groups" => ["project:detail"]],
@@ -87,15 +102,33 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @return array{id: int, name: string, background: ?string}|null
+     * @return array{slug: string, name: string, teaser: string, background: ?string}|null
      */
     private function projectLink(?Project $project): ?array
     {
         return $project
             ? [
-                "id" => $project->getId(),
+                "slug" => $project->getSlug(),
                 "name" => $project->getName(),
+                "teaser" => $this->summary->teaser($project),
                 "background" => $project->getBackground(),
+            ]
+            : null;
+    }
+
+    /**
+     * @return array{url: string, width: int, height: int, alt: string}|null
+     */
+    private function shareImageSeo(Project $project): ?array
+    {
+        $path = $this->shareImage->publicPath($project);
+
+        return $path
+            ? [
+                "url" => $path,
+                "width" => ProjectShareImage::WIDTH,
+                "height" => ProjectShareImage::HEIGHT,
+                "alt" => sprintf("Capture du site %s", $project->getName()),
             ]
             : null;
     }

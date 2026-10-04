@@ -19,7 +19,7 @@ final class IndexNowTest extends KernelTestCase
             'test-key',
         );
 
-        $status = $indexNow->submit(['http://localhost/', 'http://localhost/project/1']);
+        $status = $indexNow->submit(['http://localhost/', 'http://localhost/projets/ava']);
 
         self::assertSame(202, $status);
         self::assertSame('POST', $response->getRequestMethod());
@@ -28,7 +28,7 @@ final class IndexNowTest extends KernelTestCase
             'host' => 'localhost',
             'key' => 'test-key',
             'keyLocation' => 'http://localhost/indexnow.txt',
-            'urlList' => ['http://localhost/', 'http://localhost/project/1'],
+            'urlList' => ['http://localhost/', 'http://localhost/projets/ava'],
         ], json_decode($response->getRequestOptions()['body'], true));
     }
 }

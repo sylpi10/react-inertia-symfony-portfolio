@@ -25,7 +25,7 @@ final class IndexNowSubmitCommand
     {
         $urls = [$this->urlGenerator->generate('home', [], UrlGeneratorInterface::ABSOLUTE_URL)];
         foreach ($this->projects->findAll() as $project) {
-            $urls[] = $this->urlGenerator->generate('projects_details', ['id' => $project->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $urls[] = $this->urlGenerator->generate('projects_details', ['slug' => $project->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
         }
 
         $status = $this->indexNow->submit($urls);

@@ -1,5 +1,6 @@
 export type ProjectProps = {
     id: number;
+    slug: string;
     name: string;
     date: string;
     technos: string;
@@ -14,4 +15,6 @@ export type ProjectDetailsProps = Omit<ProjectProps, "background"> & {
     detail_pic_mobile: string | null;
 };
 
-export type ProjectLink = Pick<ProjectProps, "id" | "name" | "background">;
+export type ProjectLink = Pick<ProjectProps, "slug" | "name" | "background"> & {
+    teaser: string;
+};

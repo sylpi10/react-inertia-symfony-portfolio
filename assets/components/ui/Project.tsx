@@ -121,7 +121,7 @@ export default function Project({
                 )}
                 <div className="button-link">
                     <Link
-                        href={`/project/${project.id}`}
+                        href={`/projets/${project.slug}`}
                         className="see-more"
                         title="Voir les détails du projet"
                     >
