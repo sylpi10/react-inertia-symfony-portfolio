@@ -76,33 +76,37 @@ export default function About() {
                                 <b>Toulouse</b>.
                             </p>
                             <p>
-                                Suite à quoi j'ai creusé différentes
-                                technologies avant de revenir aux bases du web
-                                et au <b>PHP</b> en rejoignant une alternance de{" "}
-                                <b>Concepteur Développeur</b> autour de{" "}
-                                <b>Symfony</b>, <b>React</b> et du E-commerce
-                                avec <b>Magento</b> auprès de l'entreprise{" "}
-                                <b>Ludilabel</b>
-                                <br />
-                                Mes missions touchant principalement au frontend
-                                et à l'<b>UX/UI</b> sur la refonte du site de
-                                l'entreprise.
-                                <br />
+                                J'ai ensuite exploré différents langages et
+                                frameworks, avant de revenir aux fondamentaux du
+                                web et à PHP avec une alternance de{" "}
+                                <b>Concepteur Développeur d'Applications </b>{" "}
+                                chez <b>Ludilabel</b> autour de <b>Symfony</b>,{" "}
+                                <b>React</b> et de l'e-commerce avec{" "}
+                                <b>Magento</b>. J'y ai pris en charge le
+                                frontend et l'<b>UX/UI</b> de la refonte du
+                                site, puis développé le Labelmaker, l'outil de
+                                personnalisation d'étiquettes intégré à la
+                                boutique, un projet qui m'a permis de travailler
+                                à la fois le <b>backend</b> et le{" "}
+                                <b>frontend</b> avec <b>Symfony</b>
+                                et <b>React</b>.
                             </p>
                             <p>
-                                Le développement d'un outil de personnalisation
-                                intégré au nouveau site me permet également de
-                                mêler backend et frontend en utilisant{" "}
-                                <b>Symfony</b> et <b>React</b>.
+                                Aujourd'hui, je suis développeur web freelance à
+                                Toulouse. J'accompagne des indépendants et des
+                                petites entreprises sur leurs sites et
+                                applications : sites vitrines avec back-office,
+                                refontes techniques, applications{" "}
+                                <b>Symfony et React ou Next.js </b>, et
+                                optimisation des performances et du
+                                référencement.
                             </p>
                             <p>
-                                J'apprécie dans le développement et plus
-                                précisément le développement <b>fullstack</b>,
-                                l'impression de donner vie à des choses assez
-                                abstraites en créant les modèles de données et
-                                en leur donnant forme à travers leur passage par
-                                les différentes couches de l'application jusqu'à
-                                l'affichage final.
+                                Ce que j'aime dans le développement fullstack,
+                                c'est donner vie à des idées abstraites :
+                                concevoir les modèles de données, puis leur
+                                donner forme à travers chaque couche de
+                                l'application, jusqu'à l'interface finale.
                             </p>
 
                             <p>
