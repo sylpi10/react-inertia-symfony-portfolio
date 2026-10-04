@@ -24,24 +24,36 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findAdjacent(Project $project): array
     {
+        // ordre de l'accueil : position, puis id pour départager les égalités
         $previous =
             $this->createQueryBuilder("p")
-                ->andWhere("p.position < :position")
+                ->andWhere(
+                    "p.position < :position OR (p.position = :position AND p.id < :id)",
+                )
                 ->setParameter("position", $project->getPosition())
-                ->orderBy("p.position", "ASC")
+                ->setParameter("id", $project->getId())
+                ->orderBy("p.position", "DESC")
+                ->addOrderBy("p.id", "DESC")
                 ->setMaxResults(1)
                 ->getQuery()
                 ->getOneOrNullResult() ??
-            $this->findOneBy([], ["id" => "DESC"]);
+            // premier projet : on boucle sur le dernier
+            $this->findOneBy([], ["position" => "DESC", "id" => "DESC"]);
 
         $next =
             $this->createQueryBuilder("p")
-                ->andWhere("p.id > :id")
+                ->andWhere(
+                    "p.position > :position OR (p.position = :position AND p.id > :id)",
+                )
+                ->setParameter("position", $project->getPosition())
                 ->setParameter("id", $project->getId())
-                ->orderBy("p.id", "ASC")
+                ->orderBy("p.position", "ASC")
+                ->addOrderBy("p.id", "ASC")
                 ->setMaxResults(1)
                 ->getQuery()
-                ->getOneOrNullResult() ?? $this->findOneBy([], ["id" => "ASC"]);
+                ->getOneOrNullResult() ??
+            // dernier projet : on boucle sur le premier
+            $this->findOneBy([], ["position" => "ASC", "id" => "ASC"]);
 
         // un seul projet en base : pas de navigation vers lui-même
         return [
