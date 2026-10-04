@@ -133,6 +133,36 @@
                     p {
                         height: fit-content;
                     }
+                    // appel à l'action principal, juste sous l'accroche
+                    .hero-cta {
+                        // au-dessus des bordures animées (::before/::after),
+                        // qui recouvrent tout le bloc et capteraient le clic
+                        position: relative;
+                        z-index: 1;
+                        justify-self: start;
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        margin: 4px 0 16px;
+                        padding: 10px 20px;
+                        border-radius: 4px;
+                        background-color: $yellow;
+                        color: $main_color;
+                        font-weight: bold;
+                        font-size: 1.1rem;
+                        text-decoration: none;
+                        transition:
+                            background-color 0.3s ease,
+                            gap 0.3s ease;
+                        &:hover,
+                        &:focus-visible {
+                            background-color: $light-yellow;
+                            gap: 14px;
+                        }
+                        @media screen and (max-width: 768px) {
+                            justify-self: center;
+                        }
+                    }
                     &::before {
                         content: "";
                         position: absolute;

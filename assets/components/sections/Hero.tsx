@@ -70,10 +70,30 @@ export default function Hero() {
                             </h1>
                             <div className="person-description">
                                 <p className="description">
-                                    Développeur web basé à Toulouse, j’ai
-                                    travaillé 5 ans dans le domaine du
-                                    e-commerce.{" "}
+                                    Développeur web freelance à Toulouse, je
+                                    conçois des sites et applications sur mesure
+                                    pour les indépendants et les petites
+                                    entreprises : sites vitrines avec
+                                    back-office, refontes techniques,
+                                    applications React et Next.js. 5 ans
+                                    d’expérience en e-commerce.
                                 </p>
+                                <a href="#contact" className="hero-cta">
+                                    Discutons de votre projet
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M5 12h14M13 6l6 6-6 6" />
+                                    </svg>
+                                </a>
                                 <p className="description details">
                                     {" "}
                                     Passionné par le web et toujours curieux
