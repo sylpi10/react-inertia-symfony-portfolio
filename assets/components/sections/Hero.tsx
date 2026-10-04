@@ -39,7 +39,7 @@ export default function Hero() {
 
     return (
         <>
-            <main className="homepage">
+            <div className="homepage">
                 <div className="hero-area">
                     <div className="presentation">
                         <div className="person">
@@ -147,7 +147,7 @@ export default function Hero() {
                                 CV
                             </a>
                         </div>
-                        <button className="project-link link-button">
+                        <div className="project-link link-button">
                             <a href={"#projects"} title={"Voir les projets"}>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +168,7 @@ export default function Hero() {
                                 {/*    <path d="M6.9739 30.8153H63.0244C65.5269 30.8152 75.5358 -3.68471 35.4998 2.81531C-16.1598 11.2025 0.894099 33.9766 26.9922 34.3153C104.062 35.3153 54.5169 -6.68469 23.489 9.31527" />*/}
                                 {/*</svg>*/}
                             </a>
-                        </button>
+                        </div>
                     </div>
 
                     <img
@@ -179,7 +179,7 @@ export default function Hero() {
                         height="669"
                     />
                 </div>
-            </main>
+            </div>
 
             {hasScrolledPast && (
                 <a href={"#home"} className="back-to-top">

@@ -3,7 +3,7 @@ import { OfferProps } from "../../types/offers";
 
 export default function Services({ offers }: { offers: OfferProps[] }) {
     return (
-        <main className="section-container services-container">
+        <div className="section-container services-container">
             <h2 className="section-title">Ce que je peux faire pour vous</h2>
             <p className="services-intro">
                 Développeur freelance à Toulouse, j’accompagne les indépendants,
@@ -39,6 +39,6 @@ export default function Services({ offers }: { offers: OfferProps[] }) {
                     </li>
                 ))}
             </ul>
-        </main>
+        </div>
     );
 }

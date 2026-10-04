@@ -25,7 +25,7 @@ export default function About() {
     return (
         <>
             {/* data-nosnippet : Google ne reprend pas ce texte dans l'extrait de résultat */}
-            <main className="section-container about-container" data-nosnippet>
+            <div className="section-container about-container" data-nosnippet>
                 <div className="content">
                     <h2 className={"section-title"}>En quelques mots</h2>
                     <div className="about-me-wrapper">
@@ -128,7 +128,7 @@ export default function About() {
                         </span>
                     </div>
                 </div>
-            </main>
+            </div>
             <div className="round"></div>
         </>
     );

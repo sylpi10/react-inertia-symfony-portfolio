@@ -16,7 +16,7 @@ export default function ProjectDetails({
         .map((word: string) => word.trim());
 
     return (
-        <main className="section-container projects-container">
+        <div className="section-container projects-container">
             <div className="content">
                 <h1>{project.name}</h1>
 
@@ -217,7 +217,7 @@ export default function ProjectDetails({
                     </nav>
                 )}
             </div>
-        </main>
+        </div>
     );
 }
 

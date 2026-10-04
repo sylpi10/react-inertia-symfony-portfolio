@@ -14,7 +14,7 @@ export default function Contact() {
     };
 
     return (
-        <main className="section-container">
+        <div className="section-container">
             <div className="section-wrapper contact-wrapper">
                 <h2 className={"section-title"}>On discute ?</h2>
                 <div className="contact-form">
@@ -129,6 +129,6 @@ export default function Contact() {
                     </form>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

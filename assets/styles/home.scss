@@ -73,15 +73,13 @@
                     }
                     margin: 0;
                     font-family: "effortless", serif;
-                    background: -webkit-linear-gradient($yellow 54%, orange);
+                    background: -webkit-linear-gradient($yellow 34%, orange);
                     background-clip: text;
                     -webkit-text-fill-color: transparent;
                     .title {
                         display: flex;
                     }
-                    // .concepteur {
-                    //     align-items: baseline;
-                    // }
+
                     .dev {
                         align-items: flex-start;
                     }
@@ -125,6 +123,7 @@
                     }
                     height: fit-content;
                     color: $yellow;
+                    // color: $light-yellow;
                     // padding: 20px 20px 60px 20px;
                     // min-height: 240px;
                     overflow: hidden;
@@ -133,10 +132,7 @@
                     p {
                         height: fit-content;
                     }
-                    // appel à l'action principal, juste sous l'accroche
                     .hero-cta {
-                        // au-dessus des bordures animées (::before/::after),
-                        // qui recouvrent tout le bloc et capteraient le clic
                         position: relative;
                         z-index: 1;
                         justify-self: start;
@@ -146,18 +142,20 @@
                         margin: 4px 0 16px;
                         padding: 10px 20px;
                         border-radius: 4px;
-                        background-color: $yellow;
+                        background-color: $light-yellow;
                         color: $main_color;
                         font-weight: bold;
                         font-size: 1.1rem;
                         text-decoration: none;
+                        border: 2px solid $light-yellow;
                         transition:
                             background-color 0.3s ease,
                             gap 0.3s ease;
                         &:hover,
                         &:focus-visible {
-                            background-color: $light-yellow;
+                            background-color: $main_color;
                             gap: 14px;
+                            color: $light-yellow;
                         }
                         @media screen and (max-width: 768px) {
                             justify-self: center;
@@ -275,7 +273,7 @@
                 display: flex;
                 justify-content: center;
                 padding: 0;
-                background-color: $yellow;
+                background-color: $light-yellow;
                 transition: all ease 0.36s;
                 border-radius: 4px;
                 &:hover a {
@@ -315,7 +313,7 @@
                 color: $yellow;
                 align-items: center;
                 &:hover {
-                    background-color: $yellow;
+                    background-color: $light-yellow;
                     a {
                         color: $main_color;
                     }

@@ -7,7 +7,7 @@ export default function Parcours({
     experiences: ExperienceProps[];
 }) {
     return (
-        <main className="section-container parcours-container">
+        <div className="section-container parcours-container">
             <div className="parcours-wrapper">
                 <div className="title">
                     <h2 className={"section-title"}>Mon parcours</h2>
@@ -32,7 +32,7 @@ export default function Parcours({
             {/*        <div className="fade"></div>*/}
             {/*    </div>*/}
             {/*</div>*/}
-        </main>
+        </div>
     );
 }
 

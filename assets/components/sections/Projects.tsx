@@ -3,7 +3,7 @@ import { ProjectProps } from "../../types/projects";
 
 export default function Projects({ projects }: { projects: ProjectProps[] }) {
     return (
-        <main className="section-container projects-container">
+        <div className="section-container projects-container">
             <div className="content">
                 <h2 className={"section-title"}>Projets réalisés</h2>
                 <>
@@ -29,6 +29,6 @@ export default function Projects({ projects }: { projects: ProjectProps[] }) {
                     )}
                 </>
             </div>
-        </main>
+        </div>
     );
 }
