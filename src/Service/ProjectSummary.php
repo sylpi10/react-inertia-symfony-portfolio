@@ -55,8 +55,9 @@ final class ProjectSummary
 
     private function plainText(Project $project): UnicodeString
     {
-        return u(
-            html_entity_decode(strip_tags((string) $project->getDescription())),
-        )->collapseWhitespace();
+        // balises remplacées par un espace : les blocs (<p>, <h2>, <li>) ne se collent pas
+        $text = preg_replace('/<[^>]*>/', ' ', (string) $project->getDescription());
+
+        return u(html_entity_decode($text))->collapseWhitespace();
     }
 }

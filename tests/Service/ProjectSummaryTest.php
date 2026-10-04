@@ -71,4 +71,17 @@ final class ProjectSummaryTest extends TestCase
         self::assertStringEndsWith('…', $summary->teaser($long));
         self::assertSame('React, Symfony', $summary->teaser($empty));
     }
+
+    public function testHtmlBlocksAreSeparatedInPlainText(): void
+    {
+        $project = (new Project())
+            ->setName('La cuisine de Maha')
+            ->setTechnos('Symfony')
+            ->setDescription('<p>Refonte technique du site.</p><h2>Le contexte</h2><p>Une cheffe à domicile.</p>');
+
+        self::assertStringStartsWith(
+            'Refonte technique du site. Le contexte Une cheffe à domicile.',
+            (new ProjectSummary())->metaDescription($project),
+        );
+    }
 }

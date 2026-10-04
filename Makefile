@@ -32,7 +32,13 @@ RSYNC_EXCLUDES = \
 	--exclude=/.env.deploy \
 	--exclude=/.phpunit.cache/ \
 	--exclude=/tmp/ \
-	--exclude=/phpunit.xml
+	--exclude=/phpunit.xml \
+	$(RSYNC_PROTECT)
+
+# Images uploadées depuis l'admin : elles n'existent que sur le serveur, --delete
+# ne doit pas les effacer. Les images locales continuent d'être envoyées.
+RSYNC_PROTECT = \
+	--filter='P /public/images/projects/**'
 
 help:
 	@echo "make build        build Vite client + SSR (public/build, bootstrap/ssr)"

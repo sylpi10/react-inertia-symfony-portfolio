@@ -57,7 +57,11 @@ final class ProjectShareImage
             mkdir(\dirname($path), 0o755, true);
         }
 
-        return imagejpeg($target, $path, 82);
+        if (!imagejpeg($target, $path, 82)) {
+            return false;
+        }
+
+        return chmod($path, 0o644);
     }
 
     private function targetPath(Project $project): string
