@@ -21,9 +21,17 @@ export default function ProjectCard({
 
     const projectImage =
         project.thumbnail ?? projectImageUrl(project.background);
+    const detailsUrl = projectPath(project.slug, audience);
 
     return (
         <div className="item-content card-item">
+            {/* couvre toute la carte (projects.scss) : la carte entière mène aux
+                détails ; la rangée de liens Site / Github passe au-dessus */}
+            <Link
+                href={detailsUrl}
+                className="card-link"
+                aria-label={`Voir le projet ${project.name}`}
+            />
             <div className="item-header">
                 {/* ratio des vignettes générées : réserve la place (pas de CLS) */}
                 <h3>{project.name}</h3>
@@ -80,11 +88,14 @@ export default function ProjectCard({
                             </a>
                         </div>
                     )}
+                    {/* repère visuel : même cible que card-link, ignoré au clavier
+                        et par les lecteurs d'écran pour ne pas doubler le lien */}
                     <div className="button-link">
                         <Link
-                            href={projectPath(project.slug, audience)}
+                            href={detailsUrl}
                             className="see-more"
-                            title="Voir les détails du projet"
+                            tabIndex={-1}
+                            aria-hidden="true"
                         >
                             <PlusIcon />
                             <span>Détails</span>
