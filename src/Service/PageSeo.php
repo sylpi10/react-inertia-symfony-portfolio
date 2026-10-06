@@ -73,6 +73,20 @@ final class PageSeo
     }
 
     /**
+     * Page obligatoire mais sans intérêt dans les résultats de recherche.
+     *
+     * @return array{title: string, description: string, robots: string}
+     */
+    public function legalNotice(): array
+    {
+        return [
+            "title" => "Mentions légales | Sylvain Pillet",
+            "description" => "Mentions légales du site de Sylvain Pillet, développeur web à Toulouse : éditeur, hébergeur, données personnelles.",
+            "robots" => "noindex, follow",
+        ];
+    }
+
+    /**
      * @return array{title: string, description: string, robots: string}
      */
     public function error(int $status): array

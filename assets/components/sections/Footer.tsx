@@ -1,3 +1,4 @@
+import { Link } from "@inertiajs/react";
 import logo from "../../static/images/logo.webp";
 import cv from "../../static/documents/CV_Sylvain_Pillet_fullstack_2026.pdf";
 import CvIcon from "../ui/CvIcon";
@@ -86,7 +87,8 @@ export default function Footer() {
             </div>
             <div className="copyright">
                 <span>© 2017 - {actualYear} Copyright</span> -{" "}
-                <span> S Pillet</span>
+                <span> S Pillet</span> -{" "}
+                <Link href="/mentions-legales">Mentions légales</Link>
             </div>
         </footer>
     );
