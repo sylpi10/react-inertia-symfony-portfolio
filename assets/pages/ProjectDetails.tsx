@@ -4,6 +4,7 @@ import { projectImageUrl } from "../lib/images";
 import { projectPath } from "../lib/paths";
 import { Audience } from "../types/audience";
 import ProjectInfosDetails from "../components/projects/ProjectInfosDetails";
+import Contact from "../components/sections/Contact";
 
 export default function ProjectDetails({
     audience,
@@ -114,6 +115,9 @@ export default function ProjectDetails({
                     </nav>
                 )}
             </div>
+            <section id="contact">
+                <Contact audience={audience} />
+            </section>
         </div>
     );
 }

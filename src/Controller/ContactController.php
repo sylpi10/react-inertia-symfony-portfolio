@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Dto\ContactRequest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Mailer\MailerInterface;
@@ -23,15 +24,17 @@ class ContactController extends AbstractController
     ) {}
 
     #[Route("/contact", name: "app_contact", methods: ["POST"])]
-    public function contact(#[MapRequestPayload] ContactRequest $data): Response
-    {
+    public function contact(
+        #[MapRequestPayload] ContactRequest $data,
+        Request $request,
+    ): Response {
         // honeypot rempli = robot : même réponse qu'un succès, sans rien faire
         if ("" !== $data->website) {
             $this->inertia->flash(
                 "success",
                 "Message envoyé, je vous réponds vite !",
             );
-            return $this->redirectToRoute($data->audience->route());
+            return $this->back($request, $data);
         }
 
         $contact = new Contact()
@@ -65,6 +68,23 @@ class ContactController extends AbstractController
             $this->inertia->flash(
                 "error",
                 "L'envoi a échoué, réessayez un peu plus tard.",
+            );
+        }
+
+        return $this->back($request, $data);
+    }
+
+    // retour à la page du formulaire (accueil, création de site ou page projet) ;
+    // referer absent ou d'un autre site : page d'accueil du mode
+    private function back(Request $request, ContactRequest $data): Response
+    {
+        $referer = (string) $request->headers->get("referer");
+        if ($request->getHost() === parse_url($referer, \PHP_URL_HOST)) {
+            $query = parse_url($referer, \PHP_URL_QUERY);
+
+            return $this->redirect(
+                (parse_url($referer, \PHP_URL_PATH) ?: "/") .
+                    ($query ? "?" . $query : ""),
             );
         }
 

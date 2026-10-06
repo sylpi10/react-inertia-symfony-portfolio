@@ -1,4 +1,3 @@
-import { Link } from "@inertiajs/react";
 import { Audience } from "../../types/audience";
 import { ProjectProps } from "../../types/projects";
 import GithubIcon from "../ui/GithubIcon";
@@ -12,10 +11,7 @@ export default function ProjectInfosDetails({
 }: {
     audience: Audience;
     // seuls champs utiles : marche avec ProjectProps comme avec ProjectDetailsProps
-    project: Pick<
-        ProjectProps,
-        "date" | "technos" | "weblink" | "githublink"
-    >;
+    project: Pick<ProjectProps, "date" | "technos" | "weblink" | "githublink">;
 }) {
     if (audience === "client") {
         return (
@@ -47,9 +43,7 @@ export default function ProjectInfosDetails({
                 {/* l'objectif de la page : passer du projet vu au projet du visiteur */}
                 <p className="contact-cta">
                     Un projet similaire ?{" "}
-                    <Link href="/creation-site-web#contact">
-                        Parlons-en
-                    </Link>
+                    <a href="#contact">Parlons-en</a>
                 </p>
             </aside>
         );
