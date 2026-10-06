@@ -20,12 +20,26 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["project:list", "project:detail", "experience:list", "offer:list"])]
+    #[
+        Groups([
+            "project:list",
+            "project:detail",
+            "experience:list",
+            "offer:list",
+        ]),
+    ]
     private string $name;
 
     // segment d'URL (/projets/{slug}), généré depuis le nom à la création
     #[ORM\Column(length: 100, unique: true)]
-    #[Groups(["project:list", "project:detail", "experience:list", "offer:list"])]
+    #[
+        Groups([
+            "project:list",
+            "project:detail",
+            "experience:list",
+            "offer:list",
+        ]),
+    ]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255)]
@@ -82,6 +96,14 @@ class Project
     #[ORM\ManyToMany(targetEntity: Experience::class, mappedBy: "projects")]
     private Collection $experiences;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["project:list"])]
+    private ?string $miniDescription = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["project:list"])]
+    private ?string $miniClientDescription = null;
+
     public function __construct()
     {
         $this->experiences = new ArrayCollection();
@@ -89,7 +111,7 @@ class Project
 
     public function __toString(): string
     {
-        return $this->name ?? '';
+        return $this->name ?? "";
     }
 
     public function getId(): ?int
@@ -282,7 +304,7 @@ class Project
 
     public function hasClientDescription(): bool
     {
-        return '' !== trim(strip_tags((string) $this->clientDescription));
+        return "" !== trim(strip_tags((string) $this->clientDescription));
     }
 
     // texte de la page d'un public, celui de l'accueil à défaut
@@ -291,5 +313,30 @@ class Project
         return Audience::Client === $audience && $this->hasClientDescription()
             ? $this->clientDescription
             : $this->description;
+    }
+
+    public function getMiniDescription(): ?string
+    {
+        return $this->miniDescription;
+    }
+
+    public function setMiniDescription(?string $miniDescription): static
+    {
+        $this->miniDescription = $miniDescription;
+
+        return $this;
+    }
+
+    public function getMiniClientDescription(): ?string
+    {
+        return $this->miniClientDescription;
+    }
+
+    public function setMiniClientDescription(
+        ?string $miniClientDescription,
+    ): static {
+        $this->miniClientDescription = $miniClientDescription;
+
+        return $this;
     }
 }
