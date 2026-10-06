@@ -4,6 +4,7 @@ namespace App\Dto;
 
 // use Symfony\Component\HttpFoundation\Response;
 // use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use App\Enum\Audience;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class ContactRequest
@@ -36,6 +37,8 @@ final readonly class ContactRequest
         ]
         public string $message = "",
         public string $website = "",
+        // page d'où vient le message (accueil ou page équipe)
+        public Audience $audience = Audience::Client,
     ) {
         // honeypot
     }

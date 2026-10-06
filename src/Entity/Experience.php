@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Audience;
 use App\Repository\ExperienceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -40,10 +41,15 @@ class Experience
     #[Groups(["experience:list"])]
     private ?string $period = null;
 
-    // missions, en HTML (éditeur du back-office)
+    // missions, en HTML (éditeur du back-office), version de l'accueil (page équipe) ;
+    // remplacée côté création de site par getDescriptionFor() (ProjectsController)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(["experience:list"])]
     private ?string $description = null;
+
+    // version pour la page « création de site » ; vide = celle de l'accueil
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $clientDescription = null;
 
     // séparées par des virgules, comme pour les projets
     #[ORM\Column(length: 255, nullable: true)]
@@ -177,5 +183,25 @@ class Experience
         }
 
         return $this;
+    }
+
+    public function getClientDescription(): ?string
+    {
+        return $this->clientDescription;
+    }
+
+    public function setClientDescription(?string $clientDescription): static
+    {
+        $this->clientDescription = $clientDescription;
+
+        return $this;
+    }
+
+    // texte de la page d'un public, celui de l'accueil à défaut
+    public function getDescriptionFor(Audience $audience): ?string
+    {
+        return Audience::Client === $audience && '' !== trim(strip_tags((string) $this->clientDescription))
+            ? $this->clientDescription
+            : $this->description;
     }
 }

@@ -1,10 +1,28 @@
 import profilPic from "../../static/images/avatar.webp";
 import shape from "../../static/images/shape.webp";
-import cv from "../../static/documents/CV_Sylvain_Pillet_fullstack_2026.pdf";
-import { useEffect, useState } from "react";
+// import cv from "../../static/documents/CV_Sylvain_Pillet_fullstack_2026.pdf";
+// import { Link } from "@inertiajs/react";
+import { ReactNode, useEffect, useState } from "react";
+import { Audience } from "../../types/audience";
+import { AudienceSwitch } from "./AudienceSwitch";
 
-export default function Hero() {
-    const text: string = "Développeur\nFrontend / Fullstack";
+type HeroProps = {
+    audience: Audience;
+    // h1 tapé à la machine ; \n pour passer à la ligne
+    text: string;
+    intro: ReactNode;
+    cta: string;
+    details: ReactNode;
+};
+
+// texte propre à chaque page (accueil, page équipe) : pas de contenu dupliqué
+export default function Hero({
+    audience,
+    text,
+    intro,
+    cta,
+    details,
+}: HeroProps) {
     const lines: string[] = text.split("\n");
     const [index, setIndex] = useState(0);
 
@@ -25,14 +43,13 @@ export default function Hero() {
 
     const [hasScrolledPast, setHasScrolledPast] = useState(false);
 
+    // scroll for sticky nav
     useEffect(() => {
         const handleScroll = () => {
             const scrolled = window.scrollY > 200;
             setHasScrolledPast(scrolled);
         };
-
         window.addEventListener("scroll", handleScroll);
-
         // Nettoyage de l'event listener
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
@@ -72,16 +89,10 @@ export default function Hero() {
                                 })}
                             </h1>
                             <div className="person-description">
-                                <p className="description">
-                                    Développeur web freelance à Toulouse, je
-                                    conçois des sites et applications sur mesure
-                                    pour les indépendants et les petites
-                                    entreprises : sites vitrines avec
-                                    back-office, refontes techniques. <br />5
-                                    ans d’expérience en e-commerce.
-                                </p>
+                                <p className="description">{intro}</p>
+                                <p className="description details">{details}</p>
                                 <a href="#contact" className="hero-cta">
-                                    Discutons de votre projet
+                                    {cta}
                                     <svg
                                         width="20"
                                         height="20"
@@ -96,17 +107,6 @@ export default function Hero() {
                                         <path d="M5 12h14M13 6l6 6-6 6" />
                                     </svg>
                                 </a>
-                                <p className="description details">
-                                    {" "}
-                                    Passionné par le web et toujours curieux
-                                    d’apprendre, je propose aujourd’hui mes
-                                    services en freelance avec une affinité
-                                    particulière pour le développement frontend,
-                                    l’UI/UX et la création d’interfaces
-                                    modernes, tout en gardant la possibilité d’
-                                    intervenir sur les problématiques backend et
-                                    l’architecture d’applications web.
-                                </p>
                             </div>
                         </div>
                         <div className="picture-name-wrapper">
@@ -124,51 +124,7 @@ export default function Hero() {
                     </div>
 
                     <div className="links-wrapper">
-                        <div className="cv-link link-button">
-                            <a
-                                href={cv}
-                                title="Télécharger Mon CV en pdf"
-                                download
-                            >
-                                <svg
-                                    width="36px"
-                                    height="36px"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 12V19M12 19L9.75 16.6667M12 19L14.25 16.6667M6.6 17.8333C4.61178 17.8333 3 16.1917 3 14.1667C3 12.498 4.09438 11.0897 5.59198 10.6457C5.65562 10.6268 5.7 10.5675 5.7 10.5C5.7 7.46243 8.11766 5 11.1 5C14.0823 5 16.5 7.46243 16.5 10.5C16.5 10.5582 16.5536 10.6014 16.6094 10.5887C16.8638 10.5306 17.1284 10.5 17.4 10.5C19.3882 10.5 21 12.1416 21 14.1667C21 16.1917 19.3882 17.8333 17.4 17.8333"
-                                        stroke="#E4D00A"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
-                                CV
-                            </a>
-                        </div>
-                        <div className="project-link link-button">
-                            <a href={"#projects"} title={"Voir les projets"}>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="1.5"
-                                    stroke="currentColor"
-                                    className="size-6"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"
-                                    />
-                                </svg>
-                                Projets
-                                {/*<svg viewBox="0 0 70 36">*/}
-                                {/*    <path d="M6.9739 30.8153H63.0244C65.5269 30.8152 75.5358 -3.68471 35.4998 2.81531C-16.1598 11.2025 0.894099 33.9766 26.9922 34.3153C104.062 35.3153 54.5169 -6.68469 23.489 9.31527" />*/}
-                                {/*</svg>*/}
-                            </a>
-                        </div>
+                        <AudienceSwitch audience={audience} />
                     </div>
 
                     <img

@@ -31,7 +31,7 @@ class ContactController extends AbstractController
                 "success",
                 "Message envoyé, je vous réponds vite !",
             );
-            return $this->redirectToRoute("home");
+            return $this->redirectToRoute($data->audience->route());
         }
 
         $contact = new Contact()
@@ -48,7 +48,13 @@ class ContactController extends AbstractController
                     ->to("syl.pillet@hotmail.fr")
                     ->from("sylpi@sylvainpillet.com")
                     ->replyTo($data->email)
-                    ->subject("Nouveau message du portfolio – " . $data->name)
+                    ->subject(
+                        sprintf(
+                            "Nouveau message du portfolio – %s – %s",
+                            $data->audience->label(),
+                            $data->name,
+                        ),
+                    )
                     ->text($data->message),
             );
             $this->inertia->flash(
@@ -62,6 +68,6 @@ class ContactController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute("home");
+        return $this->redirectToRoute($data->audience->route());
     }
 }

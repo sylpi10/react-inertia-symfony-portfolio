@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Project;
+use App\Enum\Audience;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,49 +18,70 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     /**
-     * Projets précédent et suivant dans l'ordre d'affichage de l'accueil,
+     * Tous les projets, dans l'ordre de la page d'un public.
+     *
+     * @return list<Project>
+     */
+    public function findOrderedFor(Audience $audience): array
+    {
+        return $this->findBy([], [self::orderField($audience) => "ASC", "id" => "ASC"]);
+    }
+
+    /**
+     * Projets précédent et suivant dans l'ordre de la page d'un public,
      * en boucle : le premier et le dernier projet se suivent.
      *
      * @return array{previous: ?Project, next: ?Project}
      */
-    public function findAdjacent(Project $project): array
+    public function findAdjacent(Project $project, Audience $audience): array
     {
-        // ordre de l'accueil : position, puis id pour départager les égalités
+        $field = self::orderField($audience);
+        $position = Audience::Team === $audience
+            ? $project->getTeamPosition()
+            : $project->getPosition();
+
+        // ordre de la page, puis id pour départager les égalités
         $previous =
             $this->createQueryBuilder("p")
                 ->andWhere(
-                    "p.position < :position OR (p.position = :position AND p.id < :id)",
+                    "p.$field < :position OR (p.$field = :position AND p.id < :id)",
                 )
-                ->setParameter("position", $project->getPosition())
+                ->setParameter("position", $position)
                 ->setParameter("id", $project->getId())
-                ->orderBy("p.position", "DESC")
+                ->orderBy("p.$field", "DESC")
                 ->addOrderBy("p.id", "DESC")
                 ->setMaxResults(1)
                 ->getQuery()
                 ->getOneOrNullResult() ??
             // premier projet : on boucle sur le dernier
-            $this->findOneBy([], ["position" => "DESC", "id" => "DESC"]);
+            $this->findOneBy([], [$field => "DESC", "id" => "DESC"]);
 
         $next =
             $this->createQueryBuilder("p")
                 ->andWhere(
-                    "p.position > :position OR (p.position = :position AND p.id > :id)",
+                    "p.$field > :position OR (p.$field = :position AND p.id > :id)",
                 )
-                ->setParameter("position", $project->getPosition())
+                ->setParameter("position", $position)
                 ->setParameter("id", $project->getId())
-                ->orderBy("p.position", "ASC")
+                ->orderBy("p.$field", "ASC")
                 ->addOrderBy("p.id", "ASC")
                 ->setMaxResults(1)
                 ->getQuery()
                 ->getOneOrNullResult() ??
             // dernier projet : on boucle sur le premier
-            $this->findOneBy([], ["position" => "ASC", "id" => "ASC"]);
+            $this->findOneBy([], [$field => "ASC", "id" => "ASC"]);
 
         // un seul projet en base : pas de navigation vers lui-même
         return [
             "previous" => $previous === $project ? null : $previous,
             "next" => $next === $project ? null : $next,
         ];
+    }
+
+    // champ d'ordre de chaque page : teamPosition pour l'accueil
+    private static function orderField(Audience $audience): string
+    {
+        return Audience::Team === $audience ? "teamPosition" : "position";
     }
 
     //    /**

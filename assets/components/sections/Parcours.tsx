@@ -1,10 +1,14 @@
 import { Link } from "@inertiajs/react";
 import { ExperienceProps } from "../../types/experiences";
+import { Audience } from "../../types/audience";
+import { projectPath } from "../../lib/paths";
 
 export default function Parcours({
     experiences,
+    audience,
 }: {
     experiences: ExperienceProps[];
+    audience: Audience;
 }) {
     return (
         <div className="section-container parcours-container">
@@ -19,6 +23,7 @@ export default function Parcours({
                             <TimelineItem
                                 key={experience.id}
                                 experience={experience}
+                                audience={audience}
                             />
                         ))}
                     </ul>
@@ -36,7 +41,13 @@ export default function Parcours({
     );
 }
 
-function TimelineItem({ experience }: { experience: ExperienceProps }) {
+function TimelineItem({
+    experience,
+    audience,
+}: {
+    experience: ExperienceProps;
+    audience: Audience;
+}) {
     const technos = experience.technos
         ?.split(",")
         .map((techno) => techno.trim())
@@ -71,7 +82,7 @@ function TimelineItem({ experience }: { experience: ExperienceProps }) {
                             <span key={project.slug}>
                                 <Link
                                     title={`Voir ${project.name} en détails`}
-                                    href={`/projets/${project.slug}`}
+                                    href={projectPath(project.slug, audience)}
                                     target="_blank"
                                 >
                                     {project.name}

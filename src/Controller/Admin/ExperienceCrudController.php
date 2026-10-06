@@ -34,10 +34,14 @@ class ExperienceCrudController extends AbstractCrudController
         yield TextField::new('organization', 'Entreprise / école');
         yield TextField::new('period', 'Période')
             ->setHelp('Affichée telle quelle : "2021/2026", "2020"…');
-        yield TextEditorField::new('description', 'Missions')
+        yield TextEditorField::new('description', 'Missions (accueil, équipe)')
             ->hideOnIndex()
             // h1 réservé au titre de la page
             ->setTrixEditorConfig(['blockAttributes' => ['heading1' => ['tagName' => 'h4']]]);
+        yield TextEditorField::new('clientDescription', 'Missions (création de site)')
+            ->hideOnIndex()
+            ->setTrixEditorConfig(['blockAttributes' => ['heading1' => ['tagName' => 'h4']]])
+            ->setHelp('Vide : les missions de l\'accueil sont reprises.');
         yield TextField::new('technos', 'Technos')
             ->setHelp('Séparées par des virgules.')
             ->hideOnIndex();

@@ -1,7 +1,14 @@
 import Project from "../ui/Project";
 import { ProjectProps } from "../../types/projects";
+import { Audience } from "../../types/audience";
 
-export default function Projects({ projects }: { projects: ProjectProps[] }) {
+export default function Projects({
+    projects,
+    audience,
+}: {
+    projects: ProjectProps[];
+    audience: Audience;
+}) {
     return (
         <div className="section-container projects-container">
             <div className="content">
@@ -16,7 +23,7 @@ export default function Projects({ projects }: { projects: ProjectProps[] }) {
                                             key={project.id}
                                             className="project-item"
                                         >
-                                            <Project project={project} />
+                                            <Project project={project} audience={audience} />
                                         </li>
                                     );
                                 })}

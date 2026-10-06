@@ -2,11 +2,15 @@
 import { Link } from "@inertiajs/react";
 import { ProjectProps } from "../../types/projects";
 import { projectImageUrl } from "../../lib/images";
+import { projectPath } from "../../lib/paths";
+import { Audience } from "../../types/audience";
 
 export default function Project({
     project,
+    audience,
 }: {
     project: ProjectProps;
+    audience: Audience;
 }): React.ReactNode {
     const technosItems: string = project.technos
         .split(",")
@@ -114,7 +118,7 @@ export default function Project({
                 )}
                 <div className="button-link">
                     <Link
-                        href={`/projets/${project.slug}`}
+                        href={projectPath(project.slug, audience)}
                         className="see-more"
                         title="Voir les détails du projet"
                     >

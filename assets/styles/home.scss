@@ -41,6 +41,7 @@
                 @media screen and (max-width: 768px) {
                     align-items: center;
                 }
+
                 height: fit-content;
                 // max-height: 80%;
                 min-width: 24%;
@@ -117,6 +118,7 @@
                     align-items: center;
                     min-width: 25%;
                     max-width: 80%;
+                    min-height: 380px;
                     @media screen and (max-width: 1024px) {
                         width: 92%;
                         max-width: 92%;
@@ -254,7 +256,7 @@
             width: 735px;
             right: 0;
             bottom: -1px;
-            z-index: 4;
+            z-index: 2;
             @media screen and (max-width: 768px) {
                 display: none;
             }
@@ -264,6 +266,41 @@
             display: flex;
             margin: auto;
             gap: 20px;
+            z-index: 12;
+            // choix du public : deux liens côte à côte, la page courante remplie
+            .audience-switch {
+                display: inline-flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-bottom: 32px;
+                padding: 6px;
+                border: 1px solid rgba($yellow, 0.4);
+                border-radius: 999px;
+                @media screen and (max-width: 768px) {
+                    justify-content: center;
+                    margin: 0 12px 20px;
+                    border-radius: 16px;
+                }
+                a {
+                    padding: 10px 20px;
+                    border-radius: 999px;
+                    color: $light-yellow;
+                    font-weight: bold;
+                    text-decoration: none;
+                    transition:
+                        background-color 0.25s ease,
+                        color 0.25s ease;
+                    &:hover,
+                    &:focus-visible {
+                        background-color: rgba($yellow, 0.15);
+                    }
+                    &.active {
+                        background-color: $yellow;
+                        color: $main_color;
+                    }
+                }
+            }
+
             .link-button {
                 z-index: 12;
                 color: #fff;

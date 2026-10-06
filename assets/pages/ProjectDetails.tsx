@@ -1,12 +1,17 @@
 import { Link } from "@inertiajs/react";
 import { ProjectDetailsProps, ProjectLink } from "../types/projects";
 import { projectImageUrl } from "../lib/images";
+import { projectPath } from "../lib/paths";
+import { Audience } from "../types/audience";
 
 export default function ProjectDetails({
+    audience,
     project,
     previous,
     next,
 }: {
+    // mode de la page : texte, navigation et précédent/suivant
+    audience: Audience;
     project: ProjectDetailsProps;
     previous: ProjectLink | null;
     next: ProjectLink | null;
@@ -176,7 +181,7 @@ export default function ProjectDetails({
                     <nav className="projects-nav" aria-label="Autres projets">
                         {previous && (
                             <Link
-                                href={`/projets/${previous.slug}`}
+                                href={projectPath(previous.slug, audience)}
                                 className="projects-nav-link previous"
                             >
                                 <img
@@ -194,7 +199,7 @@ export default function ProjectDetails({
                         )}
                         {next && (
                             <Link
-                                href={`/projets/${next.slug}`}
+                                href={projectPath(next.slug, audience)}
                                 className="projects-nav-link next"
                             >
                                 <img

@@ -1,20 +1,37 @@
 import { Link, usePage } from "@inertiajs/react";
 import logo from "../static/images/logo.webp";
 import { useState, useRef, ReactNode } from "react";
+import { Audience } from "../types/audience";
 
-const links = [
-    // { href: "/", label: "Home" },
-    { href: "/#services", label: "Services" },
-    { href: "/#projects", label: "Projets" },
-    { href: "/#a-propos", label: "À propos" },
-    { href: "/#parcours", label: "Parcours" },
-    { href: "/#contact", label: "Contact" },
-];
+const CLIENT_PATH = "/creation-site-web";
+
+// sections propres à chaque page (le choix de la page se fait dans le hero)
+const navigation = {
+    client: {
+        links: [
+            { href: `${CLIENT_PATH}#services`, label: "Services" },
+            { href: `${CLIENT_PATH}#projects`, label: "Projets" },
+            { href: `${CLIENT_PATH}#a-propos`, label: "À propos" },
+            { href: `${CLIENT_PATH}#parcours`, label: "Parcours" },
+            { href: `${CLIENT_PATH}#contact`, label: "Contact" },
+        ],
+    },
+    team: {
+        links: [
+            { href: "/#competences", label: "Compétences" },
+            { href: "/#projects", label: "Projets" },
+            { href: "/#parcours", label: "Parcours" },
+            { href: "/#contact", label: "Contact" },
+        ],
+    },
+};
 
 export default function Layout({ children }: { children: ReactNode }) {
-    const { url } = usePage();
-    // url d'Inertia plutôt que window.location, indisponible côté SSR (Node)
-    const isHomePage = url.split(/[?#]/)[0] === "/";
+    const { url, props, component } = usePage<{ audience?: Audience }>();
+    // page projet : navigation de son mode ; page d'erreur : celle de l'accueil
+    const { links } = navigation[props.audience ?? "team"];
+    // accueil (Team) ou page création de site (Client)
+    const isHomePage = component === "Team" || component === "Client";
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const headerRef = useRef(null);
 

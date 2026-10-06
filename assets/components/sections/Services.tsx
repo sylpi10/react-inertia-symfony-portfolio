@@ -1,6 +1,10 @@
 import { Link } from "@inertiajs/react";
 import { OfferProps } from "../../types/offers";
+import { projectPath } from "../../lib/paths";
 
+/**
+ * MODE : AGENCE WEB
+ */
 export default function Services({ offers }: { offers: OfferProps[] }) {
     return (
         <div className="section-container services-container">
@@ -29,7 +33,10 @@ export default function Services({ offers }: { offers: OfferProps[] }) {
                                 {offer.projects.map((project) => (
                                     <Link
                                         key={project.slug}
-                                        href={`/projets/${project.slug}`}
+                                        href={projectPath(
+                                            project.slug,
+                                            "client",
+                                        )}
                                     >
                                         {project.name}
                                     </Link>

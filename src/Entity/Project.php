@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\Audience;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -51,17 +52,27 @@ class Project
     #[Groups(["project:list", "project:detail"])]
     private ?string $background = null;
 
+    // description longue de l'accueil (page équipe) ; remplacée côté création
+    // de site par getDescriptionFor() (ProjectsController)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(["project:detail"])]
     private ?string $description = null;
+
+    // version pour la page « création de site » ; vide = celle de l'accueil
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $clientDescription = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     #[Groups(["project:detail"])]
     private ?string $detail_pic_mobile = null;
 
-    // ordre d'affichage, du plus petit au plus grand
+    // ordre d'affichage sur la page « création de site », du plus petit au plus grand
     #[ORM\Column]
     private int $position = 0;
+
+    // ordre d'affichage sur l'accueil (page équipe) et pour précédent/suivant
+    #[ORM\Column]
+    private int $teamPosition = 0;
 
     /**
      * Étapes du parcours liées au projet (côté inverse, géré par Experience).
@@ -243,5 +254,42 @@ class Project
         $this->position = $position;
 
         return $this;
+    }
+
+    public function getTeamPosition(): int
+    {
+        return $this->teamPosition;
+    }
+
+    public function setTeamPosition(int $teamPosition): static
+    {
+        $this->teamPosition = $teamPosition;
+
+        return $this;
+    }
+
+    public function getClientDescription(): ?string
+    {
+        return $this->clientDescription;
+    }
+
+    public function setClientDescription(?string $clientDescription): static
+    {
+        $this->clientDescription = $clientDescription;
+
+        return $this;
+    }
+
+    public function hasClientDescription(): bool
+    {
+        return '' !== trim(strip_tags((string) $this->clientDescription));
+    }
+
+    // texte de la page d'un public, celui de l'accueil à défaut
+    public function getDescriptionFor(Audience $audience): ?string
+    {
+        return Audience::Client === $audience && $this->hasClientDescription()
+            ? $this->clientDescription
+            : $this->description;
     }
 }

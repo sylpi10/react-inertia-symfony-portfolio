@@ -6,7 +6,8 @@
         {% set seo_title = seo.title ?? 'Sylvain Pillet – Développeur web freelance' %}
         {% set seo_description = seo.description ?? '' %}
         {% set route = app.request.attributes.get('_route') %}
-        {% set canonical = route ? url(route, app.request.attributes.get('_route_params')) : null %}
+        {# seo.canonical : page qui répète une autre (projet sans texte « création de site ») #}
+        {% set canonical = seo.canonical ?? (route ? url(route, app.request.attributes.get('_route_params')) : null) %}
         {% set profile_image = absolute_url(asset('images/sylvain-pillet.jpg')) %}
         {# visuel propre à la page (capture d'un projet), sinon la photo de profil #}
         {% set share = seo.image ?? {url: asset('images/sylvain-pillet.jpg'), width: 421, height: 500, alt: 'Sylvain Pillet, développeur web freelance React et frontend à Toulouse'} %}

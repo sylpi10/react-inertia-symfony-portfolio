@@ -1,7 +1,15 @@
 import { useForm, usePage } from "@inertiajs/react";
+import { Audience } from "../../types/audience";
 
-export default function Contact() {
-    const form = useForm({ name: "", email: "", message: "", website: "" });
+// audience : page d'origine, reprise dans l'objet du mail et pour la redirection
+export default function Contact({ audience }: { audience: Audience }) {
+    const form = useForm({
+        name: "",
+        email: "",
+        message: "",
+        website: "",
+        audience,
+    });
     const { flash } = usePage();
 
     const submit = (e: React.SubmitEvent) => {

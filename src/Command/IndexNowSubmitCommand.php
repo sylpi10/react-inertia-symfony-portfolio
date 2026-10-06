@@ -23,9 +23,16 @@ final class IndexNowSubmitCommand
 
     public function __invoke(SymfonyStyle $io): int
     {
-        $urls = [$this->urlGenerator->generate('home', [], UrlGeneratorInterface::ABSOLUTE_URL)];
+        $urls = [
+            $this->urlGenerator->generate('home', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            $this->urlGenerator->generate('client', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        ];
         foreach ($this->projects->findAll() as $project) {
             $urls[] = $this->urlGenerator->generate('projects_details', ['slug' => $project->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+            // mêmes règles que le sitemap : version client seulement avec son propre texte
+            if ($project->hasClientDescription()) {
+                $urls[] = $this->urlGenerator->generate('client_projects_details', ['slug' => $project->getSlug()], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
         }
 
         $status = $this->indexNow->submit($urls);

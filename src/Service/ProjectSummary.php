@@ -3,13 +3,14 @@
 namespace App\Service;
 
 use App\Entity\Project;
+use App\Enum\Audience;
 use Symfony\Component\String\TruncateMode;
 use Symfony\Component\String\UnicodeString;
 
 use function Symfony\Component\String\u;
 
 /**
- * Textes courts dérivés de la description HTML d'un projet.
+ * Textes courts dérivés de la description HTML d'un projet, celle du public de la page.
  */
 final class ProjectSummary
 {
@@ -19,9 +20,9 @@ final class ProjectSummary
 
     // ramenée entre 120 et 155 caractères pour ne pas être jugée trop courte
     // ni tronquée par Google
-    public function metaDescription(Project $project): string
+    public function metaDescription(Project $project, Audience $audience = Audience::Team): string
     {
-        $text = $this->plainText($project);
+        $text = $this->plainText($project, $audience);
         $summary = sprintf(
             "Projet %s réalisé par Sylvain Pillet, développeur web freelance à Toulouse, de la conception à la mise en ligne. Technologies : %s.",
             $project->getName(),
@@ -41,9 +42,9 @@ final class ProjectSummary
 
     // accroche des liens vers un projet : la première phrase de la description,
     // ou à défaut les technos
-    public function teaser(Project $project): string
+    public function teaser(Project $project, Audience $audience = Audience::Team): string
     {
-        $text = $this->plainText($project);
+        $text = $this->plainText($project, $audience);
         $sentence = $text->isEmpty()
             ? u((string) $project->getTechnos())
             : u(preg_split('/(?<=[.!?])\s/u', $text->toString(), 2)[0])->trimEnd(" .");
@@ -53,10 +54,10 @@ final class ProjectSummary
             ->toString();
     }
 
-    private function plainText(Project $project): UnicodeString
+    private function plainText(Project $project, Audience $audience): UnicodeString
     {
         // balises remplacées par un espace : les blocs (<p>, <h2>, <li>) ne se collent pas
-        $text = preg_replace('/<[^>]*>/', ' ', (string) $project->getDescription());
+        $text = preg_replace('/<[^>]*>/', ' ', (string) $project->getDescriptionFor($audience));
 
         return u(html_entity_decode($text))->collapseWhitespace();
     }

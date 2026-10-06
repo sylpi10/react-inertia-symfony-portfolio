@@ -56,17 +56,23 @@ class ProjectCrudController extends AbstractCrudController
         yield TextField::new('technos', 'Technos')
             ->setHelp('Séparées par des virgules.')
             ->hideOnIndex();
-        yield TextEditorField::new('description', 'Description')
+        yield TextEditorField::new('description', 'Description (accueil, équipe)')
             ->hideOnIndex()
             // le bouton "titre" de l'éditeur produit un h2 : le h1 est le nom du projet
             ->setTrixEditorConfig(['blockAttributes' => ['heading1' => ['tagName' => 'h2']]])
             ->setNumOfRows(20);
+        yield TextEditorField::new('clientDescription', 'Description (création de site)')
+            ->hideOnIndex()
+            ->setTrixEditorConfig(['blockAttributes' => ['heading1' => ['tagName' => 'h2']]])
+            ->setNumOfRows(20)
+            ->setHelp('Vide : la description de l\'accueil est reprise, et la page /creation-site-web/projets/… pointe vers celle-ci (canonical).');
         yield UrlField::new('weblink', 'Site')->hideOnIndex();
         yield UrlField::new('githublink', 'GitHub')->hideOnIndex();
 
         yield FormField::addColumn(4);
-        yield IntegerField::new('position', 'Ordre')
-            ->setHelp('Du plus petit (affiché en premier) au plus grand.');
+        yield IntegerField::new('teamPosition', 'Ordre (accueil)')
+            ->setHelp('Du plus petit (affiché en premier) au plus grand. Sert aussi pour précédent/suivant.');
+        yield IntegerField::new('position', 'Ordre (création de site)');
         // côté inverse de la relation : by_reference=false pour passer par
         // addExperience()/removeExperience(), qui mettent à jour Experience
         yield AssociationField::new('experiences', 'Étapes du parcours')
