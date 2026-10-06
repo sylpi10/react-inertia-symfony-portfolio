@@ -42,9 +42,9 @@
         &::before {
             content: "";
             position: absolute;
-            top: 0;
-            left: 28px;
-            right: 28px;
+            bottom: 0;
+            left: 12px;
+            right: 12px;
             height: 3px;
             border-radius: 0 0 3px 3px;
             background-color: $yellow;

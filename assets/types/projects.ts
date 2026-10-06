@@ -6,10 +6,17 @@ export type ProjectProps = {
     technos: string;
     weblink: string | null;
     background: string;
+    // vignette générée depuis la capture (1200×630), null tant qu'elle n'existe pas
+    thumbnail: string | null;
     githublink: string | null;
+    miniDescription: string | null;
+    miniClientDescription: string | null;
 };
 
-export type ProjectDetailsProps = Omit<ProjectProps, "background"> & {
+export type ProjectDetailsProps = Omit<
+    ProjectProps,
+    "background" | "thumbnail"
+> & {
     description: string | null;
     detailPic: string;
     detail_pic_mobile: string | null;
