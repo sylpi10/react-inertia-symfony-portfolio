@@ -24,8 +24,9 @@ final class PagePresenter
     ) {}
 
     /**
-     * Cartes projet, dans l'ordre de la page ; thumbnail : vignette générée
-     * depuis la capture (null tant qu'elle n'existe pas, le front reprend alors background).
+     * Cartes projet, dans l'ordre de la page, avec le texte court du public de la page ;
+     * thumbnail : vignette générée depuis la capture (null tant qu'elle n'existe pas,
+     * le front reprend alors background).
      *
      * @return list<array<string, mixed>>
      */
@@ -37,6 +38,9 @@ final class PagePresenter
             context: ["groups" => ["project:list"]],
         );
         foreach ($projects as $i => $project) {
+            $data[$i]["miniDescription"] = $project->getMiniDescriptionFor(
+                $audience,
+            );
             $data[$i]["thumbnail"] = $this->shareImage->thumbnailPath($project);
         }
 

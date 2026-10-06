@@ -96,12 +96,14 @@ class Project
     #[ORM\ManyToMany(targetEntity: Experience::class, mappedBy: "projects")]
     private Collection $experiences;
 
+    // texte court des cartes projet, version de l'accueil (page équipe) ;
+    // remplacé côté création de site par getMiniDescriptionFor() (PagePresenter)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(["project:list"])]
     private ?string $miniDescription = null;
 
+    // version pour la page « création de site » ; vide = celle de l'accueil
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["project:list"])]
     private ?string $miniClientDescription = null;
 
     public function __construct()
@@ -338,5 +340,13 @@ class Project
         $this->miniClientDescription = $miniClientDescription;
 
         return $this;
+    }
+
+    // texte court de la page d'un public, celui de l'accueil à défaut
+    public function getMiniDescriptionFor(Audience $audience): ?string
+    {
+        return Audience::Client === $audience && '' !== trim(strip_tags((string) $this->miniClientDescription))
+            ? $this->miniClientDescription
+            : $this->miniDescription;
     }
 }

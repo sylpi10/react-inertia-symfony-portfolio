@@ -57,29 +57,24 @@ class ProjectCrudController extends AbstractCrudController
         yield TextField::new("technos", "Technos")
             ->setHelp("Séparées par des virgules.")
             ->hideOnIndex();
+        // cartes de la liste des projets (accueil et création de site)
         yield TextEditorField::new(
             "miniDescription",
-            "accueil mini Description (équipe)",
+            "Mini description – carte (équipe, accueil)",
         )
             ->hideOnIndex()
-            // le bouton "titre" de l'éditeur produit un h2 : le h1 est le nom du projet
-            ->setTrixEditorConfig([
-                "blockAttributes" => ["heading1" => ["tagName" => "h2"]],
-            ])
-            ->setNumOfRows(20);
-        yield TextEditorField::new(
-            "description",
-            "accueil mini Description (client)",
-        )
-            ->hideOnIndex()
-            // le bouton "titre" de l'éditeur produit un h2 : le h1 est le nom du projet
-            ->setTrixEditorConfig([
-                "blockAttributes" => ["heading1" => ["tagName" => "h2"]],
-            ])
-            ->setNumOfRows(20);
+            ->setNumOfRows(5);
         yield TextEditorField::new(
             "miniClientDescription",
-            "Description (équipe)",
+            "Mini description – carte (création de site)",
+        )
+            ->hideOnIndex()
+            ->setNumOfRows(5)
+            ->setHelp("Vide : la mini description équipe est reprise.");
+        // page détail du projet
+        yield TextEditorField::new(
+            "description",
+            "Description longue – page détail (équipe, /projets/…)",
         )
             ->hideOnIndex()
             // le bouton "titre" de l'éditeur produit un h2 : le h1 est le nom du projet
@@ -89,7 +84,7 @@ class ProjectCrudController extends AbstractCrudController
             ->setNumOfRows(20);
         yield TextEditorField::new(
             "clientDescription",
-            "Description (création de site)",
+            "Description longue – page détail (création de site)",
         )
             ->hideOnIndex()
             ->setTrixEditorConfig([
@@ -97,7 +92,7 @@ class ProjectCrudController extends AbstractCrudController
             ])
             ->setNumOfRows(20)
             ->setHelp(
-                'Vide : la description de l\'accueil est reprise, et la page /creation-site-web/projets/… pointe vers celle-ci (canonical).',
+                'Vide : la description équipe est reprise, et la page /creation-site-web/projets/… pointe vers celle-ci (canonical).',
             );
         yield UrlField::new("weblink", "Site")->hideOnIndex();
         yield UrlField::new("githublink", "GitHub")->hideOnIndex();

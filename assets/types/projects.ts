@@ -9,8 +9,8 @@ export type ProjectProps = {
     // vignette générée depuis la capture (1200×630), null tant qu'elle n'existe pas
     thumbnail: string | null;
     githublink: string | null;
+    // texte court de la carte, déjà choisi selon le mode par le serveur
     miniDescription: string | null;
-    miniClientDescription: string | null;
 };
 
 export type ProjectDetailsProps = Omit<

@@ -42,13 +42,15 @@ export default function Project({
                 </div>
             </div>
             <div className="item-footer">
-                <div className="description">
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: project.miniDescription,
-                        }}
-                    />
-                </div>
+                {project.miniDescription && (
+                    <div className="description">
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: project.miniDescription,
+                            }}
+                        />
+                    </div>
+                )}
 
                 <div className="links-wrapper">
                     {project.weblink && (
