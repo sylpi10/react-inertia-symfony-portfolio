@@ -65,15 +65,19 @@ header {
                     &:hover svg {
                         opacity: 1;
                     }
+                    // largeur proportionnelle au texte (« Compétences » comme
+                    // « Projets »), hauteur fixe : le svg (preserveAspectRatio="none")
+                    // s'étire en largeur sans dépasser en haut de l'écran
                     svg {
-                        width: 110px;
+                        width: calc(100% + 46px);
+                        height: 57px;
                         position: absolute;
                         top: -26px;
-                        left: 32px;
+                        left: 50%;
                         transform: translate(-50%, 7px) translateZ(0);
                         fill: none;
                         stroke: var(--stroke, var(--line));
-                        stroke-linecap: round;
+                        // strokelinecap: round;
                         stroke-width: 2px;
                         stroke-dasharray: var(--offset, 69px) 278px;
                         stroke-dashoffset: 361px;

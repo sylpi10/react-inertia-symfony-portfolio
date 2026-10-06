@@ -118,21 +118,19 @@
                     align-items: center;
                     min-width: 25%;
                     max-width: 80%;
-                    min-height: 380px;
+                    min-height: 348px;
                     @media screen and (max-width: 1024px) {
                         width: 92%;
                         max-width: 92%;
                     }
                     height: fit-content;
                     color: $yellow;
-                    // color: $light-yellow;
-                    // padding: 20px 20px 60px 20px;
-                    // min-height: 240px;
                     overflow: hidden;
                     align-items: center;
                     padding: 6px 16px;
                     p {
                         height: fit-content;
+                        margin: 0;
                     }
                     .hero-cta {
                         position: relative;
@@ -141,7 +139,7 @@
                         display: inline-flex;
                         align-items: center;
                         gap: 8px;
-                        margin: 4px 0 16px;
+                        margin: 4px 0 10px;
                         padding: 10px 20px;
                         border-radius: 4px;
                         background-color: $light-yellow;

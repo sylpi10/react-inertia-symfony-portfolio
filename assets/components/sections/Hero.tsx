@@ -130,7 +130,7 @@ export default function Hero({
                     <img
                         className="shape"
                         src={shape}
-                        alt=""
+                        alt="decorative shape"
                         width="735"
                         height="669"
                     />
