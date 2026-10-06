@@ -106,6 +106,105 @@
             border: solid 2px $yellow;
         }
     }
+
+    // mode création de site : fiche du projet et appel au contact
+    .details-site-link {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        width: 36%;
+        padding: 28px;
+        border: 1px solid rgba($main_color, 0.12);
+        border-radius: 12px;
+        background-color: #fff;
+        box-shadow: 0 12px 30px rgba($main_color, 0.08);
+        overflow: hidden;
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 28px;
+            right: 28px;
+            height: 3px;
+            border-radius: 0 0 3px 3px;
+            background-color: $yellow;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: $main_color;
+        }
+
+        dl {
+            display: grid;
+            gap: 10px;
+            margin: 0;
+            div {
+                display: flex;
+                justify-content: space-between;
+                gap: 12px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid rgba($main_color, 0.08);
+            }
+            dt {
+                color: rgba($main_color, 0.6);
+            }
+            dd {
+                margin: 0;
+                font-weight: bold;
+                color: $main_color;
+                overflow-wrap: anywhere;
+                text-align: right;
+            }
+        }
+
+        .visit-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 4px;
+            border: 2px solid $main_color;
+            background-color: $main_color;
+            color: $yellow;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+            &:hover,
+            &:focus-visible {
+                gap: 20px;
+                // background-color: transparent;
+                // color: $main_color;
+                // svg {
+                //     stroke: $main_color;
+                // }
+            }
+        }
+
+        .contact-cta {
+            margin: 0;
+            text-align: center;
+            color: #333;
+            a {
+                color: $main_color;
+                font-weight: bold;
+                text-decoration: underline;
+                text-decoration-color: $yellow;
+                text-decoration-thickness: 2px;
+                text-underline-offset: 3px;
+            }
+        }
+    }
 }
 
 .projects-nav {

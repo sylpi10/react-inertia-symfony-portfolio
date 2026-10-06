@@ -3,8 +3,7 @@ import { ProjectDetailsProps, ProjectLink } from "../types/projects";
 import { projectImageUrl } from "../lib/images";
 import { projectPath } from "../lib/paths";
 import { Audience } from "../types/audience";
-import WebIcon from "../components/ui/WebIcon";
-import GithubIcon from "../components/ui/GithubIcon";
+import ProjectInfosDetails from "../components/projects/ProjectInfosDetails";
 
 export default function ProjectDetails({
     audience,
@@ -18,10 +17,6 @@ export default function ProjectDetails({
     previous: ProjectLink | null;
     next: ProjectLink | null;
 }) {
-    const technosItems = project.technos
-        .split(",")
-        .map((word: string) => word.trim());
-
     return (
         <div className="section-container projects-container">
             <div className="content">
@@ -39,44 +34,10 @@ export default function ProjectDetails({
                         </div>
                     )}
 
-                    <div className="infos">
-                        <div className="tecnhos">
-                            <p className={"title"}>Boite à outils du projet:</p>
-                            <ul>
-                                {technosItems.map((techno, index) => (
-                                    <li key={index}>{techno}</li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div className={"buttons-link-wrapper"}>
-                            {project.weblink && (
-                                <div className={"button-link"}>
-                                    <a
-                                        href={project.weblink}
-                                        target="_blank"
-                                        className="see-more"
-                                        title="Aller sur le site"
-                                    >
-                                        <WebIcon />
-                                        <span> Site</span>
-                                    </a>
-                                </div>
-                            )}
-                            {project.githublink && (
-                                <div className="button-link">
-                                    <a
-                                        href={project.githublink}
-                                        target="_blank"
-                                        className="see-more"
-                                        title="Répo github"
-                                    >
-                                        <GithubIcon />
-                                        <span>Github</span>
-                                    </a>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                    <ProjectInfosDetails
+                        audience={audience}
+                        project={project}
+                    />
                 </div>
                 <div className="preview-images-wrapper">
                     <div className="computer-images-wrapper">
