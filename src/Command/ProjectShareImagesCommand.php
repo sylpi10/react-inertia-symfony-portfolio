@@ -11,7 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: 'app:project:share-images',
-    description: 'Génère les visuels de partage (og:image) des projets',
+    description: 'Génère les visuels de partage (og:image) et les vignettes des projets',
 )]
 final class ProjectShareImagesCommand
 {
@@ -26,7 +26,7 @@ final class ProjectShareImagesCommand
     ): int {
         $missing = [];
         foreach ($this->projects->findAll() as $project) {
-            if (!$force && null !== $this->shareImage->publicPath($project)) {
+            if (!$force && null !== $this->shareImage->publicPath($project) && null !== $this->shareImage->thumbnailPath($project)) {
                 continue;
             }
             if ($this->shareImage->generate($project)) {
@@ -42,7 +42,7 @@ final class ProjectShareImagesCommand
             return Command::FAILURE;
         }
 
-        $io->success('Visuels de partage à jour.');
+        $io->success('Visuels de partage et vignettes à jour.');
 
         return Command::SUCCESS;
     }
