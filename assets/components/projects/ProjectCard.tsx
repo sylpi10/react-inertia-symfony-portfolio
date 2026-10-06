@@ -3,10 +3,11 @@ import { ProjectProps } from "../../types/projects";
 import { projectImageUrl } from "../../lib/images";
 import { projectPath } from "../../lib/paths";
 import { Audience } from "../../types/audience";
-import PLusIcon from "./PlusIcon";
-import WebIcon from "./WebIcon";
+import PlusIcon from "../ui/PlusIcon";
+import WebIcon from "../ui/WebIcon";
 
-export default function Project({
+// carte d'un projet dans la liste des pages d'accueil (équipe et création de site)
+export default function ProjectCard({
     project,
     audience,
 }: {
@@ -85,7 +86,7 @@ export default function Project({
                             className="see-more"
                             title="Voir les détails du projet"
                         >
-                            <PLusIcon />
+                            <PlusIcon />
                             <span>Détails</span>
                         </Link>
                     </div>

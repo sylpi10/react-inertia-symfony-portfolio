@@ -22,7 +22,7 @@ export default function Client({ projects, offers, experiences }: ClientProps) {
             <section id="home">
                 <Hero
                     audience="client"
-                    text={"Développeur \n Web"}
+                    text={"Création de sites web \n à Toulouse "}
                     intro={
                         <>
                             Développeur web freelance à Toulouse, je crée votre

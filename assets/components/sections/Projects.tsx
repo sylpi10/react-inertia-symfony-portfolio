@@ -1,4 +1,4 @@
-import Project from "../ui/Project";
+import ProjectCard from "../projects/ProjectCard";
 import { ProjectProps } from "../../types/projects";
 import { Audience } from "../../types/audience";
 
@@ -23,7 +23,10 @@ export default function Projects({
                                             key={project.id}
                                             className="project-item"
                                         >
-                                            <Project project={project} audience={audience} />
+                                            <ProjectCard
+                                                project={project}
+                                                audience={audience}
+                                            />
                                         </li>
                                     );
                                 })}
