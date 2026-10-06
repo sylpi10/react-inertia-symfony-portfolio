@@ -17,32 +17,36 @@ export default function Services({ offers }: { offers: OfferProps[] }) {
             <ul className="services-list">
                 {offers.map((offer, index) => (
                     <li key={offer.id} className="service">
-                        <span className="service-number" aria-hidden="true">
-                            {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <h3>{offer.title}</h3>
-                        <div
-                            className="service-description"
-                            dangerouslySetInnerHTML={{
-                                __html: offer.description,
-                            }}
-                        />
-                        {offer.projects.length > 0 && (
-                            <p className="service-examples">
-                                <span className="label">Exemples :</span>
-                                {offer.projects.map((project) => (
-                                    <Link
-                                        key={project.slug}
-                                        href={projectPath(
-                                            project.slug,
-                                            "client",
-                                        )}
-                                    >
-                                        {project.name}
-                                    </Link>
-                                ))}
-                            </p>
-                        )}
+                        <div className="service-title">
+                            <span className="service-number" aria-hidden="true">
+                                {String(index + 1).padStart(2, "0")}
+                            </span>
+                            <h3>{offer.title}</h3>
+                        </div>
+                        <div className="service-body">
+                            <div
+                                className="service-description"
+                                dangerouslySetInnerHTML={{
+                                    __html: offer.description,
+                                }}
+                            />
+                            {offer.projects.length > 0 && (
+                                <p className="service-examples">
+                                    <span className="label">Exemples :</span>
+                                    {offer.projects.map((project) => (
+                                        <Link
+                                            key={project.slug}
+                                            href={projectPath(
+                                                project.slug,
+                                                "client",
+                                            )}
+                                        >
+                                            {project.name}
+                                        </Link>
+                                    ))}
+                                </p>
+                            )}
+                        </div>
                     </li>
                 ))}
             </ul>

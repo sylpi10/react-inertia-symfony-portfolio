@@ -20,7 +20,7 @@ export default function Team({ projects, experiences }: TeamProps) {
             <section id="home">
                 <Hero
                     audience="team"
-                    text={"Développeur\nFrontend / Fulltstack"}
+                    text={"Développeur\nFrontend / Fullstack"}
                     intro={
                         <>
                             Développeur frontend avec une pratique fullstack,

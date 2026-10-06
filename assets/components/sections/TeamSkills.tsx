@@ -37,15 +37,20 @@ export default function TeamSkills() {
                 un outil de personnalisation en production : je sais m’intégrer
                 à une base de code existante et la faire avancer.
             </p>
+
             <ul className="services-list">
                 {skills.map((skill, index) => (
                     <li key={skill.title} className="service">
-                        <span className="service-number" aria-hidden="true">
-                            {String(index + 1).padStart(2, "0")}
-                        </span>
-                        <h3>{skill.title}</h3>
-                        <div className="service-description">
-                            <p>{skill.description}</p>
+                        <div className="service-title">
+                            <span className="service-number" aria-hidden="true">
+                                {String(index + 1).padStart(2, "0")}
+                            </span>
+                            <h3>{skill.title}</h3>
+                        </div>
+                        <div className="service-body">
+                            <div className="service-description">
+                                <p>{skill.description}</p>
+                            </div>
                         </div>
                     </li>
                 ))}
