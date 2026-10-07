@@ -15,6 +15,7 @@
 @use "footer";
 @use "legal";
 @use "error";
+@use "parallax";
 
 // après variables : même spécificité que :root, c'est l'ordre qui tranche
 @use "themes/dark";

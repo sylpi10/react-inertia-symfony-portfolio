@@ -1,0 +1,54 @@
+// parallaxe à la souris du hero : useMouseParallax écrit --mx / --my (de -1 à 1)
+// sur .hero-area, chaque calque se décale à l'opposé de la souris selon sa
+// profondeur (en px au bord de l'écran). On anime translate et non transform,
+// pour ne pas écraser les transform existants.
+.homepage .hero-area {
+    --mx: 0;
+    --my: 0;
+    // la forme déborde un peu pour que ses bords ne se voient jamais ;
+    // clip-path (et non overflow) car elle est positionnée hors du hero
+    clip-path: inset(0);
+
+    .person,
+    .picture-name-container,
+    img.shape {
+        translate: calc(var(--mx) * var(--depth-x) * -1px)
+            calc(var(--my) * var(--depth-y) * -1px);
+        will-change: translate;
+    }
+    // du plus lointain au plus proche
+    img.shape {
+        --depth-x: 14;
+        --depth-y: 10;
+        right: -20px;
+        bottom: -21px;
+    }
+    .person {
+        --depth-x: 8;
+        --depth-y: 4;
+    }
+    .picture-name-container {
+        --depth-x: 32;
+        --depth-y: 18;
+    }
+}
+
+// formes décoratives (à propos, page projet) : glissent au défilement,
+// là où le navigateur gère les scroll-driven animations (sinon immobiles)
+@media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+        .round {
+            animation: parallax-float linear both;
+            animation-timeline: view();
+        }
+    }
+}
+
+@keyframes parallax-float {
+    from {
+        translate: 0 80px;
+    }
+    to {
+        translate: 0 -80px;
+    }
+}
