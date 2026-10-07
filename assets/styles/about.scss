@@ -142,7 +142,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: $yellow;
+                color: var(--second-color);
                 font-weight: bold;
                 transition:
                     top 0.2s ease-out,
@@ -205,7 +205,7 @@
         position: absolute;
         width: 500px;
         height: 540px;
-        background: rgba(228, 208, 10, 0.3);
+        background: color-mix(in srgb, var(--second-color) 30%, transparent);
         border-radius: 60% 40% 50% 70%/60% 30% 70% 40%;
         right: -27px;
         top: -3%;

@@ -48,7 +48,7 @@
             right: 12px;
             height: 3px;
             border-radius: 0 0 3px 3px;
-            background-color: $yellow;
+            background-color: var(--second-color);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
@@ -71,7 +71,7 @@
                 font-family: effortless, serif;
                 font-size: 1.6rem;
                 line-height: 1;
-                color: $yellow;
+                color: var(--second-color);
             }
 
             h3 {
@@ -104,14 +104,14 @@
                 a {
                     padding: 3px 10px;
                     border-radius: 999px;
-                    background-color: $light-yellow;
+                    background-color: var(--third-color);
                     color: $main_color;
                     font-weight: 600;
                     text-decoration: none;
                     transition: background-color 0.2s ease;
                     &:hover,
                     &:focus-visible {
-                        background-color: $yellow;
+                        background-color: var(--second-color);
                     }
                 }
             }

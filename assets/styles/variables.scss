@@ -1,6 +1,15 @@
-$yellow: #e4d00a;
+:root {
+    // --light-bg: rgb(253, 251, 236);
+    --light-bg: #fff7ed;
+    --white-bg: #fcfcfc;
+    --main-color: #0c1423;
+    --second-color: #fdc57f;
+    // --third-color: #fff2e0;
+    --third-color: #fff7ed;
+    --fourth-color: #ffefdc;
+}
+
 //$main_color: #642970;
-$light-yellow: #f7f1b5;
 $main_color: #0c1423;
 $light-background: rgb(253, 251, 236);
 
@@ -29,12 +38,13 @@ $light-background: rgb(253, 251, 236);
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background-color: $yellow;
-        box-shadow: 0 0 0 2px rgba($yellow, 0.25);
+        background-color: var(--second-color);
+        box-shadow: 0 0 0 2px
+            color-mix(in srgb, var(--second-color) 25%, transparent);
     }
     &:hover {
-        background-color: $light-yellow;
-        border-color: $yellow;
+        background-color: var(--third-color);
+        border-color: var(--second-color);
         transform: translateY(-1px);
     }
 }

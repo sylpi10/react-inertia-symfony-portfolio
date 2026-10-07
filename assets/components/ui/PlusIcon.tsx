@@ -2,7 +2,6 @@ export default function PlusIcon() {
     return (
         <svg
             className={"plus-icon"}
-            fill="#E4D00A"
             height="20px"
             width="20px"
             version="1.1"

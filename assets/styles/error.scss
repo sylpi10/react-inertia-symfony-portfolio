@@ -13,7 +13,7 @@
         font-family: effortless, serif;
         font-size: clamp(6rem, 18vw, 11rem);
         line-height: 1;
-        background: linear-gradient($yellow 34%, orange);
+        background: linear-gradient(var(--second-color) 34%, orange);
         background-clip: text;
         -webkit-text-fill-color: transparent;
     }
@@ -46,7 +46,7 @@
         gap: 12px;
         padding: 24px;
         border-radius: 12px;
-        border-top: 3px solid $yellow;
+        border-top: 3px solid var(--second-color);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         color: $main_color;
         text-align: left;

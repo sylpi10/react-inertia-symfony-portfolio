@@ -1,5 +1,5 @@
 @use "variables" as *;
-@use "home";
+@use "hero";
 @use "services";
 @use "pricing";
 
@@ -112,4 +112,13 @@ img {
     clip-path: inset(50%);
     white-space: nowrap;
     border: 0;
+}
+
+// couleur par défaut des icônes, surchargée au survol des boutons (button.scss)
+.weblink-icon {
+    stroke: var(--second-color);
+}
+.plus-icon,
+.github-icon g {
+    fill: var(--second-color);
 }

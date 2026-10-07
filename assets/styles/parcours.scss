@@ -39,7 +39,7 @@
 
                     .description {
                         margin-bottom: 8px;
-                        background-color: lighten(#f7f1b5, 12%);
+                        background-color: color-mix(in srgb, var(--third-color) 40%, #fff);
                         width: fit-content;
                         padding-bottom: 1px;
                         .tasks {
@@ -63,7 +63,7 @@
                         gap: 8px;
                         flex-wrap: wrap;
                         margin: 16px;
-                        border-top: 1px solid rgba($yellow, 0.28);
+                        border-top: 1px solid color-mix(in srgb, var(--second-color) 28%, transparent);
                         padding-top: 16px;
                         li {
                             @include tech-pill;
@@ -82,12 +82,12 @@
                             height: fit-content;
                             font-weight: bold;
                             background-color: $main_color;
-                            color: $light-yellow;
+                            color: var(--third-color);
                             padding: 8px 16px;
                             border-radius: 8px;
                             transition: all ease 0.4s;
                             &:hover {
-                                background-color: $yellow;
+                                background-color: var(--second-color);
                                 color: $main_color;
                                 padding: 8px 20px;
                             }

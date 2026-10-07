@@ -8,7 +8,7 @@
     border: solid 1px $main_color;
     border-radius: 4px;
     &:hover {
-        background-color: $yellow;
+        background-color: var(--second-color);
         .see-more {
             gap: 14px;
             color: $main_color;
@@ -33,7 +33,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: $yellow;
+        color: var(--second-color);
         gap: 4px;
         padding: 6px 8px;
         transition: gap ease 0.4s;

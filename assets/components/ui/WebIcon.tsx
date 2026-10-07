@@ -7,7 +7,6 @@ export default function WebIcon() {
             viewBox="0 0 64 64"
             xmlns="http://www.w3.org/2000/svg"
             // stroke-width="3"
-            stroke="#E4D00A"
             fill="none"
         >
             <path d="M39.93,55.72A24.86,24.86,0,1,1,56.86,32.15a37.24,37.24,0,0,1-.73,6" />
