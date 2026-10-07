@@ -1,4 +1,4 @@
-.PHONY: help build deploy deploy-test remote
+.PHONY: help dev stop logs build deploy deploy-test remote
 
 # Variables de déploiement (non versionnées) : SERVER_USER, SERVER_HOST, APP_PATH
 ifneq (,$(wildcard .env.deploy))
@@ -41,9 +41,23 @@ RSYNC_PROTECT = \
 	--filter='P /public/images/projects/**'
 
 help:
+	@echo "make dev          serveur Symfony + Vite + SSR en arrière-plan (workers de .symfony.local.yaml)"
+	@echo "make stop         arrête le serveur et ses workers"
+	@echo "make logs         suit les logs du serveur, de Vite et du SSR"
 	@echo "make build        build Vite client + SSR (public/build, bootstrap/ssr)"
 	@echo "make deploy-test  build + rsync --dry-run : affiche ce qui partirait"
 	@echo "make deploy       build + rsync + composer install + cache + migrations"
+
+# dev local : les workers (Vite, SSR) sont déclarés dans .symfony.local.yaml
+dev:
+	symfony server:start -d
+	@symfony server:status
+
+stop:
+	symfony server:stop
+
+logs:
+	symfony server:log
 
 build:
 	npm ci

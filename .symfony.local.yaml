@@ -1,0 +1,12 @@
+# Lancés avec le serveur Symfony (make dev / symfony server:start),
+# arrêtés avec lui (make stop / symfony server:stop)
+workers:
+    # Vite : assets du navigateur, avec rechargement à chaud
+    vite:
+        cmd: ['npm', 'run', 'dev']
+
+    # SSR : bundle reconstruit puis serveur Node relancé à chaque modification
+    # dans assets/, pour que le HTML serveur suive toujours le code du navigateur
+    ssr:
+        cmd: ['sh', '-c', 'npm run build:ssr && exec node bootstrap/ssr/ssr.js']
+        watch: ['assets']
