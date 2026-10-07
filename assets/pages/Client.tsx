@@ -55,10 +55,10 @@ export default function Client({ projects, offers, experiences }: ClientProps) {
                 <Projects projects={projects} audience="client" />
             </section>
             <section id="a-propos">
-                <About />
-                <section id="parcours">
-                    <Parcours experiences={experiences} audience="client" />
-                </section>
+                <About audience="client" />
+            </section>
+            <section id="parcours">
+                <Parcours experiences={experiences} audience="client" />
             </section>
             <section id="tarifs">
                 <Pricing />

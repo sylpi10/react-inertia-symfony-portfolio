@@ -1,3 +1,4 @@
+import About from "../components/sections/About";
 import Contact from "../components/sections/Contact";
 import Footer from "../components/sections/Footer";
 import Hero from "../components/sections/Hero";
@@ -47,6 +48,9 @@ export default function Team({ projects, experiences }: TeamProps) {
             </section>
             <section id="projects">
                 <Projects projects={projects} audience="team" />
+            </section>
+            <section id="a-propos">
+                <About audience="team" />
             </section>
             <section id="parcours">
                 <Parcours experiences={experiences} audience="team" />
