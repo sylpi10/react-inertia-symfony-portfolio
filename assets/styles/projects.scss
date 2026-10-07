@@ -192,6 +192,23 @@
                 box-shadow: 0 14px 34px -18px var(--shadow-strong);
             }
         }
+
+        .btn.more-btn {
+            height: 48px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            align-items: center;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            transition: gap ease 0.4s;
+            &:hover {
+                gap: 24px;
+            }
+        }
     }
 }
 
