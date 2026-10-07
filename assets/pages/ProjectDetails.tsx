@@ -3,6 +3,7 @@ import { ProjectDetailsProps, ProjectLink } from "../types/projects";
 import { projectImageUrl } from "../lib/images";
 import { projectPath } from "../lib/paths";
 import { Audience } from "../types/audience";
+import NavArrow from "../components/ui/NavArrow";
 import ProjectInfosDetails from "../components/projects/ProjectInfosDetails";
 import Contact from "../components/sections/Contact";
 
@@ -136,28 +137,5 @@ function ProjectLinkText({
             <span className="name">{project.name}</span>{" "}
             <span className="teaser">{project.teaser}</span>
         </span>
-    );
-}
-
-function NavArrow({ direction }: { direction: "previous" | "next" }) {
-    return (
-        <svg
-            className={`nav-arrow ${direction}`}
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-        >
-            {direction === "previous" ? (
-                <path d="M19 12H5M11 18l-6-6 6-6" />
-            ) : (
-                <path d="M5 12h14M13 6l6 6-6 6" />
-            )}
-        </svg>
     );
 }
