@@ -39,7 +39,11 @@
 
                     .description {
                         margin-bottom: 8px;
-                        background-color: color-mix(in srgb, var(--third-color) 40%, #fff);
+                        background-color: color-mix(
+                            in srgb,
+                            var(--third-color) 40%,
+                            #fff
+                        );
                         width: fit-content;
                         padding-bottom: 1px;
                         .tasks {
@@ -63,7 +67,12 @@
                         gap: 8px;
                         flex-wrap: wrap;
                         margin: 16px;
-                        border-top: 1px solid color-mix(in srgb, var(--second-color) 28%, transparent);
+                        border-top: 1px solid
+                            color-mix(
+                                in srgb,
+                                var(--second-color) 28%,
+                                transparent
+                            );
                         padding-top: 16px;
                         li {
                             @include tech-pill;
@@ -97,7 +106,7 @@
                     .date {
                         position: absolute;
                         background-color: $main_color;
-                        color: #fff;
+                        color: var(--second-color);
                         line-height: 1.25em;
                         top: 18px;
                         border-radius: 2px;

@@ -66,13 +66,15 @@ function TimelineItem({
                                 __html: experience.description,
                             }}
                         />
-                        {technos && technos.length > 0 && (
-                            <ul className="tools">
-                                {technos.map((techno) => (
-                                    <li key={techno}>{techno}</li>
-                                ))}
-                            </ul>
-                        )}
+                        {audience === "team" &&
+                            technos &&
+                            technos.length > 0 && (
+                                <ul className="tools">
+                                    {technos.map((techno) => (
+                                        <li key={techno}>{techno}</li>
+                                    ))}
+                                </ul>
+                            )}
                     </div>
                 )}
 

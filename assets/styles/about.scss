@@ -27,13 +27,13 @@
                 }
             }
             img {
-                &.arrow {
-                    transform: rotate(75deg);
-                    z-index: 10;
-                    position: absolute;
-                    top: 40px;
-                    right: -37%;
-                }
+                // &.arrow {
+                //     transform: rotate(75deg);
+                //     z-index: 10;
+                //     position: absolute;
+                //     top: 40px;
+                //     right: -37%;
+                // }
                 &.me {
                     z-index: 8;
                     position: relative;
@@ -132,7 +132,7 @@
         }
         .text-container {
             position: relative;
-            background-color: $light-background;
+            background-color: var(--light-bg);
             span.info {
                 position: absolute;
                 background: url("../static/images/paint.webp") no-repeat center;
