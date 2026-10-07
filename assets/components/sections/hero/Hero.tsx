@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Audience } from "../../../types/audience";
 import { AudienceSwitch } from "./AudienceSwitch";
 import ArrowUpIcon from "../../ui/ArrowUpIcon";
+import useMouseParallax from "../../../hooks/useMouseParallax";
 
 type HeroProps = {
     audience: Audience;
@@ -41,6 +42,7 @@ export default function Hero({
         lineStarts.filter((start) => start <= index).length - 1;
 
     const [hasScrolledPast, setHasScrolledPast] = useState(false);
+    const heroRef = useMouseParallax<HTMLDivElement>();
 
     // scroll for sticky nav
     useEffect(() => {
@@ -56,7 +58,7 @@ export default function Hero({
     return (
         <>
             <div className="homepage">
-                <div className="hero-area">
+                <div className="hero-area" ref={heroRef}>
                     <div className="presentation">
                         <div className="person">
                             {/* texte complet dans le HTML dès le rendu serveur (Google) ;

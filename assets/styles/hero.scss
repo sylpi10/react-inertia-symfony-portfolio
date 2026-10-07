@@ -70,10 +70,9 @@
                     }
                     margin: 0;
                     font-family: "effortless", serif;
-                    // background: -webkit-linear-gradient($yellow 34%, orange);
-                    background: var(--heading);
-                    background-clip: text;
-                    -webkit-text-fill-color: transparent;
+                    // couleur simple et non background-clip: text : avec la
+                    // parallaxe, le texte découpé laissait une trace du curseur
+                    color: var(--heading);
                     .title {
                         display: flex;
                     }

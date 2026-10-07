@@ -17,7 +17,7 @@ export function AudienceSwitch({ audience }: SwitcherProps) {
             {
                 audience: "client",
                 href: "/creation-site-web",
-                label: "Un site pour mon activité",
+                label: "Un site pour votre activité",
             },
         ];
 
