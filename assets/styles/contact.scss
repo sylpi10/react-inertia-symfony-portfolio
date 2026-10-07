@@ -1,7 +1,8 @@
 @use "variables" as *;
 
 #contact {
-    background: linear-gradient(-203deg, #fbf4b4, #f7f1b5);
+    // background: linear-gradient(-203deg, #fbf4b4, #f7f1b5);
+    background-color: $light-background;
 }
 .section-container {
     .contact-wrapper {
@@ -93,6 +94,39 @@
                 }
                 #website {
                     display: none;
+                }
+
+                // demande de devis (page création de site) : trois listes côte à côte
+                .quote-fields {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 20px;
+                    @media screen and (max-width: 900px) {
+                        grid-template-columns: 1fr;
+                    }
+                }
+                .select-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+                    label {
+                        font-size: 0.75rem;
+                        color: $main_color;
+                    }
+                    select {
+                        height: 40px;
+                        padding: 0 12px;
+                        border: none;
+                        border-bottom: solid 1px $main_color;
+                        background-color: #fff;
+                        font: inherit;
+                        color: $main_color;
+                        &:focus {
+                            outline: none;
+                            border: solid 1px $yellow;
+                            border-radius: 6px;
+                        }
+                    }
                 }
 
                 button.email-button {

@@ -1,0 +1,194 @@
+@use "variables" as *;
+
+// tarifs et déroulé d'un projet (page création de site)
+.section-container.pricing-container,
+.section-container.process-container {
+    margin: 0 auto;
+    padding: 20px 40px;
+    .content {
+        max-width: 1300px;
+        margin: auto;
+    }
+}
+
+.section-container.pricing-container {
+    background-color: $light-background;
+
+    .pricing-intro {
+        max-width: 640px;
+        margin: 0 auto 40px;
+        text-align: center;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    .pricing-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        padding: 0;
+        margin: 0 0 24px;
+        list-style: none;
+        @media screen and (max-width: 900px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .plan {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        border: 1px solid rgba($main_color, 0.12);
+        border-radius: 12px;
+        background-color: #fff;
+        overflow: hidden;
+        .plan-body {
+            padding: 12px 24px;
+        }
+        // filet jaune, comme les cartes de services
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 28px;
+            right: 28px;
+            height: 3px;
+            border-radius: 0 0 3px 3px;
+            background-color: $yellow;
+        }
+
+        h3 {
+            margin: 0;
+            text-align: center;
+            padding: 8px 12px;
+            font-size: 1.25rem;
+            color: $light-yellow;
+            background-color: $main_color;
+        }
+
+        .plan-description {
+            flex: 1;
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .plan-price {
+            margin: 0;
+            font-family: effortless, serif;
+            font-size: 1.6rem;
+            color: $main_color;
+        }
+    }
+
+    // hébergement et maintenance : carte sombre, pleine largeur
+    .plan-maintenance {
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px;
+        background-color: #fff;
+        // border-color: $main_color;
+        // padding: 12px 24px;
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .plan-main {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 12px;
+            h3 {
+                text-align: left;
+                background-color: #fff;
+                color: $main_color;
+                padding-left: 0;
+            }
+            .plan-description {
+                color: $main_color;
+                padding: 0;
+            }
+        }
+        .plan-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: $light-background;
+            gap: 12px;
+            margin: 0;
+            min-width: 30%;
+            .plan-price {
+                width: 100%;
+                text-align: center;
+                color: $main_color;
+            }
+            @media screen and (max-width: 768px) {
+                align-items: flex-start;
+            }
+        }
+        .plan-cta {
+            padding: 10px 20px;
+            border: 2px solid $yellow;
+            border-radius: 4px;
+            background-color: $yellow;
+            color: $main_color;
+            font-weight: bold;
+            text-decoration: none;
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease;
+            &:hover,
+            &:focus-visible {
+                background-color: transparent;
+                color: $yellow;
+            }
+        }
+    }
+}
+
+.section-container.process-container {
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px 24px;
+        padding: 0;
+        margin: 40px 0 0;
+        list-style: none;
+        @media screen and (max-width: 900px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media screen and (max-width: 500px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .step {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding-left: 16px;
+        border-left: 3px solid $yellow;
+
+        .step-number {
+            font-family: effortless, serif;
+            font-size: 1.6rem;
+            line-height: 1;
+            color: $yellow;
+        }
+        h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: $main_color;
+        }
+        p {
+            margin: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+    }
+}

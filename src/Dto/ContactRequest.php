@@ -5,7 +5,11 @@ namespace App\Dto;
 // use Symfony\Component\HttpFoundation\Response;
 // use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use App\Enum\Audience;
+use App\Enum\QuoteBudget;
+use App\Enum\QuoteDeadline;
+use App\Enum\QuoteProjectType;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 final readonly class ContactRequest
 {
@@ -39,7 +43,30 @@ final readonly class ContactRequest
         public string $website = "",
         // page d'où vient le message (accueil ou page équipe)
         public Audience $audience = Audience::Client,
+        // demande de devis, page création de site : type et délai requis (validateQuote), budget facultatif
+        public ?QuoteProjectType $projectType = null,
+        public ?QuoteBudget $budget = null,
+        public ?QuoteDeadline $deadline = null,
     ) {
         // honeypot
+    }
+
+    // champs du devis affichés seulement sur la page création de site
+    #[Assert\Callback]
+    public function validateQuote(ExecutionContextInterface $context): void
+    {
+        if (Audience::Client !== $this->audience) {
+            return;
+        }
+        if (null === $this->projectType) {
+            $context->buildViolation("Précisez le type de projet.")
+                ->atPath("projectType")
+                ->addViolation();
+        }
+        if (null === $this->deadline) {
+            $context->buildViolation("Précisez le délai souhaité.")
+                ->atPath("deadline")
+                ->addViolation();
+        }
     }
 }

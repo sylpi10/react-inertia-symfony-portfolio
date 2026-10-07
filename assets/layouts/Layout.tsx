@@ -13,6 +13,7 @@ const navigation = {
             { href: `${CLIENT_PATH}#projects`, label: "Projets" },
             { href: `${CLIENT_PATH}#a-propos`, label: "À propos" },
             { href: `${CLIENT_PATH}#parcours`, label: "Parcours" },
+            { href: `${CLIENT_PATH}#tarifs`, label: "Tarifs" },
             { href: `${CLIENT_PATH}#contact`, label: "Contact" },
         ],
     },

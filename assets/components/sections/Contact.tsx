@@ -1,5 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import { Audience } from "../../types/audience";
+import { budgets, deadlines, projectTypes } from "../../types/quote";
 
 // audience : page d'origine, reprise dans l'objet du mail et pour la redirection
 export default function Contact({ audience }: { audience: Audience }) {
@@ -9,7 +10,18 @@ export default function Contact({ audience }: { audience: Audience }) {
         message: "",
         website: "",
         audience,
+        // demande de devis : champs affichés en mode création de site uniquement
+        projectType: "",
+        budget: "",
+        deadline: "",
     });
+    // choix vide envoyé en null : le serveur attend une valeur de la liste ou rien
+    form.transform((data) => ({
+        ...data,
+        projectType: data.projectType || null,
+        budget: data.budget || null,
+        deadline: data.deadline || null,
+    }));
     const { flash } = usePage();
 
     const submit = (e: React.SubmitEvent) => {
@@ -79,6 +91,40 @@ export default function Contact({ audience }: { audience: Audience }) {
                                 </div>
                             )}
                         </div>
+                        {audience === "client" && (
+                            <div className="quote-fields">
+                                <QuoteSelect
+                                    id="projectType"
+                                    label="Type de projet"
+                                    options={projectTypes}
+                                    value={form.data.projectType}
+                                    error={form.errors.projectType}
+                                    onChange={(value) =>
+                                        form.setData("projectType", value)
+                                    }
+                                />
+                                <QuoteSelect
+                                    id="budget"
+                                    label="Budget indicatif (facultatif)"
+                                    options={budgets}
+                                    value={form.data.budget}
+                                    error={form.errors.budget}
+                                    onChange={(value) =>
+                                        form.setData("budget", value)
+                                    }
+                                />
+                                <QuoteSelect
+                                    id="deadline"
+                                    label="Délai souhaité"
+                                    options={deadlines}
+                                    value={form.data.deadline}
+                                    error={form.errors.deadline}
+                                    onChange={(value) =>
+                                        form.setData("deadline", value)
+                                    }
+                                />
+                            </div>
+                        )}
                         <div className={"input-wrapper"}>
                             <textarea
                                 name="message"
@@ -137,6 +183,43 @@ export default function Contact({ audience }: { audience: Audience }) {
                     </form>
                 </div>
             </div>
+        </div>
+    );
+}
+
+// liste déroulante de la demande de devis, libellé au-dessus (pas de label flottant)
+function QuoteSelect({
+    id,
+    label,
+    options,
+    value,
+    error,
+    onChange,
+}: {
+    id: string;
+    label: string;
+    options: readonly { value: string; label: string }[];
+    value: string;
+    error?: string;
+    onChange: (value: string) => void;
+}) {
+    return (
+        <div className="select-wrapper">
+            <label htmlFor={id}>{label}</label>
+            <select
+                id={id}
+                name={id}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+            >
+                <option value="">Choisir…</option>
+                {options.map((option) => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
+            </select>
+            {error && <div className="form-error">{error}</div>}
         </div>
     );
 }

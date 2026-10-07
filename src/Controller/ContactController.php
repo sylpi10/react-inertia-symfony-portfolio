@@ -41,7 +41,10 @@ class ContactController extends AbstractController
             ->setName($data->name)
             ->setEmail($data->email)
             ->setMessage($data->message)
-            ->setDate(new \DateTime());
+            ->setDate(new \DateTime())
+            ->setProjectType($data->projectType)
+            ->setBudget($data->budget)
+            ->setDeadline($data->deadline);
         $this->em->persist($contact);
         $this->em->flush();
 
@@ -58,7 +61,7 @@ class ContactController extends AbstractController
                             $data->name,
                         ),
                     )
-                    ->text($data->message),
+                    ->text($this->mailBody($data)),
             );
             $this->inertia->flash(
                 "success",
@@ -72,6 +75,27 @@ class ContactController extends AbstractController
         }
 
         return $this->back($request, $data);
+    }
+
+    // demande de devis : type, budget et délai en tête du message
+    private function mailBody(ContactRequest $data): string
+    {
+        $quote = array_filter([
+            "Type de projet" => $data->projectType?->label(),
+            "Budget indicatif" => $data->budget?->label(),
+            "Délai souhaité" => $data->deadline?->label(),
+        ]);
+        if (!$quote) {
+            return $data->message;
+        }
+
+        $lines = array_map(
+            fn (string $field, string $value): string => "$field : $value",
+            array_keys($quote),
+            $quote,
+        );
+
+        return implode("\n", $lines) . "\n\n" . $data->message;
     }
 
     // retour à la page du formulaire (accueil, création de site ou page projet) ;

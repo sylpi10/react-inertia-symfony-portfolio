@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Enum\QuoteBudget;
+use App\Enum\QuoteDeadline;
+use App\Enum\QuoteProjectType;
 use App\Repository\ContactRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,6 +35,16 @@ class Contact
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
+
+    // demande de devis (page création de site) ; vides pour les messages de la page équipe
+    #[ORM\Column(length: 20, nullable: true, enumType: QuoteProjectType::class)]
+    private ?QuoteProjectType $projectType = null;
+
+    #[ORM\Column(length: 20, nullable: true, enumType: QuoteBudget::class)]
+    private ?QuoteBudget $budget = null;
+
+    #[ORM\Column(length: 20, nullable: true, enumType: QuoteDeadline::class)]
+    private ?QuoteDeadline $deadline = null;
 
     public function getId(): ?int
     {
@@ -82,6 +95,42 @@ class Contact
     public function setDate(\DateTimeInterface $date): static
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getProjectType(): ?QuoteProjectType
+    {
+        return $this->projectType;
+    }
+
+    public function setProjectType(?QuoteProjectType $projectType): static
+    {
+        $this->projectType = $projectType;
+
+        return $this;
+    }
+
+    public function getBudget(): ?QuoteBudget
+    {
+        return $this->budget;
+    }
+
+    public function setBudget(?QuoteBudget $budget): static
+    {
+        $this->budget = $budget;
+
+        return $this;
+    }
+
+    public function getDeadline(): ?QuoteDeadline
+    {
+        return $this->deadline;
+    }
+
+    public function setDeadline(?QuoteDeadline $deadline): static
+    {
+        $this->deadline = $deadline;
 
         return $this;
     }

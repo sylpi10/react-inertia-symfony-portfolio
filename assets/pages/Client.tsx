@@ -5,6 +5,8 @@ import Parcours from "../components/sections/Parcours";
 import Projects from "../components/sections/Projects";
 import Services from "../components/sections/Services";
 import Contact from "../components/sections/Contact";
+import Pricing from "../components/sections/Pricing";
+import Process from "../components/sections/Process";
 import { ProjectProps } from "../types/projects";
 import { ExperienceProps } from "../types/experiences";
 import { OfferProps } from "../types/offers";
@@ -57,6 +59,12 @@ export default function Client({ projects, offers, experiences }: ClientProps) {
                 <section id="parcours">
                     <Parcours experiences={experiences} audience="client" />
                 </section>
+            </section>
+            <section id="tarifs">
+                <Pricing />
+            </section>
+            <section id="deroule">
+                <Process />
             </section>
             <section id="contact">
                 <Contact audience="client" />
