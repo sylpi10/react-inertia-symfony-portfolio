@@ -1,0 +1,38 @@
+// mêmes rôles que le thème clair (variables.scss), autres valeurs
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    --bg: #0c1423;
+    --bg-alt: #101b2f;
+    --surface: #15223a;
+    --surface-muted: #1b2b47;
+    --strong: #22365a;
+    --header-bg: #070d18;
+    --header-bg-alt: #0e1a30;
+
+    --heading: #fdc57f;
+    --text-strong: #f4eee6;
+    --text: #c9d1de;
+    --text-muted: #92a0b6;
+    --on-strong: #f4eee6;
+
+    --accent: #fdc57f;
+    --accent-text: #fdc57f;
+    --accent-soft: #3a2e22;
+    --blob: color-mix(in srgb, #fdc57f 7%, transparent);
+    --on-accent: #0c1423;
+
+    --button-bg: #fdc57f;
+    --button-text: #0c1423;
+    --button-hover-bg: #ffe1bb;
+    --button-hover-text: #0c1423;
+
+    --border: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.22);
+    --shadow: rgba(0, 0, 0, 0.3);
+    --shadow-strong: rgba(0, 0, 0, 0.55);
+    --overlay: rgba(4, 8, 16, 0.7);
+    --device-frame: #2c3a52;
+    --success: #74d68a;
+    --danger: #ff7b7b;
+}

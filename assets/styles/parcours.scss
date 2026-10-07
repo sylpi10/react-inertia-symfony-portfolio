@@ -24,7 +24,7 @@
                     border-top: 3px solid;
                     border-image: linear-gradient(
                         to right,
-                        $main_color 0%,
+                        var(--text-strong) 0%,
                         #8398cc 100%
                     );
                     border-image-slice: 1;
@@ -39,11 +39,7 @@
 
                     .description {
                         margin-bottom: 8px;
-                        background-color: color-mix(
-                            in srgb,
-                            var(--third-color) 40%,
-                            #fff
-                        );
+                        background-color: var(--surface-muted);
                         width: fit-content;
                         padding-bottom: 1px;
                         .tasks {
@@ -70,7 +66,7 @@
                         border-top: 1px solid
                             color-mix(
                                 in srgb,
-                                var(--second-color) 28%,
+                                var(--accent) 28%,
                                 transparent
                             );
                         padding-top: 16px;
@@ -90,14 +86,14 @@
                             align-items: center;
                             height: fit-content;
                             font-weight: bold;
-                            background-color: $main_color;
-                            color: var(--third-color);
+                            background-color: var(--button-bg);
+                            color: var(--button-text);
                             padding: 8px 16px;
                             border-radius: 8px;
                             transition: all ease 0.4s;
                             &:hover {
-                                background-color: var(--second-color);
-                                color: $main_color;
+                                background-color: var(--button-hover-bg);
+                                color: var(--button-hover-text);
                                 padding: 8px 20px;
                             }
                         }
@@ -105,8 +101,8 @@
 
                     .date {
                         position: absolute;
-                        background-color: $main_color;
-                        color: var(--second-color);
+                        background-color: var(--strong);
+                        color: var(--accent);
                         line-height: 1.25em;
                         top: 18px;
                         border-radius: 2px;
@@ -118,8 +114,8 @@
                             border-top: 15px solid transparent;
                             border-bottom: 14px solid transparent;
                             height: 20px;
-                            background-color: #fff;
-                            color: $main_color;
+                            background-color: var(--bg);
+                            color: var(--strong);
                             top: 0;
                         }
                     }
@@ -267,20 +263,20 @@
         min-width: 130px;
         justify-content: center;
         gap: 0 0.2rem;
-        color: #e2e8f0;
+        color: var(--on-strong);
         font-size: 0.9rem;
-        background-color: $main_color;
+        background-color: var(--strong);
         border-radius: 0.4rem;
         padding: 0.7rem 1rem;
         margin-right: 1rem; // Must used margin-right instead of gap for the loop to be smooth
         box-shadow:
-            0 0.1rem 0.2rem rgb(0 0 0 / 20%),
-            0 0.1rem 0.5rem rgb(0 0 0 / 30%),
-            0 0.2rem 1.5rem rgb(0 0 0 / 40%);
+            0 0.1rem 0.2rem var(--shadow),
+            0 0.1rem 0.5rem var(--shadow),
+            0 0.2rem 1.5rem var(--shadow-strong);
 
         span {
             font-size: 1.2rem;
-            color: #64748b;
+            color: var(--text-muted);
         }
     }
 
@@ -288,10 +284,10 @@
         pointer-events: none;
         background: linear-gradient(
             90deg,
-            $main_color,
+            var(--bg),
             transparent 10%,
             transparent 20%,
-            $main_color
+            var(--bg)
         );
         position: absolute;
         inset: 0;

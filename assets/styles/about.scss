@@ -83,10 +83,10 @@
                     z-index: 12;
                     li {
                         font-size: 1.4rem;
-                        color: $main_color;
+                        color: var(--text-strong);
                         min-height: 40px;
-                        border: solid 1px rgba(100, 41, 112, 0.06);
-                        background-color: #fff;
+                        border: solid 1px var(--border);
+                        background-color: var(--surface);
                         position: relative;
                         right: 0;
                         display: flex;
@@ -117,7 +117,7 @@
                         &:nth-child(even) {
                             &:after {
                                 transform: skew(8deg) rotate(3deg);
-                                box-shadow: 1px 8px 18px rgba(54, 1, 63, 0.8);
+                                box-shadow: 1px 8px 18px rgba(12, 20, 35, 0.8);
                                 right: 10px;
                                 bottom: 12px;
                                 width: 50%;
@@ -132,7 +132,7 @@
         }
         .text-container {
             position: relative;
-            background-color: var(--light-bg);
+            background-color: var(--bg-alt);
             span.info {
                 position: absolute;
                 background: url("../static/images/paint.webp") no-repeat center;
@@ -142,7 +142,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: var(--second-color);
+                color: var(--accent);
                 font-weight: bold;
                 transition:
                     top 0.2s ease-out,
@@ -205,7 +205,7 @@
         position: absolute;
         width: 500px;
         height: 540px;
-        background: color-mix(in srgb, var(--second-color) 30%, transparent);
+        background: var(--blob);
         border-radius: 60% 40% 50% 70%/60% 30% 70% 40%;
         right: -27px;
         top: -3%;

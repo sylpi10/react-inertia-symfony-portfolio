@@ -2,6 +2,8 @@ import { Link, usePage } from "@inertiajs/react";
 import logo from "../static/images/logo.webp";
 import { useState, useRef, ReactNode } from "react";
 import { Audience } from "../types/audience";
+import ThemeSwitcher from "../components/ui/ThemeSwitcher";
+import { ThemeProvider } from "../contexts/ThemeContexts";
 
 const CLIENT_PATH = "/creation-site-web";
 
@@ -42,7 +44,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     };
 
     return (
-        <>
+        <ThemeProvider>
             <header className="header" ref={headerRef}>
                 <nav
                     className={`navbar ${isHomePage ? "default-menu-class" : ""} ${isMobileOpen ? "mobile-nav" : ""}`}
@@ -81,6 +83,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                         ))}
                     </ul>
 
+                    <ThemeSwitcher />
+
                     <span
                         className={`burger ${isMobileOpen ? "open" : ""}`}
                         onClick={() => setIsMobileOpen((prev) => !prev)}
@@ -93,6 +97,6 @@ export default function Layout({ children }: { children: ReactNode }) {
             </header>
 
             <main>{children}</main>
-        </>
+        </ThemeProvider>
     );
 }

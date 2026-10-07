@@ -1,17 +1,48 @@
-:root {
-    // --light-bg: rgb(253, 251, 236);
-    --light-bg: #fff7ed;
-    --white-bg: #fcfcfc;
-    --main-color: #0c1423;
-    --second-color: #fdc57f;
-    // --third-color: #fff2e0;
-    --third-color: #fff7ed;
-    --fourth-color: #ffefdc;
-}
+// thème clair, appliqué par défaut. Les variables portent un rôle, pas une
+// couleur : chaque thème (themes/_dark.scss…) redonne une valeur à chacune
+:root,
+[data-theme="light"] {
+    color-scheme: light;
 
-//$main_color: #642970;
-$main_color: #0c1423;
-$light-background: rgb(253, 251, 236);
+    // fonds
+    --bg: #ffffff; // fond de page
+    --bg-alt: #fff7ed; // sections alternées (hero, projets, tarifs, contact)
+    --surface: #ffffff; // cartes, formulaires
+    --surface-muted: #fff7ed; // bloc secondaire dans une carte
+    --strong: #0c1423; // en-têtes de cartes, étiquettes
+    --header-bg: #0c1423; // navigation et footer
+    --header-bg-alt: #0e203f; // fin du dégradé du menu mobile
+
+    // textes
+    --heading: #0c1423; // titres de section
+    --text-strong: #0c1423; // titres de cartes, prix, liens
+    --text: #333333; // texte courant
+    --text-muted: #555555;
+    --on-strong: #ffffff; // texte sur --strong et --header-bg
+
+    // accent
+    --accent: #fdc57f;
+    --accent-text: #b4610f; // accent lisible sur fond clair
+    --accent-soft: #ffefdc; // pastilles, fonds au survol
+    --blob: color-mix(in srgb, #fdc57f 30%, transparent); // formes décoratives
+    --on-accent: #0c1423; // texte sur --accent
+
+    // boutons pleins
+    --button-bg: #0c1423;
+    --button-text: #fdc57f;
+    --button-hover-bg: #fdc57f;
+    --button-hover-text: #0c1423;
+
+    // lignes, ombres, états
+    --border: rgba(12, 20, 35, 0.12);
+    --border-strong: rgba(12, 20, 35, 0.25);
+    --shadow: rgba(12, 20, 35, 0.08);
+    --shadow-strong: rgba(12, 20, 35, 0.25);
+    --overlay: rgba(12, 20, 35, 0.6); // voile sur les images au survol
+    --device-frame: #222222; // cadre des maquettes ordinateur / mobile
+    --success: #276c27;
+    --danger: #d32f2f;
+}
 
 // pastille de techno : contour fin, point jaune en rappel de la charte,
 // remplie au survol (timeline du parcours, page détail d'un projet)
@@ -20,10 +51,10 @@ $light-background: rgb(253, 251, 236);
     align-items: center;
     gap: 6px;
     padding: 5px 12px;
-    border: 1px solid rgba($main_color, 0.18);
+    border: 1px solid var(--border-strong);
     border-radius: 999px;
-    background-color: #fff;
-    color: $main_color;
+    background-color: var(--surface);
+    color: var(--text-strong);
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -38,13 +69,13 @@ $light-background: rgb(253, 251, 236);
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background-color: var(--second-color);
+        background-color: var(--accent);
         box-shadow: 0 0 0 2px
-            color-mix(in srgb, var(--second-color) 25%, transparent);
+            color-mix(in srgb, var(--accent) 25%, transparent);
     }
     &:hover {
-        background-color: var(--third-color);
-        border-color: var(--second-color);
+        background-color: var(--accent-soft);
+        border-color: var(--accent);
         transform: translateY(-1px);
     }
 }

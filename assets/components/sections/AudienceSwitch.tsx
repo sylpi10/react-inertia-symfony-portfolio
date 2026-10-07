@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 import { Audience } from "../../types/audience";
+import CheckIcon from "../ui/CheckIcon";
 
 type SwitcherProps = {
     audience: Audience;
@@ -34,6 +35,7 @@ export function AudienceSwitch({ audience }: SwitcherProps) {
                     }
                 >
                     {link.label}
+                    <CheckIcon />
                 </Link>
             ))}
         </nav>

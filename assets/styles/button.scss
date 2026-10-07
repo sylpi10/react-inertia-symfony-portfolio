@@ -4,28 +4,14 @@
     position: relative;
     min-width: 100px;
     display: flex;
-    background-color: $main_color;
-    border: solid 1px $main_color;
+    background-color: var(--button-bg);
+    border: solid 1px var(--button-bg);
     border-radius: 4px;
     &:hover {
-        background-color: var(--second-color);
+        background-color: var(--button-hover-bg);
         .see-more {
             gap: 14px;
-            color: $main_color;
-            svg {
-                &.weblink-icon {
-                    stroke: $main_color;
-                }
-                &.plus-icon,
-                &.github-icon2 {
-                    fill: $main_color;
-                }
-                &.github-icon {
-                    g {
-                        fill: $main_color;
-                    }
-                }
-            }
+            color: var(--button-hover-text);
         }
     }
     .see-more {
@@ -33,7 +19,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: var(--second-color);
+        color: var(--button-text);
         gap: 4px;
         padding: 6px 8px;
         transition: gap ease 0.4s;
@@ -48,7 +34,7 @@
             justify-content: center;
             align-items: center;
             span {
-                background-color: rgba(12, 20, 35, 0.64);
+                background-color: var(--overlay);
                 margin: 0;
                 display: flex;
                 width: 83%;

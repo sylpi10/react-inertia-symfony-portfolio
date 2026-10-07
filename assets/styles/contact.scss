@@ -2,7 +2,7 @@
 
 #contact {
     // background: linear-gradient(-203deg, #fbf4b4, #f7f1b5);
-    background-color: var(--light-bg);
+    background-color: var(--bg-alt);
 }
 .section-container {
     .contact-wrapper {
@@ -16,7 +16,7 @@
         .contact-form {
             width: 74%;
             margin: auto;
-            background-color: #fff;
+            background-color: var(--surface);
             border-radius: 12px;
             padding: 80px;
             @media screen and (max-width: 768px) {
@@ -36,13 +36,13 @@
                     text-align: center;
                     font-weight: bold;
                     &.loading {
-                        color: $main_color;
+                        color: var(--text-strong);
                     }
                     &.alert-success {
-                        color: #276c27;
+                        color: var(--success);
                     }
                     &.alert-error {
-                        color: #ff4444;
+                        color: var(--danger);
                     }
                 }
             }
@@ -60,12 +60,14 @@
                 textarea {
                     width: 100%;
                     border: none;
-                    border-bottom: solid 1px $main_color;
+                    border-bottom: solid 1px var(--text-muted);
+                    background-color: transparent;
+                    color: var(--text-strong);
                     padding: 20px;
                     &:focus,
                     &:active {
                         outline: none;
-                        border: solid 1px var(--second-color);
+                        border: solid 1px var(--accent);
                         border-radius: 6px;
                     }
                 }
@@ -75,7 +77,7 @@
                         position: absolute;
                         top: 1rem;
                         left: 0.5rem;
-                        color: rgba(12, 20, 35, 0.7);
+                        color: var(--text-muted);
                         font-size: 0.9rem;
                         pointer-events: none;
                         transition: all 0.2s ease-out;
@@ -87,9 +89,9 @@
                         top: -0.5rem;
                         left: 0.4rem;
                         font-size: 0.75rem;
-                        background: white;
+                        background: var(--surface);
                         padding: 0 8px;
-                        color: $main_color;
+                        color: var(--text-strong);
                     }
                 }
                 #website {
@@ -111,19 +113,19 @@
                     gap: 6px;
                     label {
                         font-size: 0.75rem;
-                        color: $main_color;
+                        color: var(--text-strong);
                     }
                     select {
                         height: 40px;
                         padding: 0 12px;
                         border: none;
-                        border-bottom: solid 1px $main_color;
-                        background-color: #fff;
+                        border-bottom: solid 1px var(--text-muted);
+                        background-color: var(--surface);
                         font: inherit;
-                        color: $main_color;
+                        color: var(--text-strong);
                         &:focus {
                             outline: none;
-                            border: solid 1px var(--second-color);
+                            border: solid 1px var(--accent);
                             border-radius: 6px;
                         }
                     }
@@ -147,7 +149,7 @@
                 }
 
                 .form-error {
-                    color: #f44;
+                    color: var(--danger);
                     font-size: 0.9rem;
                 }
             }

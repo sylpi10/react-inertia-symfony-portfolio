@@ -1,0 +1,45 @@
+// sélecteur de thème dans la navigation : pastilles, le thème actif rempli
+.theme-switcher {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    ul {
+        display: flex;
+        flex: none;
+        gap: 2px;
+        margin: 0;
+        padding: 3px;
+        border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+        border-radius: 999px;
+        li {
+            display: flex;
+            margin: 0;
+        }
+    }
+    button {
+        padding: 4px 12px;
+        border: 0;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--accent);
+        font-family: "quicksand", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease;
+        &:hover,
+        &:focus-visible {
+            background-color: color-mix(in srgb, var(--accent) 15%, transparent);
+        }
+        &[aria-pressed="true"] {
+            background-color: var(--accent);
+            color: var(--on-accent);
+        }
+    }
+    @media screen and (max-width: 768px) {
+        margin: 12px 0 0 auto;
+        align-items: flex-start;
+    }
+}

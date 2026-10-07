@@ -33,14 +33,14 @@
         .computer-container {
             position: relative;
             //margin-bottom: 80px;
-            border: solid 26px #222;
+            border: solid 26px var(--device-frame);
             border-radius: 30px;
-            scrollbar-color: $main_color #fff;
+            scrollbar-color: var(--strong) var(--surface);
             scrollbar-width: thin;
             overflow: hidden;
             height: fit-content;
             @media screen and (max-width: 768px) {
-                border: solid 16px #222;
+                border: solid 16px var(--device-frame);
             }
             .computer-img-container {
                 height: 700px;
@@ -74,17 +74,17 @@
         }
         .mobile-container {
             position: relative;
-            border: solid 14px #222;
+            border: solid 14px var(--device-frame);
             border-radius: 20px;
             overflow: hidden;
             @media screen and (max-width: 768px) {
-                border: solid 12px #222;
+                border: solid 12px var(--device-frame);
             }
             .mobile-img-container {
                 height: 700px;
                 overflow-x: hidden;
                 overflow-y: scroll;
-                scrollbar-color: $main_color #fff;
+                scrollbar-color: var(--strong) var(--surface);
                 scrollbar-width: thin;
             }
             img.project-image {

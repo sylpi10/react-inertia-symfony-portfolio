@@ -4,7 +4,7 @@
     //--text: #2B3044;
     //--line: #BBC1E1;
     // --line-active: #e4d00a;
-    --line-active: var(--second-color);
+    --line-active: var(--accent);
 }
 
 header {
@@ -15,7 +15,7 @@ header {
     width: 100%;
     padding: 0;
     &.sticky {
-        background-color: $main_color;
+        background-color: var(--header-bg);
         height: 62px;
         overflow: visible;
         li.brand {
@@ -24,12 +24,12 @@ header {
         ul li {
             a,
             a:visited {
-                color: var(--second-color);
+                color: var(--accent);
             }
         }
     }
     nav {
-        background-color: $main_color;
+        background-color: var(--header-bg);
         display: flex;
         position: relative;
         //align-items: center;
@@ -54,7 +54,7 @@ header {
                 padding-left: 0;
                 a,
                 a:visited {
-                    color: var(--second-color);
+                    color: var(--accent);
                     text-decoration: none;
                     margin: 0 var(--spacing, 0px);
                     transition: margin 0.25s;
@@ -99,24 +99,24 @@ header {
                 margin: 0;
             }
         }
-        &.default-menu-class {
-            ul li a,
-            a:visited {
-                color: var(--second-color);
-            }
-            li:last-of-type {
-                @media screen and (min-width: 768px) {
-                    background-color: $main_color;
-                    padding: 4px 8px;
-                    border-top-right-radius: 20px;
-                    border-bottom-left-radius: 20px;
-                }
-            }
-        }
+        // &.default-menu-class {
+        // ul li a,
+        // a:visited {
+        //     color: var(--accent);
+        // }
+        // li:last-of-type {
+        //     @media screen and (min-width: 768px) {
+        //         background-color: $main_color;
+        //         padding: 4px 8px;
+        //         border-top-right-radius: 20px;
+        //         border-bottom-left-radius: 20px;
+        //     }
+        // }
+        // }
     }
     // mobile
     @media screen and (max-width: 768px) {
-        background-color: $main_color;
+        background-color: var(--header-bg);
         height: 62px;
         nav {
             position: relative;
@@ -139,7 +139,7 @@ header {
                 span {
                     display: block;
                     height: 2px;
-                    background: #fff;
+                    background: var(--on-strong);
                     border-radius: 2px;
                     transition: all 0.3s ease;
                 }
@@ -147,14 +147,14 @@ header {
                 &.open {
                     span:nth-child(1) {
                         transform: translateY(14.5px) rotate(45deg);
-                        background: var(--second-color);
+                        background: var(--accent);
                     }
                     span:nth-child(2) {
                         opacity: 0;
                     }
                     span:nth-child(3) {
                         transform: translateY(-14.5px) rotate(-45deg);
-                        background: var(--second-color);
+                        background: var(--accent);
                     }
                 }
             }
@@ -162,7 +162,11 @@ header {
                 display: flex;
                 overflow: visible;
                 position: absolute;
-                background: linear-gradient(128deg, $main_color 65%, #0e203f);
+                background: linear-gradient(
+                    128deg,
+                    var(--header-bg) 65%,
+                    var(--header-bg-alt)
+                );
                 top: 0;
                 left: 0;
                 right: 0;
@@ -186,17 +190,22 @@ header {
                         flex: 1;
                         justify-content: center;
                         align-items: center;
-                        border-bottom: solid 1px color-mix(in srgb, var(--second-color) 40%, transparent);
+                        border-bottom: solid 1px
+                            color-mix(in srgb, var(--accent) 40%, transparent);
 
                         a,
                         a:visited {
-                            color: var(--second-color) !important;
+                            color: var(--accent) !important;
                             font-size: 2rem;
                             svg {
                                 display: none;
                             }
                         }
                     }
+                }
+
+                .theme-switcher {
+                    display: none;
                 }
             }
         }

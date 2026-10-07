@@ -11,7 +11,7 @@
         text-align: center;
         font-size: 1.1rem;
         line-height: 1.6;
-        color: #333;
+        color: var(--text);
     }
 
     .services-list {
@@ -31,10 +31,10 @@
         flex-direction: column;
         gap: 12px;
         padding: 0;
-        border: 1px solid rgba($main_color, 0.12);
+        border: 1px solid var(--border);
         overflow: hidden;
         border-radius: 12px;
-        background-color: #fff;
+        background-color: var(--surface);
         transition:
             border-color 0.25s ease,
             box-shadow 0.25s ease,
@@ -48,14 +48,14 @@
             right: 12px;
             height: 3px;
             border-radius: 0 0 3px 3px;
-            background-color: var(--second-color);
+            background-color: var(--accent);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
         }
         &:hover {
-            border-color: rgba($main_color, 0.25);
-            box-shadow: 0 12px 30px rgba($main_color, 0.08);
+            border-color: var(--border-strong);
+            box-shadow: 0 12px 30px var(--shadow);
             transform: translateY(-2px);
             &::before {
                 transform: scaleX(1);
@@ -63,7 +63,7 @@
         }
 
         .service-title {
-            background-color: $main_color;
+            background-color: var(--strong);
             display: flex;
             gap: 14px;
             padding: 6px 12px;
@@ -71,19 +71,19 @@
                 font-family: effortless, serif;
                 font-size: 1.6rem;
                 line-height: 1;
-                color: var(--second-color);
+                color: var(--accent);
             }
 
             h3 {
                 margin: 0;
                 font-size: 1.25rem;
-                color: #fff;
+                color: var(--on-strong);
             }
         }
         .service-body {
             padding: 14px 20px 20px;
             .service-description {
-                color: #333;
+                color: var(--text);
                 line-height: 1.6;
                 p {
                     margin: 0;
@@ -99,19 +99,20 @@
                 padding-top: 8px;
                 font-size: 0.9rem;
                 .label {
-                    color: #555;
+                    color: var(--text-muted);
                 }
                 a {
                     padding: 3px 10px;
                     border-radius: 999px;
-                    background-color: var(--third-color);
-                    color: $main_color;
+                    background-color: var(--accent-soft);
+                    color: var(--text-strong);
                     font-weight: 600;
                     text-decoration: none;
                     transition: background-color 0.2s ease;
                     &:hover,
                     &:focus-visible {
-                        background-color: var(--second-color);
+                        background-color: var(--accent);
+                        color: var(--on-accent);
                     }
                 }
             }

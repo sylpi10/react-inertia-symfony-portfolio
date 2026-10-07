@@ -1,13 +1,13 @@
 @use "variables" as *;
 
 footer {
-    background-color: $main_color;
+    background-color: var(--header-bg);
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    color: var(--second-color);
+    color: var(--accent);
     z-index: 16;
     .footer-container {
         display: flex;
@@ -24,13 +24,13 @@ footer {
             }
             .text {
                 h4 {
-                    color: #fff;
+                    color: var(--on-strong);
                 }
                 a {
-                    color: #fff;
+                    color: var(--on-strong);
                     text-decoration: none;
                     &:hover {
-                        color: var(--second-color);
+                        color: var(--accent);
                     }
                 }
             }
@@ -42,7 +42,7 @@ footer {
             gap: 12px;
             a {
                 svg {
-                    fill: #fff;
+                    fill: var(--on-strong);
                     transition: all ease 0.3s;
                 }
                 &:hover {
@@ -51,7 +51,7 @@ footer {
                         rgba(17, 17, 26, 0.1) 0px 8px 24px,
                         rgba(17, 17, 26, 0.1) 0px 16px 48px;
                     & svg {
-                        fill: var(--second-color);
+                        fill: var(--accent);
                         transform: scale(1.07);
                     }
                 }
@@ -59,7 +59,7 @@ footer {
         }
     }
     .copyright {
-        border-top: solid 1px color-mix(in srgb, var(--second-color) 40%, transparent);
+        border-top: solid 1px color-mix(in srgb, var(--accent) 40%, transparent);
         width: 80%;
         margin: auto;
         display: flex;

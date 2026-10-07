@@ -16,6 +16,10 @@
 @use "legal";
 @use "error";
 
+// après variables : même spécificité que :root, c'est l'ordre qui tranche
+@use "themes/dark";
+@use "themes/theme_switcher";
+
 @font-face {
     font-family: "montserrat";
     src: url("../static/fonts/Montserrat-Regular.woff2") format("woff2");
@@ -66,6 +70,8 @@ html {
 }
 body {
     font-family: "montserrat", serif;
+    background-color: var(--bg);
+    color: var(--text);
 }
 *,
 *:before,
@@ -83,7 +89,7 @@ a {
 }
 main h1,
 main .section-title {
-    color: $main_color;
+    color: var(--heading);
     font-family: effortless, serif;
     font-size: 2.2rem;
     text-transform: capitalize;
@@ -114,11 +120,11 @@ img {
     border: 0;
 }
 
-// couleur par défaut des icônes, surchargée au survol des boutons (button.scss)
+// les icônes prennent la couleur du texte qui les entoure (bouton, lien)
 .weblink-icon {
-    stroke: var(--second-color);
+    stroke: currentColor;
 }
 .plus-icon,
 .github-icon g {
-    fill: var(--second-color);
+    fill: currentColor;
 }
