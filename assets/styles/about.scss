@@ -199,6 +199,61 @@
                 }
                 margin: auto;
             }
+            .diplomas {
+                display: grid;
+                svg.graduation {
+                    fill: var(--heading);
+                }
+                ul {
+                    list-style-type: none;
+                    padding-left: 0;
+                    margin-left: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 14px;
+                    font-weight: bold;
+                    li {
+                        .infos {
+                            width: 100%;
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            gap: 10px;
+                        }
+                        span.date {
+                            @include tech-pill;
+                        }
+                        span.title {
+                            font-style: italic;
+                            white-space: nowrap;
+                        }
+                        p {
+                            width: fit-content;
+                            margin-left: 80px;
+                            box-shadow: 0 4px 8px var(--shadow);
+                            border: solid 1px var(--border);
+                            padding: 8px 16px;
+                            border-radius: 30px;
+                        }
+                    }
+                }
+                @media screen and (max-width: 768px) {
+                    svg.graduation {
+                        margin: auto;
+                    }
+                    ul li {
+                        .infos {
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        p {
+                            margin: 16px auto;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
         }
     }
     .round {
