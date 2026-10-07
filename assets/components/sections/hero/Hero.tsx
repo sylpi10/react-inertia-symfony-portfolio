@@ -1,10 +1,9 @@
-import profilPic from "../../static/images/avatar.webp";
-import shape from "../../static/images/shape.webp";
-// import cv from "../../static/documents/CV_Sylvain_Pillet_fullstack_2026.pdf";
-// import { Link } from "@inertiajs/react";
+import profilPic from "../../../static/images/avatar.webp";
+import shape from "../../../static/images/shape.webp";
 import { ReactNode, useEffect, useState } from "react";
-import { Audience } from "../../types/audience";
+import { Audience } from "../../../types/audience";
 import { AudienceSwitch } from "./AudienceSwitch";
+import ArrowUpIcon from "../../ui/ArrowUpIcon";
 
 type HeroProps = {
     audience: Audience;
@@ -139,22 +138,7 @@ export default function Hero({
 
             {hasScrolledPast && (
                 <a href={"#home"} className="back-to-top">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-arrow-up-from-dot-icon lucide-arrow-up-from-dot"
-                    >
-                        <path d="m5 9 7-7 7 7" />
-                        <path d="M12 16V2" />
-                        <circle cx="12" cy="21" r="1" />
-                    </svg>
+                    <ArrowUpIcon />
                 </a>
             )}
         </>

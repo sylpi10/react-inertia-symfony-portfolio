@@ -1,9 +1,9 @@
-import ProjectCard from "../projects/ProjectCard";
-import { ProjectProps } from "../../types/projects";
-import { Audience } from "../../types/audience";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import ProjectCard from "./ProjectCard";
+import { ProjectProps } from "../../../types/projects";
+import { Audience } from "../../../types/audience";
+import useMediaQuery from "../../../hooks/useMediaQuery";
 import { useState } from "react";
-import PlusIcon from "../ui/PlusIcon";
+import PlusIcon from "../../ui/PlusIcon";
 
 export default function Projects({
     projects,

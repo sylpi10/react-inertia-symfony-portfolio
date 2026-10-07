@@ -1,10 +1,10 @@
 import { Link } from "@inertiajs/react";
-import { ProjectProps } from "../../types/projects";
-import { projectImageUrl } from "../../lib/images";
-import { projectPath } from "../../lib/paths";
-import { Audience } from "../../types/audience";
-import PlusIcon from "../ui/PlusIcon";
-import WebIcon from "../ui/WebIcon";
+import { ProjectProps } from "../../../types/projects";
+import { projectImageUrl } from "../../../lib/images";
+import { projectPath } from "../../../lib/paths";
+import { Audience } from "../../../types/audience";
+import PlusIcon from "../../ui/PlusIcon";
+import WebIcon from "../../ui/WebIcon";
 
 // carte d'un projet dans la liste des pages d'accueil (équipe et création de site)
 export default function ProjectCard({

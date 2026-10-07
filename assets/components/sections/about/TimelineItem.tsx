@@ -1,47 +1,9 @@
 import { Link } from "@inertiajs/react";
-import { ExperienceProps } from "../../types/experiences";
-import { Audience } from "../../types/audience";
-import { projectPath } from "../../lib/paths";
+import { ExperienceProps } from "../../../types/experiences";
+import { Audience } from "../../../types/audience";
+import { projectPath } from "../../../lib/paths";
 
-export default function Parcours({
-    experiences,
-    audience,
-}: {
-    experiences: ExperienceProps[];
-    audience: Audience;
-}) {
-    return (
-        <div className="section-container parcours-container">
-            <div className="parcours-wrapper">
-                <div className="title">
-                    <h2 className={"section-title"}>Mon parcours</h2>
-                </div>
-
-                <div className="timeline">
-                    <ul>
-                        {experiences.map((experience) => (
-                            <TimelineItem
-                                key={experience.id}
-                                experience={experience}
-                                audience={audience}
-                            />
-                        ))}
-                    </ul>
-                </div>
-            </div>
-            {/*<div className="toolkit-wrapper">*/}
-            {/*    <div className="toolkit">*/}
-            {/*        <span>Toolkit</span>*/}
-            {/*    </div>*/}
-            {/*    <div className="tag-list" id="tagList">*/}
-            {/*        <div className="fade"></div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-        </div>
-    );
-}
-
-function TimelineItem({
+export default function TimelineItem({
     experience,
     audience,
 }: {

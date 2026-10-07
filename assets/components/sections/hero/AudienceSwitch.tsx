@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
-import { Audience } from "../../types/audience";
-import CheckIcon from "../ui/CheckIcon";
+import { Audience } from "../../../types/audience";
+import CheckIcon from "../../ui/CheckIcon";
 
 type SwitcherProps = {
     audience: Audience;

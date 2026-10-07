@@ -1,10 +1,10 @@
-import About from "../components/sections/About";
-import Contact from "../components/sections/Contact";
+import About from "../components/sections/about/About";
+import Contact from "../components/sections/contact/Contact";
 import Footer from "../components/sections/Footer";
-import Hero from "../components/sections/Hero";
-import Parcours from "../components/sections/Parcours";
-import Projects from "../components/sections/Projects";
-import TeamSkills from "../components/sections/TeamSkills";
+import Hero from "../components/sections/hero/Hero";
+import Parcours from "../components/sections/parcours/Parcours";
+import Projects from "../components/sections/projects/Projects";
+import TeamSkills from "../components/sections/skills/TeamSkills";
 import { ExperienceProps } from "../types/experiences";
 import { ProjectProps } from "../types/projects";
 

@@ -1,10 +1,10 @@
-import useGetAge from "../../hooks/useGetAge";
-import me from "../../static/images/me.webp";
-import { Audience } from "../../types/audience";
-import AboutClientSteps from "./about/AboutClientSteps";
-import AboutClientText from "./about/AboutClientText";
-import AboutTeamSteps from "./about/AboutTeamSteps";
-import AboutTeamText from "./about/AboutTeamText";
+import useGetAge from "../../../hooks/useGetAge";
+import me from "../../../static/images/me.webp";
+import { Audience } from "../../../types/audience";
+import AboutClientSteps from "./AboutClientSteps";
+import AboutClientText from "./AboutClientText";
+import AboutTeamSteps from "./AboutTeamSteps";
+import AboutTeamText from "./AboutTeamText";
 
 export default function About({ audience }: { audience: Audience }) {
     const age: number = useGetAge("1990-03-17");

@@ -4,8 +4,8 @@ import { projectImageUrl } from "../lib/images";
 import { projectPath } from "../lib/paths";
 import { Audience } from "../types/audience";
 import NavArrow from "../components/ui/NavArrow";
-import ProjectInfosDetails from "../components/projects/ProjectInfosDetails";
-import Contact from "../components/sections/Contact";
+import ProjectInfosDetails from "../components/sections/projects/ProjectInfosDetails";
+import Contact from "../components/sections/contact/Contact";
 
 export default function ProjectDetails({
     audience,

@@ -1,7 +1,7 @@
-import { Audience } from "../../types/audience";
-import { ProjectProps } from "../../types/projects";
-import GithubIcon from "../ui/GithubIcon";
-import WebIcon from "../ui/WebIcon";
+import { Audience } from "../../../types/audience";
+import { ProjectProps } from "../../../types/projects";
+import GithubIcon from "../../ui/GithubIcon";
+import WebIcon from "../../ui/WebIcon";
 
 // encart de la page détail : technos et liens pour une équipe ; fiche, lien vers le site
 // et appel au contact pour un client
@@ -42,8 +42,7 @@ export default function ProjectInfosDetails({
                 )}
                 {/* l'objectif de la page : passer du projet vu au projet du visiteur */}
                 <p className="contact-cta">
-                    Un projet similaire ?{" "}
-                    <a href="#contact">Parlons-en</a>
+                    Un projet similaire ? <a href="#contact">Parlons-en</a>
                 </p>
             </aside>
         );

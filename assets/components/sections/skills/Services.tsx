@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
-import { OfferProps } from "../../types/offers";
-import { projectPath } from "../../lib/paths";
+import { OfferProps } from "../../../types/offers";
+import { projectPath } from "../../../lib/paths";
 
 /**
  * MODE : AGENCE WEB

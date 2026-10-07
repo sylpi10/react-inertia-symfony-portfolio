@@ -1,24 +1,21 @@
-import About from "../components/sections/About";
+import About from "../components/sections/about/About";
 import Footer from "../components/sections/Footer";
-import Hero from "../components/sections/Hero";
-import Parcours from "../components/sections/Parcours";
-import Projects from "../components/sections/Projects";
-import Services from "../components/sections/Services";
-import Contact from "../components/sections/Contact";
-import Pricing from "../components/sections/Pricing";
-import Process from "../components/sections/Process";
+import Hero from "../components/sections/hero/Hero";
+import Projects from "../components/sections/projects/Projects";
+import Services from "../components/sections/skills/Services";
+import Contact from "../components/sections/contact/Contact";
+import Pricing from "../components/sections/pricing/Pricing";
+import Process from "../components/sections/pricing/Process";
 import { ProjectProps } from "../types/projects";
-import { ExperienceProps } from "../types/experiences";
 import { OfferProps } from "../types/offers";
 
 type ClientProps = {
     projects: ProjectProps[];
     offers: OfferProps[];
-    experiences: ExperienceProps[];
 };
 
 // les id servent d'ancres pour la nav et de racine aux styles (#home, #a-propos...)
-export default function Client({ projects, offers, experiences }: ClientProps) {
+export default function Client({ projects, offers }: ClientProps) {
     return (
         <>
             <section id="home">
@@ -57,9 +54,7 @@ export default function Client({ projects, offers, experiences }: ClientProps) {
             <section id="a-propos">
                 <About audience="client" />
             </section>
-            <section id="parcours">
-                <Parcours experiences={experiences} audience="client" />
-            </section>
+
             <section id="tarifs">
                 <Pricing />
             </section>
