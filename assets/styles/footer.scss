@@ -60,15 +60,18 @@ footer {
     }
     .copyright {
         border-top: solid 1px color-mix(in srgb, var(--accent) 40%, transparent);
-        width: 80%;
         margin: auto;
         display: flex;
-        justify-content: center;
         height: 40px;
         align-items: center;
-        @media screen and (max-width: 440px) {
-            width: 100%;
+        @media screen and (min-width: 560px) {
+            width: 80%;
+            justify-content: center;
+        }
+        @media screen and (max-width: 560px) {
+            width: 96%;
             font-size: 0.8rem;
+            justify-content: space-around;
         }
         span {
             text-align: center;
