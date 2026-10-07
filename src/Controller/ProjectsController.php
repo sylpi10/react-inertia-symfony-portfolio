@@ -48,6 +48,14 @@ class ProjectsController extends AbstractController
             methods: ["GET"],
         ),
     ]
+    #[
+        Route(
+            "/projects/{id}",
+            name: "projects_details_legacy_plural",
+            requirements: ["id" => "\\d+"],
+            methods: ["GET"],
+        ),
+    ]
     public function redirectLegacyProject(
         #[MapEntity(id: "id")] Project $project,
     ): Response {
@@ -104,10 +112,7 @@ class ProjectsController extends AbstractController
         Project $project,
         Audience $audience,
     ): Response {
-        $adjacent = $this->projectRepository->findAdjacent(
-            $project,
-            $audience,
-        );
+        $adjacent = $this->projectRepository->findAdjacent($project, $audience);
 
         return $this->inertia->render("ProjectDetails", [
             "audience" => $audience->value,
