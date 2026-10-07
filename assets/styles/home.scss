@@ -22,16 +22,13 @@
             @media screen and (min-width: 1024px) {
                 width: 80%;
             }
-            @media screen and (max-width: 1024px) {
-                width: 90%;
-            }
             @media screen and (min-width: 768px) {
                 margin: auto;
+                width: 96%;
             }
             @media screen and (max-width: 768px) {
                 flex-direction: column;
                 margin-top: 20px;
-                width: 100%;
             }
             .person {
                 display: flex;
@@ -41,16 +38,13 @@
                 @media screen and (max-width: 768px) {
                     align-items: center;
                 }
-
                 height: fit-content;
-                // max-height: 80%;
                 min-width: 24%;
-                max-width: 50%;
+                max-width: 52%;
                 h1 {
                     @media screen and (min-width: 768px) {
                         font-size: 3.3rem;
-                        // height: 200px;
-                        padding-bottom: 40px;
+                        padding-bottom: 26px;
                         text-align: left;
                     }
                     @media screen and (max-width: 768px) {
@@ -255,7 +249,7 @@
             right: 0;
             bottom: -1px;
             z-index: 2;
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: 1024px) {
                 display: none;
             }
         }
@@ -324,46 +318,6 @@
                     align-items: center;
                     gap: 6px;
                     transition: gap ease 0.4s;
-                }
-            }
-            .project-link {
-                &:hover {
-                    background-color: $main_color;
-                    a {
-                        color: $yellow;
-                    }
-                }
-                a {
-                    position: relative;
-                    color: $main_color;
-                    text-align: center;
-                    cursor: pointer;
-                    svg {
-                        width: 30px;
-                    }
-                }
-            }
-            .cv-link {
-                background-color: $main_color;
-                color: $yellow;
-                align-items: center;
-                &:hover {
-                    background-color: $light-yellow;
-                    a {
-                        color: $main_color;
-                    }
-                    svg path {
-                        stroke: $main_color;
-                    }
-                }
-                a {
-                    color: $yellow;
-                    width: 100%;
-                    @media screen and (max-width: 768px) {
-                        //flex-direction: row;
-                        gap: 12px;
-                        padding: 4px 12px;
-                    }
                 }
             }
         }

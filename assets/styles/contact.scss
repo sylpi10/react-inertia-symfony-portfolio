@@ -101,7 +101,7 @@
                     display: grid;
                     grid-template-columns: repeat(3, 1fr);
                     gap: 20px;
-                    @media screen and (max-width: 900px) {
+                    @media screen and (max-width: 1184px) {
                         grid-template-columns: 1fr;
                     }
                 }

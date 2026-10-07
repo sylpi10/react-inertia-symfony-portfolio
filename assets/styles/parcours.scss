@@ -3,7 +3,7 @@
 .section-container.parcours-container {
     .parcours-wrapper {
         display: flex;
-        margin: 120px auto 40px auto;
+        margin: 60px auto 40px auto;
         justify-content: center;
         position: relative;
         flex-direction: column;
@@ -12,10 +12,6 @@
             justify-content: center;
             gap: 20px;
             align-items: center;
-            //@media screen and (max-width: 768px) {
-            //  flex-direction: column;
-            //  align-items: center;
-            //}
         }
 
         .timeline {
