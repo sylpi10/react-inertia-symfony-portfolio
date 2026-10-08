@@ -75,7 +75,7 @@ export default function ProjectCard({
                             </a>
                         </div>
                     )}
-                    {project.githublink && (
+                    {audience === "team" && project.githublink && (
                         <div className="button-link">
                             <a
                                 href={project.githublink}

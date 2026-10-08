@@ -40,18 +40,18 @@ export default function Projects({
                                         </li>
                                     );
                                 })}
-                                {isCollapsed && projects.length > 4 && (
-                                    <button
-                                        className="btn more-btn"
-                                        type="button"
-                                        onClick={() => setShowAll(true)}
-                                    >
-                                        <PlusIcon />
-                                        Voir {remainingProjects} projets
-                                        supplémentaires
-                                    </button>
-                                )}
                             </ul>
+                            {isCollapsed && projects.length > 4 && (
+                                <button
+                                    className="btn more-btn"
+                                    type="button"
+                                    onClick={() => setShowAll(true)}
+                                >
+                                    <PlusIcon />
+                                    Voir {remainingProjects} projets
+                                    supplémentaires
+                                </button>
+                            )}
                         </div>
                     ) : (
                         <div className={"loading-error"}>
