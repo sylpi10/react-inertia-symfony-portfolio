@@ -17,22 +17,24 @@
         align-items: center;
         gap: 40px;
     }
+    @media screen and (max-width: 768px) {
+        height: fit-content;
+    }
     .computer-images-wrapper {
         z-index: 12;
         width: 70%;
         box-sizing: border-box;
         position: relative;
         display: flex;
-        //height: auto;
         @media screen and (max-width: 1300px) {
             width: 84%;
         }
         @media screen and (max-width: 768px) {
-            width: 90%;
+            width: 96%;
+            height: 300px;
         }
         .computer-container {
             position: relative;
-            //margin-bottom: 80px;
             border: solid 26px var(--device-frame);
             border-radius: 30px;
             scrollbar-color: var(--strong) var(--surface);
@@ -48,6 +50,9 @@
                 overflow-y: scroll;
                 @media screen and (max-width: 1300px) {
                     max-height: 600px;
+                }
+                @media screen and (max-width: 768px) {
+                    max-height: 300px;
                 }
             }
             img.project-image {
@@ -71,6 +76,7 @@
             width: 76%;
             margin: auto;
             right: 0;
+            height: 400px;
         }
         .mobile-container {
             position: relative;
@@ -79,6 +85,7 @@
             overflow: hidden;
             @media screen and (max-width: 768px) {
                 border: solid 12px var(--device-frame);
+                height: 400px;
             }
             .mobile-img-container {
                 height: 700px;
@@ -86,6 +93,9 @@
                 overflow-y: scroll;
                 scrollbar-color: var(--strong) var(--surface);
                 scrollbar-width: thin;
+                @media screen and (max-width: 768px) {
+                    height: 400px;
+                }
             }
             img.project-image {
                 width: 100%;
