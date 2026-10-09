@@ -15,8 +15,7 @@ export default function Footer() {
                         <img
                             src={logo}
                             className="logo"
-                            title="Accueil"
-                            alt="Logo Sylvain Pillet"
+                            alt="Sylvain Pillet, accueil"
                             width="40"
                             height="61"
                         />
@@ -32,12 +31,13 @@ export default function Footer() {
                 <div className="links">
                     <a
                         href="https://www.linkedin.com/in/sylvain-pillet"
-                        title="Profil Linkedin"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="linkedin"
+                        aria-label="Profil LinkedIn (nouvel onglet)"
                     >
                         <svg
+                            aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 50 50"
                             width="50px"
@@ -56,10 +56,12 @@ export default function Footer() {
                     <a
                         href="https://github.com/sylpi10"
                         target="_blank"
-                        title="Répos Github"
+                        rel="noopener noreferrer"
                         className="github"
+                        aria-label="Dépôts GitHub (nouvel onglet)"
                     >
                         <svg
+                            aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 50 50"
                             width="50px"
@@ -77,9 +79,9 @@ export default function Footer() {
                     </a>
                     <a
                         href={cv}
-                        title="Télécharger Mon CV en pdf"
                         className="cv"
                         download
+                        aria-label="Télécharger mon CV (PDF)"
                     >
                         <CvIcon />
                     </a>

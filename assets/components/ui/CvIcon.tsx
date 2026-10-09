@@ -2,6 +2,7 @@ export default function CvIcon() {
     return (
         <svg
             fill="#000000"
+            aria-hidden="true"
             height="50px"
             width="50px"
             version="1.1"

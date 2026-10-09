@@ -30,6 +30,13 @@ header {
     }
     nav {
         background-color: var(--header-bg);
+        // bouton du menu mobile : styles natifs retirés, masqué sur desktop
+        .burger {
+            display: none;
+            padding: 0;
+            border: 0;
+            background: none;
+        }
         display: flex;
         position: relative;
         //align-items: center;

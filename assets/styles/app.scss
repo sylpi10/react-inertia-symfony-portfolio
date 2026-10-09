@@ -85,6 +85,12 @@ ul {
 a {
     text-decoration: none;
 }
+// lien au milieu d'un texte : souligné, pas seulement coloré (accessibilité).
+// Les liens stylés par une classe (boutons, cartes) passent devant.
+p a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
 .section-container {
     position: relative;
 }

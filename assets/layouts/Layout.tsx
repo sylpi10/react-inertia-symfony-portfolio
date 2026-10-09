@@ -54,13 +54,13 @@ export default function Layout({ children }: { children: ReactNode }) {
                             <img
                                 src={logo}
                                 className="logo"
-                                alt="Logo Sylvain Pillet"
+                                alt="Sylvain Pillet, accueil"
                                 width="39"
                                 height="60"
                             />
                         </Link>
                     </span>
-                    <ul className="navlist">
+                    <ul className="navlist" id="main-menu">
                         {links.map((link) => (
                             <li key={link.href}>
                                 <Link
@@ -68,6 +68,10 @@ export default function Layout({ children }: { children: ReactNode }) {
                                     onClick={handleLinkClick}
                                     className={
                                         url === link.href ? "active" : undefined
+                                    }
+                                    // liens vers des sections de la page : "location"
+                                    aria-current={
+                                        url === link.href ? "location" : undefined
                                     }
                                 >
                                     {link.label}
@@ -85,14 +89,19 @@ export default function Layout({ children }: { children: ReactNode }) {
 
                     <ThemeSwitcher />
 
-                    <span
+                    {/* bouton et non span : atteignable au clavier, annoncé comme bouton */}
+                    <button
+                        type="button"
                         className={`burger ${isMobileOpen ? "open" : ""}`}
                         onClick={() => setIsMobileOpen((prev) => !prev)}
+                        aria-label={isMobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                        aria-expanded={isMobileOpen}
+                        aria-controls="main-menu"
                     >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </button>
                 </nav>
             </header>
 
