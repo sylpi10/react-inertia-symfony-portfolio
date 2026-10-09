@@ -44,16 +44,18 @@ final class ReviewSubmissionTest extends KernelTestCase
             $sent = $email;
         });
 
-        $review = $this->submission($em, $mailer)->submit($this->request([3, 7, 3]));
+        $review = $this->submission($em, $mailer)->submit($this->request([3, 7, 3], '  Gérante, La cuisine de Maha '));
 
         self::assertSame($saved, $review);
         self::assertSame('Marie D.', $review->getAuthor());
+        self::assertSame('Gérante, La cuisine de Maha', $review->getAuthorRole());
         self::assertFalse($review->isValidated());
         self::assertNotNull($review->getConsentedAt());
         self::assertSame([$this->maha, $this->ava], $review->getProjects()->toArray());
         self::assertSame($review, $this->maha->getReview());
 
         self::assertSame('Nouvel avis à valider – Marie D. – Maha, Ava', $sent->getSubject());
+        self::assertStringStartsWith('Marie D., Gérante, La cuisine de Maha (Maha, Ava) :', $sent->getTextBody());
         self::assertStringContainsString('Site livré dans les temps', $sent->getTextBody());
         self::assertStringContainsString('http://localhost/admin/review/12/edit', $sent->getTextBody());
     }
@@ -88,6 +90,8 @@ final class ReviewSubmissionTest extends KernelTestCase
         $review = $this->submission($em, $mailer)->submit($this->request([3]));
 
         self::assertSame(12, $review->getId());
+        // poste non renseigné : rien à afficher sous le nom
+        self::assertNull($review->getAuthorRole());
     }
 
     private function submission(EntityManagerInterface $em, MailerInterface $mailer): ReviewSubmission
@@ -111,10 +115,11 @@ final class ReviewSubmissionTest extends KernelTestCase
     /**
      * @param list<int> $projects
      */
-    private function request(array $projects): ReviewRequest
+    private function request(array $projects, string $authorRole = ''): ReviewRequest
     {
         return new ReviewRequest(
             author: 'Marie D.',
+            authorRole: $authorRole,
             text: 'Site livré dans les temps, et je le modifie seule sans difficulté.',
             projects: $projects,
             consent: true,

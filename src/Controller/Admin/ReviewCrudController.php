@@ -28,7 +28,7 @@ class ReviewCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Avis')
             // les plus récents (donc ceux à relire) en haut
             ->setDefaultSort(['createdAt' => 'DESC'])
-            ->setSearchFields(['author', 'text']);
+            ->setSearchFields(['author', 'authorRole', 'text']);
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -40,6 +40,8 @@ class ReviewCrudController extends AbstractCrudController
     {
         yield FormField::addColumn(8);
         yield TextField::new('author', 'Auteur');
+        yield TextField::new('authorRole', 'Poste / entreprise')
+            ->setHelp('Facultatif, affiché sous le nom.');
         yield TextareaField::new('text', 'Avis')
             ->setMaxLength(120);
 

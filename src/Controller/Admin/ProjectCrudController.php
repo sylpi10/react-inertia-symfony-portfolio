@@ -120,6 +120,11 @@ class ProjectCrudController extends AbstractCrudController
             "Du plus petit (affiché en premier) au plus grand. Sert aussi pour précédent/suivant.",
         );
         yield IntegerField::new("position", "Ordre (création de site)");
+        yield BooleanField::new("reviewable", "Ouvert aux avis")
+            ->setHelp(
+                "Décoché : jamais proposé dans le formulaire d'avis (projets persos).",
+            )
+            ->hideOnIndex();
         // côté inverse de la relation : by_reference=false pour passer par
         // addExperience()/removeExperience(), qui mettent à jour Experience
         yield AssociationField::new("experiences", "Étapes du parcours")

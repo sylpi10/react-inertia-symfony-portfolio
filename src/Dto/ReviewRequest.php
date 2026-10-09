@@ -21,6 +21,14 @@ final readonly class ReviewRequest
             ),
         ]
         public string $author = "",
+        // facultatif : poste, entreprise
+        #[
+            Assert\Length(
+                max: 100,
+                maxMessage: "Ce champ ne peut pas dépasser {{ limit }} caractères.",
+            ),
+        ]
+        public string $authorRole = "",
         #[Assert\NotBlank(message: "L'avis ne peut pas être vide.")]
         #[
             Assert\Length(

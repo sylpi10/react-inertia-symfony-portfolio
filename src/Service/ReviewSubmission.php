@@ -52,6 +52,7 @@ class ReviewSubmission
 
         $review = new Review()
             ->setAuthor($data->author)
+            ->setAuthorRole("" !== trim($data->authorRole) ? trim($data->authorRole) : null)
             ->setText($data->text)
             ->setConsentedAt(new \DateTimeImmutable());
         foreach ($projects as $project) {
@@ -77,8 +78,9 @@ class ReviewSubmission
                     ->from("sylpi@sylvainpillet.com")
                     ->subject(sprintf("Nouvel avis à valider – %s – %s", $review->getAuthor(), $projects))
                     ->text(sprintf(
-                        "%s (%s) :\n\n%s\n\nValider : %s",
+                        "%s%s (%s) :\n\n%s\n\nValider : %s",
                         $review->getAuthor(),
+                        $review->getAuthorRole() ? ", ".$review->getAuthorRole() : "",
                         $projects,
                         $review->getText(),
                         $this->urlGenerator->generate(

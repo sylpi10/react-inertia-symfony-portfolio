@@ -5,6 +5,7 @@ type ReviewProject = { id: number; name: string };
 
 type ReviewForm = {
     author: string;
+    authorRole: string;
     text: string;
     projects: number[];
     consent: boolean;
@@ -16,6 +17,7 @@ type ReviewForm = {
 export default function Review({ projects }: { projects: ReviewProject[] }) {
     const form = useForm<ReviewForm>({
         author: "",
+        authorRole: "",
         text: "",
         // un seul projet : coché d'office
         projects: projects.length === 1 ? [projects[0].id] : [],
@@ -96,12 +98,51 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                 />
                                 <label htmlFor="author">Votre nom</label>
                                 <div className="form-help" id="author-help">
-                                    Affiché avec l’avis : prénom, nom ou
-                                    entreprise, comme vous préférez.
+                                    Affiché avec l’avis : prénom seul ou nom
+                                    complet, comme vous préférez.
                                 </div>
                                 {form.errors.author && (
                                     <div className="form-error" id="author-error">
                                         {form.errors.author}
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="input-wrapper">
+                                <input
+                                    type="text"
+                                    value={form.data.authorRole}
+                                    id="authorRole"
+                                    name="authorRole"
+                                    autoComplete="organization-title"
+                                    placeholder=""
+                                    maxLength={100}
+                                    onChange={(e) =>
+                                        form.setData(
+                                            "authorRole",
+                                            e.target.value,
+                                        )
+                                    }
+                                    aria-invalid={!!form.errors.authorRole}
+                                    aria-describedby={
+                                        form.errors.authorRole
+                                            ? "authorRole-error"
+                                            : "authorRole-help"
+                                    }
+                                />
+                                <label htmlFor="authorRole">
+                                    Poste ou entreprise (facultatif)
+                                </label>
+                                <div className="form-help" id="authorRole-help">
+                                    Affiché sous votre nom, par exemple
+                                    « Gérante, La cuisine de Maha ».
+                                </div>
+                                {form.errors.authorRole && (
+                                    <div
+                                        className="form-error"
+                                        id="authorRole-error"
+                                    >
+                                        {form.errors.authorRole}
                                     </div>
                                 )}
                             </div>

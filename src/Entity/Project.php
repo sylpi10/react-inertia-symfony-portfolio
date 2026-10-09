@@ -101,6 +101,10 @@ class Project
     #[ORM\JoinColumn(onDelete: "SET NULL")]
     private ?Review $review = null;
 
+    // proposé dans le formulaire d'avis ; décoché pour les projets persos (Portfolio…)
+    #[ORM\Column(options: ["default" => true])]
+    private bool $reviewable = true;
+
     // texte court des cartes projet, version de l'accueil (page équipe) ;
     // remplacé côté création de site par getMiniDescriptionFor() (PagePresenter)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -305,6 +309,18 @@ class Project
         $this->review = $review;
         $previous?->removeProject($this);
         $review?->addProject($this);
+
+        return $this;
+    }
+
+    public function isReviewable(): bool
+    {
+        return $this->reviewable;
+    }
+
+    public function setReviewable(bool $reviewable): static
+    {
+        $this->reviewable = $reviewable;
 
         return $this;
     }

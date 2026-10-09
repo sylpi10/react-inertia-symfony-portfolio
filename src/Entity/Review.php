@@ -25,6 +25,11 @@ class Review
     #[Assert\Length(max: 100)]
     private ?string $author = null;
 
+    // affiché sous le nom : poste, entreprise ("Gérante, La cuisine de Maha")
+    #[ORM\Column(length: 100, nullable: true)]
+    #[Assert\Length(max: 100)]
+    private ?string $authorRole = null;
+
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     private ?string $text = null;
@@ -79,6 +84,18 @@ class Review
     public function setAuthor(string $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getAuthorRole(): ?string
+    {
+        return $this->authorRole;
+    }
+
+    public function setAuthorRole(?string $authorRole): static
+    {
+        $this->authorRole = $authorRole;
 
         return $this;
     }

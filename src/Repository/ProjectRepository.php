@@ -24,12 +24,15 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findOrderedFor(Audience $audience): array
     {
-        return $this->findBy([], [self::orderField($audience) => "ASC", "id" => "ASC"]);
+        return $this->findBy(
+            [],
+            [self::orderField($audience) => "ASC", "id" => "ASC"],
+        );
     }
 
     /**
-     * Projets encore sans avis (validé ou en attente), ceux proposés dans le
-     * formulaire d'avis ; limités à $ids si fournis.
+     * Projets ouverts aux avis et encore sans avis (validé ou en attente), ceux
+     * proposés dans le formulaire d'avis ; limités à $ids si fournis.
      *
      * @param list<int>|null $ids
      *
@@ -37,12 +40,15 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findWithoutReview(?array $ids = null): array
     {
-        $criteria = ["review" => null];
+        $criteria = ["review" => null, "reviewable" => true];
         if (null !== $ids) {
             $criteria["id"] = $ids;
         }
 
-        return $this->findBy($criteria, ["teamPosition" => "ASC", "id" => "ASC"]);
+        return $this->findBy($criteria, [
+            "teamPosition" => "ASC",
+            "id" => "ASC",
+        ]);
     }
 
     /**
@@ -54,9 +60,10 @@ class ProjectRepository extends ServiceEntityRepository
     public function findAdjacent(Project $project, Audience $audience): array
     {
         $field = self::orderField($audience);
-        $position = Audience::Team === $audience
-            ? $project->getTeamPosition()
-            : $project->getPosition();
+        $position =
+            Audience::Team === $audience
+                ? $project->getTeamPosition()
+                : $project->getPosition();
 
         // ordre de la page, puis id pour départager les égalités
         $previous =
