@@ -51,7 +51,7 @@ class ReviewSubmission
         }
 
         $review = new Review()
-            ->setAuthor($data->author)
+            ->setAuthor(trim($data->author))
             ->setAuthorRole("" !== trim($data->authorRole) ? trim($data->authorRole) : null)
             ->setText($data->text)
             ->setConsentedAt(new \DateTimeImmutable());

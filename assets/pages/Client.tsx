@@ -10,14 +10,17 @@ import { ProjectProps } from "../types/projects";
 import { OfferProps } from "../types/offers";
 import { projectPath } from "../lib/paths";
 import { Link } from "@inertiajs/react";
+import { ReviewProps } from "../types/reviews";
+import Reviews from "../components/sections/Reviews";
 
 type ClientProps = {
     projects: ProjectProps[];
     offers: OfferProps[];
+    reviews: ReviewProps[];
 };
 
 // les id servent d'ancres pour la nav et de racine aux styles (#home, #a-propos...)
-export default function Client({ projects, offers }: ClientProps) {
+export default function Client({ projects, offers, reviews }: ClientProps) {
     const guideSlug = projects.find((p) => p.slug === "directicimes")?.slug;
 
     const neuroPsySlug = projects.find(
@@ -115,6 +118,9 @@ export default function Client({ projects, offers }: ClientProps) {
             </section>
             <section id="projects">
                 <Projects projects={projects} audience="client" />
+            </section>
+            <section id="avis">
+                <Reviews reviews={reviews} />;
             </section>
             <section id="a-propos">
                 <About audience="client" />

@@ -31,7 +31,10 @@ class ReviewController extends AbstractController
             "seo" => $this->seo->review(),
             // un projet n'a qu'un avis : seuls ceux qui n'en ont pas sont proposés
             "projects" => array_map(
-                fn (Project $project) => ["id" => $project->getId(), "name" => $project->getName()],
+                fn(Project $project) => [
+                    "id" => $project->getId(),
+                    "name" => $project->getName(),
+                ],
                 $projects->findWithoutReview(),
             ),
         ]);
@@ -44,8 +47,13 @@ class ReviewController extends AbstractController
         ReviewSubmission $submission,
         #[Target("review_form")] RateLimiterFactoryInterface $limiter,
     ): Response {
-        if (!$limiter->create($request->getClientIp())->consume()->isAccepted()) {
-            $this->inertia->flash("error", "Trop d'envois, réessayez dans une heure.");
+        if (
+            !$limiter->create($request->getClientIp())->consume()->isAccepted()
+        ) {
+            $this->inertia->flash(
+                "error",
+                "Trop d'envois, réessayez dans une heure.",
+            );
 
             return $this->redirectToRoute("review");
         }
@@ -54,7 +62,10 @@ class ReviewController extends AbstractController
         if ("" === $data->website) {
             $submission->submit($data);
         }
-        $this->inertia->flash("success", "Merci pour votre avis ! Il sera publié après relecture.");
+        $this->inertia->flash(
+            "success",
+            "Merci pour votre avis ! Il sera publié après relecture.",
+        );
 
         return $this->redirectToRoute("review");
     }

@@ -3,10 +3,12 @@
 namespace App\Service;
 
 use App\Entity\Project;
+use App\Entity\Review;
 use App\Enum\Audience;
 use App\Repository\ExperienceRepository;
 use App\Repository\OfferRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\ReviewRepository;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
@@ -21,6 +23,7 @@ final class PagePresenter
         private readonly NormalizerInterface $normalizer,
         private readonly ProjectSummary $summary,
         private readonly ProjectShareImage $shareImage,
+        private readonly ReviewRepository $reviewRepository,
     ) {}
 
     /**
@@ -112,5 +115,32 @@ final class PagePresenter
                 "background" => $project->getBackground(),
             ]
             : null;
+    }
+
+    /**
+     * Avis validés, les plus récents d'abord ; postedAt en ISO 8601 (formatDay côté front),
+     * projets réduits au nom et au slug pour le lien vers leur page.
+     *
+     * @return list<array{id: int, author: string, authorRole: ?string, postedAt: string, text: string, projects: list<array{name: string, slug: string}>}>
+     */
+    public function reviews(): array
+    {
+        return array_map(
+            fn(Review $review) => [
+                "id" => $review->getId(),
+                "author" => $review->getAuthor(),
+                "authorRole" => $review->getAuthorRole(),
+                "postedAt" => $review->getCreatedAt()->format(\DATE_ATOM),
+                "text" => $review->getText(),
+                "projects" => array_map(
+                    fn(Project $project) => [
+                        "name" => $project->getName(),
+                        "slug" => $project->getSlug(),
+                    ],
+                    $review->getProjects()->getValues(),
+                ),
+            ],
+            $this->reviewRepository->findValidated(),
+        );
     }
 }

@@ -15,4 +15,22 @@ class ReviewRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Review::class);
     }
+
+    /**
+     * Avis publiables (validés en admin), les plus récents d'abord, avec leurs
+     * projets chargés dans la même requête.
+     *
+     * @return list<Review>
+     */
+    public function findValidated(): array
+    {
+        return $this->createQueryBuilder("r")
+            ->addSelect("p")
+            ->leftJoin("r.projects", "p")
+            ->andWhere("r.validated = true")
+            ->orderBy("r.createdAt", "DESC")
+            ->addOrderBy("p.id", "ASC")
+            ->getQuery()
+            ->getResult();
+    }
 }

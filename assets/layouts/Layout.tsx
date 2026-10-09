@@ -13,6 +13,7 @@ const navigation = {
         links: [
             { href: `${CLIENT_PATH}#services`, label: "Services" },
             { href: `${CLIENT_PATH}#projects`, label: "Projets" },
+            { href: `${CLIENT_PATH}#avis`, label: "Avis" },
             { href: `${CLIENT_PATH}#a-propos`, label: "À propos" },
             { href: `${CLIENT_PATH}#tarifs`, label: "Tarifs" },
             { href: `${CLIENT_PATH}#contact`, label: "Contact" },
@@ -22,6 +23,7 @@ const navigation = {
         links: [
             { href: "/#competences", label: "Compétences" },
             { href: "/#projects", label: "Projets" },
+            { href: "/#parcours", label: "Avis" },
             { href: "/#a-propos", label: "À propos" },
             { href: "/#parcours", label: "Parcours" },
             { href: "/#contact", label: "Contact" },
@@ -89,7 +91,9 @@ export default function Layout({ children }: { children: ReactNode }) {
                                     }
                                     // liens vers des sections de la page : "location"
                                     aria-current={
-                                        url === link.href ? "location" : undefined
+                                        url === link.href
+                                            ? "location"
+                                            : undefined
                                     }
                                 >
                                     {link.label}
@@ -113,7 +117,9 @@ export default function Layout({ children }: { children: ReactNode }) {
                         type="button"
                         className={`burger ${isMobileOpen ? "open" : ""}`}
                         onClick={() => setIsMobileOpen((prev) => !prev)}
-                        aria-label={isMobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
+                        aria-label={
+                            isMobileOpen ? "Fermer le menu" : "Ouvrir le menu"
+                        }
                         aria-expanded={isMobileOpen}
                         aria-controls="main-menu"
                     >

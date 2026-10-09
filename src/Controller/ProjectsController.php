@@ -102,6 +102,7 @@ class ProjectsController extends AbstractController
                 "audience" => $audience->value,
                 "projects" => $this->presenter->projects($audience),
                 "experiences" => $this->presenter->experiences($audience),
+                "reviews" => $this->presenter->reviews(),
                 "seo" => $this->seo->audiencePage($audience),
                 ...$props,
             ],

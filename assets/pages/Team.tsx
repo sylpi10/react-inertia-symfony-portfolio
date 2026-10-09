@@ -9,15 +9,18 @@ import TeamSkills from "../components/sections/skills/TeamSkills";
 import { projectPath } from "../lib/paths";
 import { ExperienceProps } from "../types/experiences";
 import { ProjectProps } from "../types/projects";
+import Reviews from "../components/sections/Reviews";
+import { ReviewProps } from "../types/reviews";
 
 type TeamProps = {
     projects: ProjectProps[];
     experiences: ExperienceProps[];
+    reviews: ReviewProps[];
 };
 
 // accueil, pour les recruteurs, CTO et agences : textes distincts de /creation-site-web
 // TODO textes provisoires
-export default function Team({ projects, experiences }: TeamProps) {
+export default function Team({ projects, experiences, reviews }: TeamProps) {
     const ludilabelSlug = projects.find((p) => p.name === "Ludilabel")?.slug;
     const labelmakerSlug = projects.find((p) => p.name === "Labelmaker")?.slug;
 
@@ -82,6 +85,9 @@ export default function Team({ projects, experiences }: TeamProps) {
             </section>
             <section id="projects">
                 <Projects projects={projects} audience="team" />
+            </section>
+            <section id="avis">
+                <Reviews reviews={reviews} />
             </section>
             <section id="a-propos">
                 <About audience="team" />
