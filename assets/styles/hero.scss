@@ -240,7 +240,11 @@
                         position: relative;
                     }
                 }
-                h2 {
+                // nom sous la photo : un libellé, pas un titre de section
+                .name-tag {
+                    margin-bottom: 0.83em;
+                    font-size: 1.5em;
+                    font-weight: bold;
                     color: var(--accent);
                     background-color: var(--strong);
                     padding: 6px 20px;

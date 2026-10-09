@@ -44,7 +44,7 @@ export default function ProjectDetails({
                             >
                                 <img
                                     src={projectImageUrl(previous.background)}
-                                    alt={`${previous.name}`}
+                                    alt=""
                                 />
                                 <div className="labels-wrapper">
                                     <NavArrow direction="previous" />
@@ -62,7 +62,7 @@ export default function ProjectDetails({
                             >
                                 <img
                                     src={projectImageUrl(next.background)}
-                                    alt={`${next.name}`}
+                                    alt=""
                                 />
                                 <div className="labels-wrapper">
                                     <ProjectLinkText

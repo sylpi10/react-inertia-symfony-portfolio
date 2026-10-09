@@ -6,7 +6,7 @@ export default function ThemeSwitcher() {
 
     // un bouton par thème déclaré dans lib/themes.ts
     return (
-        <div className="theme-switcher">
+        <div className="theme-switcher" role="group" aria-label="Thème">
             <ul>
                 {THEMES.map(({ id, label }) => (
                     <li key={id}>

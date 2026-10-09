@@ -66,13 +66,12 @@ header {
                     margin: 0 var(--spacing, 0px);
                     transition: margin 0.25s;
                     position: relative;
-                    //font-size: 1.2rem;
-                    //font-family: 'amatic_bold', "sans-serif";
                     font-family: "quicksand", "sans-serif";
                     letter-spacing: 1px;
                     &:hover svg {
                         opacity: 1;
                     }
+
                     // largeur proportionnelle au texte (« Compétences » comme
                     // « Projets »), hauteur fixe : le svg (preserveAspectRatio="none")
                     // s'étire en largeur sans dépasser en haut de l'écran
@@ -85,7 +84,6 @@ header {
                         transform: translate(-50%, 7px) translateZ(0);
                         fill: none;
                         stroke: var(--stroke, var(--line));
-                        // strokelinecap: round;
                         stroke-width: 2px;
                         stroke-dasharray: var(--offset, 69px) 278px;
                         stroke-dashoffset: 361px;
@@ -99,6 +97,12 @@ header {
                         --stroke-delay: 0.1s;
                         --offset: 180px;
                     }
+                }
+                a.active svg {
+                    --stroke: var(--line-active);
+                    --stroke-delay: 0.1s;
+                    --offset: 180px;
+                    opacity: 1;
                 }
             }
             img {

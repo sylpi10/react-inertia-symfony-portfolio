@@ -67,8 +67,9 @@ export default function ProjectCard({
                             <a
                                 href={project.weblink}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="see-more"
-                                title="Aller sur le site"
+                                aria-label={`Site de ${project.name} (nouvel onglet)`}
                             >
                                 <WebIcon />
                                 <span> Site</span>
@@ -80,8 +81,9 @@ export default function ProjectCard({
                             <a
                                 href={project.githublink}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="see-more"
-                                title="Répo github"
+                                aria-label={`GitHub de ${project.name} (nouvel onglet)`}
                             >
                                 <WebIcon />
                                 <span>Github</span>

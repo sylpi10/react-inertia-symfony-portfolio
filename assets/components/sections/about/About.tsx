@@ -17,7 +17,7 @@ export default function About({ audience }: { audience: Audience }) {
                     <h2 className={"section-title"}>En quelques mots</h2>
                     <div className="about-me-wrapper">
                         <div className="name">
-                            <h3 className={"person-title"}>Sylvain</h3>
+                            <p className={"person-title"}>Sylvain</p>
                         </div>
                         <div className="image-wrapper">
                             <img

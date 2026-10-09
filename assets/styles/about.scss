@@ -17,9 +17,11 @@
                 flex-direction: column;
                 align-items: flex-end;
                 position: relative;
-                h3 {
+                .person-title {
+                    margin: 1em 0;
                     font-family: "effortless", "sans-serif";
                     font-size: 2rem;
+                    font-weight: bold;
                     text-transform: capitalize;
                     z-index: 12;
                     position: relative;

@@ -11,7 +11,10 @@ export default function ProjectInfosDetails({
 }: {
     audience: Audience;
     // seuls champs utiles : marche avec ProjectProps comme avec ProjectDetailsProps
-    project: Pick<ProjectProps, "date" | "technos" | "weblink" | "githublink">;
+    project: Pick<
+        ProjectProps,
+        "name" | "date" | "technos" | "weblink" | "githublink"
+    >;
 }) {
     if (audience === "client") {
         return (
@@ -35,6 +38,7 @@ export default function ProjectInfosDetails({
                         target="_blank"
                         rel="noopener noreferrer"
                         className="visit-button"
+                        aria-label={`Visiter le site ${project.name} (nouvel onglet)`}
                     >
                         <WebIcon />
                         Visiter le site
@@ -68,7 +72,7 @@ export default function ProjectInfosDetails({
                             target="_blank"
                             rel="noopener noreferrer"
                             className="see-more"
-                            title="Aller sur le site"
+                            aria-label={`Site de ${project.name} (nouvel onglet)`}
                         >
                             <WebIcon />
                             <span> Site</span>
@@ -82,7 +86,7 @@ export default function ProjectInfosDetails({
                             target="_blank"
                             rel="noopener noreferrer"
                             className="see-more"
-                            title="Répo github"
+                            aria-label={`GitHub de ${project.name} (nouvel onglet)`}
                         >
                             <GithubIcon />
                             <span>Github</span>

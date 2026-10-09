@@ -28,6 +28,11 @@ export default function Hero({
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
+        // « réduire les animations » : titre complet tout de suite
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            setIndex(text.length);
+            return;
+        }
         if (index < text.length) {
             const timeout = setTimeout(() => setIndex(index + 1), 160);
 
@@ -77,11 +82,13 @@ export default function Hero({
                                     return (
                                         <span key={i} aria-hidden="true">
                                             {line.slice(0, typed)}
-                                            {i === cursorLine && (
-                                                <span className="cursor">
-                                                    |
-                                                </span>
-                                            )}
+                                            {/* retiré une fois le texte tapé : pas de clignotement sans fin */}
+                                            {i === cursorLine &&
+                                                index < text.length && (
+                                                    <span className="cursor">
+                                                        |
+                                                    </span>
+                                                )}
                                             <span className="typewriter-rest">
                                                 {line.slice(typed)}
                                             </span>
@@ -110,7 +117,7 @@ export default function Hero({
                                     height="347"
                                     fetchPriority="high"
                                 />
-                                <h2>Sylvain Pillet</h2>
+                                <p className="name-tag">Sylvain Pillet</p>
                             </div>
                         </div>
                     </div>
@@ -122,7 +129,7 @@ export default function Hero({
                     <img
                         className="shape"
                         src={shape}
-                        alt="decorative shape"
+                        alt=""
                         width="735"
                         height="669"
                     />
@@ -130,7 +137,11 @@ export default function Hero({
             </div>
 
             {hasScrolledPast && (
-                <a href={"#home"} className="back-to-top">
+                <a
+                    href={"#home"}
+                    className="back-to-top"
+                    aria-label="Retour en haut de page"
+                >
                     <ArrowUpIcon />
                 </a>
             )}

@@ -25,10 +25,16 @@ export default function ContactForm({ form, submit, audience }: ContactProps) {
                     autoComplete="name"
                     placeholder=""
                     onChange={(e) => form.setData("name", e.target.value)}
+                    aria-invalid={!!form.errors.name}
+                    aria-describedby={
+                        form.errors.name ? "name-error" : undefined
+                    }
                 />
                 <label htmlFor="name">Votre Nom</label>
                 {form.errors.name && (
-                    <div className="form-error">{form.errors.name}</div>
+                    <div className="form-error" id="name-error">
+                        {form.errors.name}
+                    </div>
                 )}
             </div>
             <div className={"input-wrapper"}>
@@ -40,10 +46,16 @@ export default function ContactForm({ form, submit, audience }: ContactProps) {
                     autoComplete="email"
                     placeholder=""
                     onChange={(e) => form.setData("email", e.target.value)}
+                    aria-invalid={!!form.errors.email}
+                    aria-describedby={
+                        form.errors.email ? "email-error" : undefined
+                    }
                 />
                 <label htmlFor="email">Votre Email</label>
                 {form.errors.email && (
-                    <div className="form-error">{form.errors.email}</div>
+                    <div className="form-error" id="email-error">
+                        {form.errors.email}
+                    </div>
                 )}
             </div>
             {audience === "client" && (
@@ -82,10 +94,16 @@ export default function ContactForm({ form, submit, audience }: ContactProps) {
                     placeholder=""
                     value={form.data.message}
                     onChange={(e) => form.setData("message", e.target.value)}
+                    aria-invalid={!!form.errors.message}
+                    aria-describedby={
+                        form.errors.message ? "message-error" : undefined
+                    }
                 ></textarea>
                 <label htmlFor="message">Votre Message</label>
                 {form.errors.message && (
-                    <div className="form-error">{form.errors.message}</div>
+                    <div className="form-error" id="message-error">
+                        {form.errors.message}
+                    </div>
                 )}
             </div>
             <div className={"input-wrapper"}>

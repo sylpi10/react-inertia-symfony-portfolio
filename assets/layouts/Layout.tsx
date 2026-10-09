@@ -1,6 +1,6 @@
 import { Link, usePage } from "@inertiajs/react";
 import logo from "../static/images/logo.webp";
-import { useState, useRef, ReactNode } from "react";
+import { useEffect, useState, useRef, ReactNode } from "react";
 import { Audience } from "../types/audience";
 import ThemeSwitcher from "../components/ui/ThemeSwitcher";
 import { ThemeProvider } from "../contexts/ThemeContexts";
@@ -37,6 +37,20 @@ export default function Layout({ children }: { children: ReactNode }) {
     const isHomePage = component === "Team" || component === "Client";
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const headerRef = useRef(null);
+    const burgerRef = useRef<HTMLButtonElement>(null);
+
+    // menu mobile ouvert : Échap le ferme et rend le focus au bouton
+    useEffect(() => {
+        if (!isMobileOpen) return;
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                setIsMobileOpen(false);
+                burgerRef.current?.focus();
+            }
+        };
+        addEventListener("keydown", onKeyDown);
+        return () => removeEventListener("keydown", onKeyDown);
+    }, [isMobileOpen]);
 
     // Ferme le menu mobile quand un lien est cliqué
     const handleLinkClick = () => {
@@ -45,8 +59,12 @@ export default function Layout({ children }: { children: ReactNode }) {
 
     return (
         <ThemeProvider>
+            <a className="skip-link" href="#contenu">
+                Aller au contenu
+            </a>
             <header className="header" ref={headerRef}>
                 <nav
+                    aria-label="Navigation principale"
                     className={`navbar ${isHomePage ? "default-menu-class" : ""} ${isMobileOpen ? "mobile-nav" : ""}`}
                 >
                     <span className="brand">
@@ -91,6 +109,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
                     {/* bouton et non span : atteignable au clavier, annoncé comme bouton */}
                     <button
+                        ref={burgerRef}
                         type="button"
                         className={`burger ${isMobileOpen ? "open" : ""}`}
                         onClick={() => setIsMobileOpen((prev) => !prev)}
@@ -105,7 +124,11 @@ export default function Layout({ children }: { children: ReactNode }) {
                 </nav>
             </header>
 
-            <main>{children}</main>
+            {/* tabIndex -1 : cible du lien d'évitement ; inert : menu mobile ouvert,
+                le focus ne part pas dans la page cachée derrière */}
+            <main id="contenu" tabIndex={-1} inert={isMobileOpen}>
+                {children}
+            </main>
         </ThemeProvider>
     );
 }

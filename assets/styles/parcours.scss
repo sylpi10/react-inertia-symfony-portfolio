@@ -19,6 +19,15 @@
             ul {
                 padding-left: 0;
                 .timeline-item {
+                    // mêmes tailles qu'avant le passage h2/h3 → h3/p
+                    .experience-title {
+                        font-size: 1.5em;
+                    }
+                    .experience-organization {
+                        margin: 1em 0;
+                        font-size: 1.17em;
+                        font-weight: bold;
+                    }
                     display: flex;
                     line-height: 1.2em;
                     border-top: 3px solid;
@@ -82,6 +91,8 @@
                         height: fit-content;
                         gap: 8px;
                         a {
+                            // pastille : pas le soulignement des liens dans un texte
+                            text-decoration: none;
                             display: flex;
                             align-items: center;
                             height: fit-content;

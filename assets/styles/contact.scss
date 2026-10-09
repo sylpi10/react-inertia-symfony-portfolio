@@ -66,7 +66,6 @@
                     padding: 20px;
                     &:focus,
                     &:active {
-                        outline: none;
                         border: solid 1px var(--accent);
                         border-radius: 6px;
                     }
@@ -124,7 +123,6 @@
                         font: inherit;
                         color: var(--text-strong);
                         &:focus {
-                            outline: none;
                             border: solid 1px var(--accent);
                             border-radius: 6px;
                         }

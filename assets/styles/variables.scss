@@ -22,7 +22,7 @@
 
     // accent
     --accent: #fdc57f;
-    --accent-text: #b4610f; // accent lisible sur fond clair
+    --accent-text: #9f540c; // accent lisible sur fond clair (5:1 sur crème)
     --accent-soft: #ffefdc; // pastilles, fonds au survol
     --blob: color-mix(in srgb, #fdc57f 30%, transparent); // formes décoratives
     --on-accent: #0c1423; // texte sur --accent
@@ -42,6 +42,10 @@
     --device-frame: #222222; // cadre des maquettes ordinateur / mobile
     --success: #276c27;
     --danger: #d32f2f;
+    // focus clavier : anneau orange (visible sur marine) autour d'un trait
+    // marine (visible sur fond clair), valables dans tous les thèmes
+    --focus-ring: #fdc57f;
+    --focus-ring-inner: #0c1423;
 }
 
 // pastille de techno : contour fin, point jaune en rappel de la charte,

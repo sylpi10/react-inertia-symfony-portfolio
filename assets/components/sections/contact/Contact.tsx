@@ -39,10 +39,11 @@ export default function Contact({ audience }: { audience: Audience }) {
             <div className="section-wrapper contact-wrapper">
                 <h2 className={"section-title"}>On discute ?</h2>
                 <div className="contact-form">
-                    <div className="status-wrapper">
+                    {/* zone toujours présente : les messages qui y apparaissent sont lus */}
+                    <div className="status-wrapper" aria-live="polite">
                         {/*{flash.loading && <div className="alert loading">Envoi du Message...</div>}*/}
                         {flash.error && (
-                            <div className="alert alert-error">
+                            <div className="alert alert-error" role="alert">
                                 {flash.error}
                             </div>
                         )}

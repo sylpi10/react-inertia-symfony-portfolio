@@ -23,6 +23,8 @@ export default function QuoteSelect({
                 name={id}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
+                aria-invalid={!!error}
+                aria-describedby={error ? `${id}-error` : undefined}
             >
                 <option value="">Choisir…</option>
                 {options.map((option) => (
@@ -31,7 +33,11 @@ export default function QuoteSelect({
                     </option>
                 ))}
             </select>
-            {error && <div className="form-error">{error}</div>}
+            {error && (
+                <div className="form-error" id={`${id}-error`}>
+                    {error}
+                </div>
+            )}
         </div>
     );
 }

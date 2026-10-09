@@ -21,8 +21,8 @@ export default function Footer() {
                         />
                     </a>
                     <div className="text">
-                        <h3>Sylvain Pillet</h3>
-                        <h4>Développeur à Toulouse</h4>
+                        <p className="footer-name">Sylvain Pillet</p>
+                        <p className="footer-role">Développeur à Toulouse</p>
                         <a href="mailto:syl.pillet@hotmail.fr">
                             syl.pillet@hotmail.fr
                         </a>

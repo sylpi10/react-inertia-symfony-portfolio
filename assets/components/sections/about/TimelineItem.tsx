@@ -18,8 +18,10 @@ export default function TimelineItem({
     return (
         <li className="timeline-item">
             <div className="timeline-content">
-                <h2>{experience.title}</h2>
-                <h3>{experience.organization}</h3>
+                <h3 className="experience-title">{experience.title}</h3>
+                <p className="experience-organization">
+                    {experience.organization}
+                </p>
                 {experience.description && (
                     <div className="description">
                         <div
@@ -47,7 +49,6 @@ export default function TimelineItem({
                                 <Link
                                     title={`Voir ${project.name} en détails`}
                                     href={projectPath(project.slug, audience)}
-                                    target="_blank"
                                 >
                                     {project.name}
                                 </Link>

@@ -18,7 +18,13 @@ export default function ProjectPreview({
             <div className="preview-images-wrapper">
                 <div className="computer-images-wrapper">
                     <div className="computer-container">
-                        <div className="computer-img-container">
+                        {/* capture qui défile : atteignable au clavier pour la faire défiler aux flèches */}
+                        <div
+                            className="computer-img-container"
+                            tabIndex={0}
+                            role="region"
+                            aria-label="Capture ordinateur, défilable"
+                        >
                             <img
                                 src={projectImageUrl(project.detailPic)}
                                 className="project-image"
@@ -32,7 +38,12 @@ export default function ProjectPreview({
                 </div>
                 <div className="mobile-images-wrapper">
                     <div className="mobile-container">
-                        <div className="mobile-img-container">
+                        <div
+                            className="mobile-img-container"
+                            tabIndex={0}
+                            role="region"
+                            aria-label="Capture mobile, défilable"
+                        >
                             <img
                                 src={projectImageUrl(
                                     project.detail_pic_mobile ??

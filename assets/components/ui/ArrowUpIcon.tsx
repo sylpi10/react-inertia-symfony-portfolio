@@ -10,6 +10,7 @@ export default function ArrowUpIcon() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
             className="lucide lucide-arrow-up-from-dot-icon lucide-arrow-up-from-dot"
         >
             <path d="m5 9 7-7 7 7" />

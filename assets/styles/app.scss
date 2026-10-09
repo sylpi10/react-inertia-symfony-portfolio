@@ -61,8 +61,47 @@ html {
     padding: 0;
     margin: 0;
 }
-html {
-    scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+// « réduire les animations » activé dans le système : animations et
+// transitions ramenées à leur état final, boucles arrêtées
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+// contour du focus clavier : trait marine au ras de l'élément (comble
+// l'outline-offset) puis anneau orange. L'un des deux contraste toujours
+// avec le fond, clair ou marine
+:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--focus-ring-inner);
+}
+
+// lien d'évitement : premier élément atteint avec Tab, visible seulement au focus
+.skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 1000;
+    padding: 10px 16px;
+    border-radius: 4px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    font-weight: bold;
+    translate: 0 -200%;
+    &:focus-visible {
+        translate: 0;
+    }
 }
 body {
     font-family: "montserrat", serif;
@@ -134,4 +173,11 @@ img {
 .plus-icon,
 .github-icon g {
     fill: currentColor;
+}
+
+// éléments focalisés par le code (cible du lien d'évitement, titre après une
+// navigation) : pas d'anneau autour d'une zone entière
+[tabindex="-1"]:focus {
+    outline: none;
+    box-shadow: none;
 }
