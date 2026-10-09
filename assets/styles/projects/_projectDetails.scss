@@ -1,0 +1,101 @@
+//details page
+@use "../variables" as *;
+@use "projectDescription";
+@use "projectAudit";
+@use "projectPreview";
+@use "projectDetailsNav";
+
+.project-container {
+    padding-top: 80px;
+    width: 100%;
+    gap: 12px;
+    align-items: flex-start;
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    }
+    .content {
+        margin: 0 60px;
+        @media screen and (max-width: 1024px) {
+            margin: 0 34px;
+        }
+        @media screen and (max-width: 768px) {
+            margin: 0 18px;
+        }
+    }
+    .project-pills {
+        z-index: 12;
+        width: fit-content;
+        display: grid;
+        gap: 4px;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        button {
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            height: 48px;
+            width: 120px;
+            min-width: 80px;
+            cursor: pointer;
+            border: solid 2px var(--button-bg);
+            font-weight: bold;
+            position: relative;
+            bottom: -2px;
+            transition: all ease 0.4s;
+            @media screen and (max-width: 540px) {
+                width: 100px;
+                font-size: 0.8rem;
+            }
+            &.pill {
+                background-color: var(--button-bg);
+                color: var(--button-text);
+            }
+            &.active,
+            &:hover {
+                background-color: var(--surface-muted);
+                z-index: 666;
+                border-bottom: var(--surface-muted);
+                color: var(--button-bg);
+            }
+        }
+    }
+    .panel-container {
+        position: relative;
+        z-index: 444;
+        border: solid 2px var(--button-bg);
+        background-color: var(--surface-muted);
+        border-radius: 0 10px 10px 10px;
+        padding: 0 20px;
+        width: 100%;
+    }
+    .round {
+        display: none;
+        position: absolute;
+        width: 600px;
+        height: 500px;
+        background: var(--blob);
+        border-radius: 60% 40% 50% 70% / 60% 30% 70% 40%;
+        left: -80px;
+        top: 9%;
+        z-index: -1;
+        @media screen and (max-width: 768px) {
+            left: -44px;
+            top: 0;
+        }
+        @media screen and (max-width: 600px) {
+            left: -13px;
+            top: 113px;
+            width: 300px;
+            height: 300px;
+        }
+    }
+    .buttons-link-wrapper {
+        display: flex;
+        padding: 14px;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        .button-link {
+            border: solid 2px var(--accent);
+        }
+    }
+}

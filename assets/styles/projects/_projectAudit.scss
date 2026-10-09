@@ -1,0 +1,42 @@
+@use "../variables.scss" as *;
+.project-container {
+    .project-audit-wrapper {
+        display: grid;
+        margin: 20px;
+        align-items: stretch;
+        grid-template-columns: 1fr 1fr;
+        @media screen and (max-width: 1024px) {
+            grid-template-columns: 1fr;
+            margin: 12px;
+        }
+        .description {
+            ul {
+                padding-left: 0;
+                li {
+                    margin: 12px 0;
+                }
+            }
+        }
+        figure {
+            display: grid;
+            justify-content: center;
+            img {
+                border: solid 1px var(--border);
+                border-radius: 10px;
+                width: 100%;
+                height: auto;
+            }
+            figcaption {
+                display: flex;
+                margin-top: 6px;
+                gap: 6px;
+                justify-content: center;
+                text-align: center;
+                width: 100%;
+                time {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

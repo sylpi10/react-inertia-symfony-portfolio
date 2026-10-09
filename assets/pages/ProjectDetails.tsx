@@ -6,6 +6,16 @@ import { Audience } from "../types/audience";
 import NavArrow from "../components/ui/NavArrow";
 import ProjectInfosDetails from "../components/sections/projects/ProjectInfosDetails";
 import Contact from "../components/sections/contact/Contact";
+import ProjectPreview from "../components/sections/projects/ProjectPreview";
+import ProjectPerf from "../components/sections/projects/ProjectPerf";
+import { useState } from "react";
+
+const TABS = [
+    { id: "description", label: "Description" },
+    { id: "preview", label: "Aperçu" },
+    { id: "audit", label: "Audit" },
+] as const;
+type TabId = (typeof TABS)[number]["id"];
 
 export default function ProjectDetails({
     audience,
@@ -19,62 +29,83 @@ export default function ProjectDetails({
     previous: ProjectLink | null;
     next: ProjectLink | null;
 }) {
+    const activeTabs = TABS.filter(
+        (tab) => tab.id !== "audit" || project.auditMade,
+    );
+    const [activeTab, setActiveTab] = useState<TabId>("description");
+
     return (
-        <div className="section-container projects-container">
+        <div className="section-container project-container">
             <div className="content">
                 <h1>{project.name}</h1>
 
-                <div className="project-container">
-                    <div className="round"></div>
-                    {project.description && (
-                        <div className="description">
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: project.description,
-                                }}
-                            />
-                        </div>
-                    )}
+                <div
+                    className="project-pills"
+                    role="tablist"
+                    aria-label="Sections du projet"
+                >
+                    {activeTabs.map((tab) => (
+                        <button
+                            className={`btn ${activeTab === tab.id ? "active" : "pill"}`}
+                            key={tab.id}
+                            type="button"
+                            role="tab"
+                            id={`tab-${tab.id}`}
+                            aria-selected={activeTab === tab.id}
+                            aria-controls={`panel-${tab.id}`}
+                            onClick={() => setActiveTab(tab.id)}
+                        >
+                            {tab.label}
+                        </button>
+                    ))}
+                </div>
 
-                    <ProjectInfosDetails
-                        audience={audience}
-                        project={project}
-                    />
-                </div>
-                <div className="preview-images-wrapper">
-                    <div className="computer-images-wrapper">
-                        <div className="computer-container">
-                            <div className="computer-img-container">
-                                <img
-                                    src={projectImageUrl(project.detailPic)}
-                                    className="project-image"
-                                    alt={`Aperçu du site ${project.name} sur ordinateur`}
-                                    width="800"
-                                    height="1000"
-                                    decoding="async"
+                <div className="round"></div>
+
+                {activeTab === "description" && (
+                    <div
+                        role="tabpanel"
+                        id="panel-description"
+                        aria-labelledby="tab-description"
+                        className="project-description panel-container"
+                    >
+                        {project.description && (
+                            <div className="description">
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: project.description,
+                                    }}
                                 />
                             </div>
-                        </div>
+                        )}
+
+                        <ProjectInfosDetails
+                            audience={audience}
+                            project={project}
+                        />
                     </div>
-                    <div className="mobile-images-wrapper">
-                        <div className="mobile-container">
-                            <div className="mobile-img-container">
-                                <img
-                                    src={projectImageUrl(
-                                        project.detail_pic_mobile ??
-                                            project.detailPic,
-                                    )}
-                                    className="project-image"
-                                    alt={`Aperçu du site ${project.name} sur mobile`}
-                                    width="300"
-                                    height="600"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                            </div>
-                        </div>
+                )}
+                {activeTab === "preview" && (
+                    <div
+                        role="tabpanel"
+                        id="panel-preview"
+                        aria-labelledby="tab-preview"
+                        className="panel-container"
+                    >
+                        <ProjectPreview project={project} />
                     </div>
-                </div>
+                )}
+                {activeTab === "audit" && (
+                    <div
+                        role="tabpanel"
+                        id="panel-audit"
+                        aria-labelledby="tab-audit"
+                        className="panel-container"
+                    >
+                        <ProjectPerf project={project} />
+                    </div>
+                )}
+
                 {(previous || next) && (
                     <nav className="projects-nav" aria-label="Autres projets">
                         {previous && (

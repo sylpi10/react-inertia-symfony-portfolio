@@ -17,7 +17,7 @@ const skills = [
     {
         title: "Production",
         description:
-            "Déploiement, hébergement, DNS et messagerie. SEO technique et suivi des Core Web Vitals.",
+            "Déploiement, hébergement, SSL, redirections, messagerie. SEO technique et suivi des Core Web Vitals.",
     },
     {
         title: "IA",

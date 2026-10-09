@@ -4,13 +4,11 @@
 @use "pricing";
 
 @use "button";
-@use "projects";
-@use "projectsDetailsDescription";
-@use "projectsDetailsImages";
+@use "projects/_projectList";
+@use "projects/_projectDetails";
 @use "about";
 @use "nav";
 @use "parcours";
-// @use "techSlider";
 @use "contact";
 @use "footer";
 @use "legal";
@@ -57,9 +55,6 @@
     font-style: normal;
     font-display: swap;
 }
-
-//$yellow: #E4D00A;
-//$main_color: #642970;
 
 body,
 html {

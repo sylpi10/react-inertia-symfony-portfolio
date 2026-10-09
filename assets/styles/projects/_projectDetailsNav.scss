@@ -1,0 +1,106 @@
+.projects-nav {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    .projects-nav-link {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 4px;
+        color: var(--text-strong);
+        text-decoration: none;
+        border-radius: 12px;
+        background-color: var(--surface);
+        box-shadow: 0 4px 8px var(--shadow);
+        transition: ease 0.5s;
+        margin-bottom: 60px;
+        &.next {
+            margin-left: auto;
+            text-align: right;
+        }
+        img {
+            object-fit: cover;
+            border-radius: 12px;
+            filter: grayscale(1);
+        }
+        .labels-wrapper {
+            transition: ease 0.5s;
+            align-items: center;
+            padding: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+        .text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .teaser {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        .nav-arrow {
+            flex-shrink: 0;
+            transition: transform ease 0.3s;
+        }
+        &:hover,
+        &:focus-visible {
+            transform: translateY(-4px);
+            .nav-arrow.previous {
+                transform: translateX(-4px);
+            }
+            .nav-arrow.next {
+                transform: translateX(4px);
+            }
+            img {
+                filter: grayscale(0);
+            }
+        }
+        .name {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        &:hover .name,
+        &:focus-visible .name {
+            text-decoration: underline;
+        }
+    }
+    @media screen and (min-width: 728px) {
+        margin: 60px 60px 40px;
+        .projects-nav-link {
+            width: 300px;
+            height: 160px;
+            img {
+                width: 300px;
+                height: 160px;
+            }
+        }
+    }
+    @media screen and (max-width: 728px) {
+        margin: 20px;
+        justify-content: center;
+        align-items: stretch;
+        .projects-nav-link {
+            width: 160px;
+            .labels-wrapper {
+                flex-direction: column;
+                text-align: center;
+                .teaser {
+                    margin-top: 14px;
+                }
+            }
+            img {
+                width: 120px;
+                height: 80px;
+                margin: 10px 0;
+            }
+            .nav-arrow {
+                order: 4;
+            }
+        }
+    }
+}

@@ -7,6 +7,8 @@ use App\Service\ProjectImageStorage;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -92,10 +94,26 @@ class ProjectCrudController extends AbstractCrudController
             ])
             ->setNumOfRows(20)
             ->setHelp(
-                'Vide : la description équipe est reprise, et la page /creation-site-web/projets/… pointe vers celle-ci (canonical).',
+                "Vide : la description équipe est reprise, et la page /creation-site-web/projets/… pointe vers celle-ci (canonical).",
             );
         yield UrlField::new("weblink", "Site")->hideOnIndex();
         yield UrlField::new("githublink", "GitHub")->hideOnIndex();
+
+        yield BooleanField::new("auditMade", "audit fait?")->hideOnIndex();
+        yield DateField::new(
+            "lastAuditDate",
+            "Date du dernier audit",
+        )->hideOnIndex();
+        yield TextEditorField::new("perfText", "Description des perfs")
+            ->hideOnIndex()
+            ->setTrixEditorConfig([
+                "blockAttributes" => ["heading1" => ["tagName" => "h2"]],
+            ]);
+        yield $this->imageField(
+            "pagespeedCapture",
+            "Capture pageSpeed",
+            $pageName,
+        )->hideOnIndex();
 
         yield FormField::addColumn(4);
         yield IntegerField::new("teamPosition", "Ordre (accueil)")->setHelp(

@@ -106,6 +106,22 @@ class Project
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $miniClientDescription = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    #[Groups(["project:list", "project:detail"])]
+    private ?string $pagespeedCapture = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(["project:list", "project:detail"])]
+    private ?string $perfText = null;
+
+    #[ORM\Column]
+    #[Groups(["project:list", "project:detail"])]
+    private ?bool $auditMade = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(["project:list", "project:detail"])]
+    private ?\DateTime $lastAuditDate = null;
+
     public function __construct()
     {
         $this->experiences = new ArrayCollection();
@@ -345,8 +361,57 @@ class Project
     // texte court de la page d'un public, celui de l'accueil à défaut
     public function getMiniDescriptionFor(Audience $audience): ?string
     {
-        return Audience::Client === $audience && '' !== trim(strip_tags((string) $this->miniClientDescription))
+        return Audience::Client === $audience &&
+            "" !== trim(strip_tags((string) $this->miniClientDescription))
             ? $this->miniClientDescription
             : $this->miniDescription;
+    }
+
+    public function getPagespeedCapture(): ?string
+    {
+        return $this->pagespeedCapture;
+    }
+
+    public function setPagespeedCapture(?string $pagespeedCapture): static
+    {
+        $this->pagespeedCapture = $pagespeedCapture;
+
+        return $this;
+    }
+
+    public function getPerfText(): ?string
+    {
+        return $this->perfText;
+    }
+
+    public function setPerfText(?string $perfText): static
+    {
+        $this->perfText = $perfText;
+
+        return $this;
+    }
+
+    public function isAuditMade(): ?bool
+    {
+        return $this->auditMade;
+    }
+
+    public function setAuditMade(bool $auditMade): static
+    {
+        $this->auditMade = $auditMade;
+
+        return $this;
+    }
+
+    public function getLastAuditDate(): ?\DateTime
+    {
+        return $this->lastAuditDate;
+    }
+
+    public function setLastAuditDate(?\DateTime $lastAuditDate): static
+    {
+        $this->lastAuditDate = $lastAuditDate;
+
+        return $this;
     }
 }
