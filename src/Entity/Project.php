@@ -96,13 +96,10 @@ class Project
     #[ORM\ManyToMany(targetEntity: Experience::class, mappedBy: "projects")]
     private Collection $experiences;
 
-    /**
-     * Avis portant sur le projet (côté inverse, géré par Review), validés ou non.
-     *
-     * @var Collection<int, Review>
-     */
-    #[ORM\ManyToMany(targetEntity: Review::class, mappedBy: "projects")]
-    private Collection $reviews;
+    // avis portant sur le projet, validé ou non ; un même avis peut couvrir plusieurs projets
+    #[ORM\ManyToOne(inversedBy: "projects")]
+    #[ORM\JoinColumn(onDelete: "SET NULL")]
+    private ?Review $review = null;
 
     // texte court des cartes projet, version de l'accueil (page équipe) ;
     // remplacé côté création de site par getMiniDescriptionFor() (PagePresenter)
@@ -133,7 +130,6 @@ class Project
     public function __construct()
     {
         $this->experiences = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -293,29 +289,22 @@ class Project
         return $this;
     }
 
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getReviews(): Collection
+    public function getReview(): ?Review
     {
-        return $this->reviews;
+        return $this->review;
     }
 
-    public function addReview(Review $review): static
+    public function setReview(?Review $review): static
     {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->addProject($this);
+        if ($review === $this->review) {
+            return $this;
         }
 
-        return $this;
-    }
-
-    public function removeReview(Review $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            $review->removeProject($this);
-        }
+        // garde les collections des deux avis cohérentes
+        $previous = $this->review;
+        $this->review = $review;
+        $previous?->removeProject($this);
+        $review?->addProject($this);
 
         return $this;
     }

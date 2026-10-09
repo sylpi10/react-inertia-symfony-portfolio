@@ -33,16 +33,27 @@ class Review
     private \DateTimeImmutable $createdAt;
 
     /**
+     * Projets concernés un projet n'a qu'un avis (côté inverse, géré par Project).
+     *
      * @var Collection<int, Project>
      */
-    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: "reviews")]
+    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: "review")]
     #[ORM\OrderBy(["id" => "ASC"])]
-    #[Assert\Count(min: 1, minMessage: "Un avis doit porter sur au moins un projet.")]
+    #[
+        Assert\Count(
+            min: 1,
+            minMessage: "Un avis doit porter sur au moins un projet.",
+        ),
+    ]
     private Collection $projects;
 
-    // false tant que l'admin n'a pas relu l'avis : jamais affiché sur le site
+    // false tant que non validé en admin
     #[ORM\Column(options: ["default" => false])]
     private bool $validated = false;
+
+    // accord de publication donné dans le formulaire public ; vide pour un avis saisi en admin
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $consentedAt = null;
 
     public function __construct()
     {
@@ -108,7 +119,7 @@ class Review
     {
         if (!$this->projects->contains($project)) {
             $this->projects->add($project);
-            $project->addReview($this);
+            $project->setReview($this);
         }
 
         return $this;
@@ -116,8 +127,12 @@ class Review
 
     public function removeProject(Project $project): static
     {
-        if ($this->projects->removeElement($project)) {
-            $project->removeReview($this);
+        // le projet a pu être rattaché entre-temps à un autre avis
+        if (
+            $this->projects->removeElement($project) &&
+            $project->getReview() === $this
+        ) {
+            $project->setReview(null);
         }
 
         return $this;
@@ -131,6 +146,18 @@ class Review
     public function setValidated(bool $validated): static
     {
         $this->validated = $validated;
+
+        return $this;
+    }
+
+    public function getConsentedAt(): ?\DateTimeImmutable
+    {
+        return $this->consentedAt;
+    }
+
+    public function setConsentedAt(?\DateTimeImmutable $consentedAt): static
+    {
+        $this->consentedAt = $consentedAt;
 
         return $this;
     }

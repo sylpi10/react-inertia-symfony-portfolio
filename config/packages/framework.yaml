@@ -14,6 +14,13 @@ framework:
             vite:
                 version_strategy: 'Pentatrion\ViteBundle\Asset\ViteAssetVersionStrategy'
 
+    # formulaire public d'avis : quelques envois par heure et par IP
+    rate_limiter:
+        review_form:
+            policy: fixed_window
+            limit: 3
+            interval: '1 hour'
+
 when@test:
     framework:
         test: true

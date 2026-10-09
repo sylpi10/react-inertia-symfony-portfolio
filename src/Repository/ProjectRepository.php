@@ -28,6 +28,24 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     /**
+     * Projets encore sans avis (validé ou en attente), ceux proposés dans le
+     * formulaire d'avis ; limités à $ids si fournis.
+     *
+     * @param list<int>|null $ids
+     *
+     * @return list<Project>
+     */
+    public function findWithoutReview(?array $ids = null): array
+    {
+        $criteria = ["review" => null];
+        if (null !== $ids) {
+            $criteria["id"] = $ids;
+        }
+
+        return $this->findBy($criteria, ["teamPosition" => "ASC", "id" => "ASC"]);
+    }
+
+    /**
      * Projets précédent et suivant dans l'ordre de la page d'un public,
      * en boucle : le premier et le dernier projet se suivent.
      *

@@ -70,6 +70,12 @@ export default function LegalNotice() {
                     ans après notre dernier échange.
                 </p>
                 <p>
+                    Le formulaire d’avis collecte le nom et le texte que vous
+                    choisissez de publier, avec votre accord explicite. L’avis
+                    n’est publié qu’après relecture et reste en ligne tant que
+                    vous n’en demandez pas le retrait, à l’adresse ci-dessous.
+                </p>
+                <p>
                     Conformément au RGPD, vous disposez d’un droit d’accès, de
                     rectification, d’effacement, d’opposition et de limitation
                     du traitement de vos données. Pour l’exercer, écrivez à{" "}

@@ -87,6 +87,20 @@ final class PageSeo
     }
 
     /**
+     * Formulaire d'avis : lien envoyé aux clients, pas une page à trouver.
+     *
+     * @return array{title: string, description: string, robots: string}
+     */
+    public function review(): array
+    {
+        return [
+            "title" => "Laisser un avis | Sylvain Pillet",
+            "description" => "Donnez votre avis sur le site ou l'application réalisé avec Sylvain Pillet, développeur web à Toulouse.",
+            "robots" => "noindex, nofollow",
+        ];
+    }
+
+    /**
      * @return array{title: string, description: string, robots: string}
      */
     public function error(int $status): array

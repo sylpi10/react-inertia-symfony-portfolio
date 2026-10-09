@@ -52,5 +52,9 @@ class ReviewCrudController extends AbstractCrudController
             ->setFormTypeOption('by_reference', false);
         yield DateTimeField::new('createdAt', 'Reçu le')
             ->hideOnForm();
+        // preuve de l'accord de publication, donné dans le formulaire public
+        yield DateTimeField::new('consentedAt', 'Publication acceptée le')
+            ->hideOnIndex()
+            ->setDisabled();
     }
 }
