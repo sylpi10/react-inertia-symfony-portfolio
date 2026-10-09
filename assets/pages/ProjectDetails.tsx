@@ -4,11 +4,7 @@ import { projectImageUrl } from "../lib/images";
 import { projectPath } from "../lib/paths";
 import { Audience } from "../types/audience";
 import NavArrow from "../components/ui/NavArrow";
-import ProjectInfosDetails from "../components/sections/projects/ProjectInfosDetails";
 import Contact from "../components/sections/contact/Contact";
-import ProjectPreview from "../components/sections/projects/ProjectPreview";
-import ProjectPerf from "../components/sections/projects/ProjectPerf";
-import { ReactNode, useRef, useState } from "react";
 import ProjectTabs from "../components/sections/projects/ProjectTabs";
 
 export default function ProjectDetails({

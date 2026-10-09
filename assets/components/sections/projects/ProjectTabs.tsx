@@ -95,7 +95,7 @@ export default function ProjectTabs({
                 <ProjectInfosDetails audience={audience} project={project} />
             </TabPanel>
             <TabPanel id="preview" activeTab={activeTab}>
-                <ProjectPreview project={project} />
+                <ProjectPreview project={project} audience={audience} />
             </TabPanel>
             {project.auditMade && (
                 <TabPanel id="audit" activeTab={activeTab}>

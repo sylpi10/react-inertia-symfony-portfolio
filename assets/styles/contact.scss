@@ -1,5 +1,16 @@
 @use "variables" as *;
 
+// focus des champs : un seul style à la place de l'anneau global (app.scss).
+// Cadre couleur du texte (contrasté dans tous les thèmes) + halo orange
+@mixin field-focus {
+    border: solid 1px var(--text-strong);
+    border-radius: 6px;
+    outline: none;
+    // box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--text-strong) 15%, transparent);
+}
+
 #contact {
     // background: linear-gradient(-203deg, #fbf4b4, #f7f1b5);
     background-color: var(--bg-alt);
@@ -66,8 +77,7 @@
                     padding: 20px;
                     &:focus,
                     &:active {
-                        border: solid 1px var(--accent);
-                        border-radius: 6px;
+                        @include field-focus;
                     }
                 }
                 .input-wrapper {
@@ -117,14 +127,15 @@
                     select {
                         height: 40px;
                         padding: 0 12px;
+                        border-radius: 6px;
                         border: none;
                         border-bottom: solid 1px var(--text-muted);
                         background-color: var(--surface);
                         font: inherit;
                         color: var(--text-strong);
+                        cursor: pointer;
                         &:focus {
-                            border: solid 1px var(--accent);
-                            border-radius: 6px;
+                            @include field-focus;
                         }
                     }
                 }
@@ -152,14 +163,5 @@
                 }
             }
         }
-    }
-}
-
-@keyframes animate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
     }
 }

@@ -40,6 +40,20 @@
                     }
                 }
             }
+
+            a {
+                color: var(--button-text);
+                background-color: var(--button-bg);
+                padding: 10px 16px;
+                border-radius: 4px;
+                transition: all ease 0.4s;
+                height: 48px;
+                &:hover {
+                    padding: 10px 22px;
+                    background-color: var(--button-hover-bg);
+                    color: var(--button-hover-text);
+                }
+            }
         }
 
         .infos,
