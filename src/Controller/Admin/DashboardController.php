@@ -29,6 +29,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkTo(OfferCrudController::class, 'Services', 'fa fa-briefcase');
         yield MenuItem::linkTo(ProjectCrudController::class, 'Projets', 'fa fa-folder-open');
         yield MenuItem::linkTo(ExperienceCrudController::class, 'Parcours', 'fa fa-timeline');
+        yield MenuItem::linkTo(ReviewCrudController::class, 'Avis', 'fa fa-comment');
         yield MenuItem::linkToUrl('Voir le site', 'fa fa-arrow-up-right-from-square', '/')->setLinkTarget('_blank');
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
     }

@@ -96,6 +96,14 @@ class Project
     #[ORM\ManyToMany(targetEntity: Experience::class, mappedBy: "projects")]
     private Collection $experiences;
 
+    /**
+     * Avis portant sur le projet (côté inverse, géré par Review), validés ou non.
+     *
+     * @var Collection<int, Review>
+     */
+    #[ORM\ManyToMany(targetEntity: Review::class, mappedBy: "projects")]
+    private Collection $reviews;
+
     // texte court des cartes projet, version de l'accueil (page équipe) ;
     // remplacé côté création de site par getMiniDescriptionFor() (PagePresenter)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -125,6 +133,7 @@ class Project
     public function __construct()
     {
         $this->experiences = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -279,6 +288,33 @@ class Project
     {
         if ($this->experiences->removeElement($experience)) {
             $experience->removeProject($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            $review->removeProject($this);
         }
 
         return $this;
