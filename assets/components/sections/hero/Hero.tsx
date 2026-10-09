@@ -5,6 +5,7 @@ import { Audience } from "../../../types/audience";
 import { AudienceSwitch } from "./AudienceSwitch";
 import ArrowUpIcon from "../../ui/ArrowUpIcon";
 import useMouseParallax from "../../../hooks/useMouseParallax";
+import NavArrow from "../../ui/NavArrow";
 
 type HeroProps = {
     audience: Audience;
@@ -90,23 +91,13 @@ export default function Hero({
                                 })}
                             </h1>
                             <div className="person-description">
-                                <p className="description">{intro}</p>
-                                <p className="description details">{details}</p>
+                                <div className="description">{intro}</div>
+                                <div className="description details">
+                                    {details}
+                                </div>
                                 <a href="#contact" className="hero-cta">
                                     {cta}
-                                    <svg
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M5 12h14M13 6l6 6-6 6" />
-                                    </svg>
+                                    <NavArrow direction={"next"} />
                                 </a>
                             </div>
                         </div>

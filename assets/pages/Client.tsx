@@ -8,6 +8,8 @@ import Pricing from "../components/sections/pricing/Pricing";
 import Process from "../components/sections/pricing/Process";
 import { ProjectProps } from "../types/projects";
 import { OfferProps } from "../types/offers";
+import { projectPath } from "../lib/paths";
+import { Link } from "@inertiajs/react";
 
 type ClientProps = {
     projects: ProjectProps[];
@@ -16,6 +18,22 @@ type ClientProps = {
 
 // les id servent d'ancres pour la nav et de racine aux styles (#home, #a-propos...)
 export default function Client({ projects, offers }: ClientProps) {
+    const guideSlug = projects.find((p) => p.slug === "directicimes")?.slug;
+
+    const neuroPsySlug = projects.find(
+        (p) => p.slug === "cabinet-de-neuro-psy",
+    )?.slug;
+    const mahaSlug = projects.find(
+        (p) => p.slug === "la-cuisine-de-maha",
+    )?.slug;
+    const utopixSlug = projects.find((p) => p.slug === "utopix")?.slug;
+
+    const guideDetailsUrl = guideSlug && projectPath(guideSlug, "client");
+    const neuroPsyDetailsUrl =
+        neuroPsySlug && projectPath(neuroPsySlug, "client");
+    const mahaDetailsUrl = mahaSlug && projectPath(mahaSlug, "client");
+    const utopixDetailsUrl = utopixSlug && projectPath(utopixSlug, "client");
+
     return (
         <>
             <section id="home">
@@ -24,22 +42,69 @@ export default function Client({ projects, offers }: ClientProps) {
                     text={"Création de sites web \n à Toulouse "}
                     intro={
                         <>
-                            Développeur web freelance à Toulouse, je crée votre
-                            site vitrine avec son espace d’administration, ou je
-                            reprends et améliore votre site existant. <br />5
-                            ans d’expérience en e-commerce : des sites rapides
-                            et bien référencés.
+                            <p>
+                                Développeur web freelance à Toulouse, je crée
+                                des sites 100 % sur mesure avec un design
+                                moderne pensé pour votre activité.
+                            </p>
+                            <p>
+                                Depuis 2020, j’accompagne des indépendants et
+                                des petites entreprises : <br />
+                                {guideDetailsUrl ? (
+                                    <Link rel="noopener" href={guideDetailsUrl}>
+                                        Guide de haute montagne
+                                    </Link>
+                                ) : (
+                                    "Guide de haute montagne"
+                                )}
+                                ,{" "}
+                                {neuroPsyDetailsUrl ? (
+                                    <Link
+                                        rel="noopener"
+                                        href={neuroPsyDetailsUrl}
+                                    >
+                                        Neuropsychologue
+                                    </Link>
+                                ) : (
+                                    "Neuropsychologue"
+                                )}
+                                ,{" "}
+                                {mahaDetailsUrl ? (
+                                    <Link rel="noopener" href={mahaDetailsUrl}>
+                                        Cheffe à domicile
+                                    </Link>
+                                ) : (
+                                    "Cheffe à domicile"
+                                )}
+                                ,{" "}
+                                {utopixDetailsUrl ? (
+                                    <Link
+                                        rel="noopener"
+                                        href={utopixDetailsUrl}
+                                    >
+                                        lieu d’exposition
+                                    </Link>
+                                ) : (
+                                    "lieu d’exposition"
+                                )}
+                                ... {""}
+                                Tous gèrent aujourd’hui leur site en toute
+                                autonomie.
+                            </p>
                         </>
                     }
-
                     details={
                         <>
-                            Je vous accompagne de l’idée à la mise en ligne : on
-                            échange d’abord sur votre besoin, je construis une
-                            première version utilisable, puis j’avance avec vos
-                            retours. Vous pouvez ensuite modifier vos contenus
-                            vous-même grâce à un espace d’administration simple,
-                            et je m’occupe de l’hébergement.
+                            <p>
+                                Chaque projet est contrôlé selon les standards
+                                du web, vitesse testée avec les outils de
+                                Google, référencement vérifié page par page.
+                            </p>
+                            <p>
+                                Une fois le projet en ligne, vous êtes autonome
+                                pour gérer tous vos contenus via un espace
+                                d'administration.
+                            </p>
                         </>
                     }
                     cta="Discutons de votre projet"
