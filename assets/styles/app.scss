@@ -80,6 +80,11 @@ ul {
 a {
     text-decoration: none;
 }
+// l'attribut hidden n'applique qu'un display: none du navigateur, qu'une règle
+// display: grid/flex écrase (panneaux des onglets d'un projet) : on le force
+[hidden] {
+    display: none !important;
+}
 // lien au milieu d'un texte : souligné, pas seulement coloré (accessibilité).
 // Les liens stylés par une classe (boutons, cartes) passent devant.
 p a {
