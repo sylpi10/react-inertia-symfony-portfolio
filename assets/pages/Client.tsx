@@ -11,7 +11,7 @@ import { OfferProps } from "../types/offers";
 import { projectPath } from "../lib/paths";
 import { Link } from "@inertiajs/react";
 import { ReviewProps } from "../types/reviews";
-import Reviews from "../components/sections/Reviews";
+import Reviews from "../components/sections/reviews/Reviews";
 
 type ClientProps = {
     projects: ProjectProps[];
@@ -120,7 +120,7 @@ export default function Client({ projects, offers, reviews }: ClientProps) {
                 <Projects projects={projects} audience="client" />
             </section>
             <section id="avis">
-                <Reviews reviews={reviews} />;
+                <Reviews reviews={reviews} audience="client" />
             </section>
             <section id="a-propos">
                 <About audience="client" />

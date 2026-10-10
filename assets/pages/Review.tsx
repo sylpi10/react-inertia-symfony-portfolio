@@ -102,7 +102,10 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                     complet, comme vous préférez.
                                 </div>
                                 {form.errors.author && (
-                                    <div className="form-error" id="author-error">
+                                    <div
+                                        className="form-error"
+                                        id="author-error"
+                                    >
                                         {form.errors.author}
                                     </div>
                                 )}
@@ -134,8 +137,7 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                     Poste ou entreprise (facultatif)
                                 </label>
                                 <div className="form-help" id="authorRole-help">
-                                    Affiché sous votre nom, par exemple
-                                    « Gérante, La cuisine de Maha ».
+                                    Affiché sous votre nom.
                                 </div>
                                 {form.errors.authorRole && (
                                     <div
@@ -178,7 +180,10 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                     </label>
                                 ))}
                                 {projectsError && (
-                                    <div className="form-error" id="projects-error">
+                                    <div
+                                        className="form-error"
+                                        id="projects-error"
+                                    >
                                         {projectsError}
                                     </div>
                                 )}
@@ -197,7 +202,9 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                     }
                                     aria-invalid={!!form.errors.text}
                                     aria-describedby={
-                                        form.errors.text ? "text-error" : undefined
+                                        form.errors.text
+                                            ? "text-error"
+                                            : undefined
                                     }
                                 ></textarea>
                                 <label htmlFor="text">Votre avis</label>
@@ -232,7 +239,10 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                     demander son retrait à tout moment.
                                 </label>
                                 {form.errors.consent && (
-                                    <div className="form-error" id="consent-error">
+                                    <div
+                                        className="form-error"
+                                        id="consent-error"
+                                    >
                                         {form.errors.consent}
                                     </div>
                                 )}

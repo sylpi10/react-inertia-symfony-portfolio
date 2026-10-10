@@ -23,7 +23,7 @@ const navigation = {
         links: [
             { href: "/#competences", label: "Compétences" },
             { href: "/#projects", label: "Projets" },
-            { href: "/#parcours", label: "Avis" },
+            { href: "/#avis", label: "Avis" },
             { href: "/#a-propos", label: "À propos" },
             { href: "/#parcours", label: "Parcours" },
             { href: "/#contact", label: "Contact" },

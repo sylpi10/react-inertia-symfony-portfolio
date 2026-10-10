@@ -9,7 +9,7 @@ import TeamSkills from "../components/sections/skills/TeamSkills";
 import { projectPath } from "../lib/paths";
 import { ExperienceProps } from "../types/experiences";
 import { ProjectProps } from "../types/projects";
-import Reviews from "../components/sections/Reviews";
+import Reviews from "../components/sections/reviews/Reviews";
 import { ReviewProps } from "../types/reviews";
 
 type TeamProps = {
@@ -87,7 +87,7 @@ export default function Team({ projects, experiences, reviews }: TeamProps) {
                 <Projects projects={projects} audience="team" />
             </section>
             <section id="avis">
-                <Reviews reviews={reviews} />
+                <Reviews reviews={reviews} audience="team" />
             </section>
             <section id="a-propos">
                 <About audience="team" />
