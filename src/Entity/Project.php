@@ -67,7 +67,7 @@ class Project
     private ?string $background = null;
 
     // description longue de l'accueil (page équipe) ; remplacée côté création
-    // de site par getDescriptionFor() (ProjectsController)
+    // de site par getDescriptionFor() (PagePresenter)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(["project:detail"])]
     private ?string $description = null;

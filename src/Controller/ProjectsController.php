@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+// pages détail d'un projet (les pages d'accueil sont dans HomeController) ;
 // les erreurs (projet introuvable…) sont rendues par InertiaErrorListener
 class ProjectsController extends AbstractController
 {
@@ -22,22 +23,6 @@ class ProjectsController extends AbstractController
         private readonly PagePresenter $presenter,
         private readonly PageSeo $seo,
     ) {}
-
-    // accueil = page équipe (recruteurs, CTO, agences)
-    #[Route("/", name: "home", methods: ["GET"])]
-    public function getHome(): Response
-    {
-        return $this->renderAudiencePage(Audience::Team);
-    }
-
-    // même portfolio, présenté aux indépendants et TPE qui cherchent un site
-    #[Route("/creation-site-web", name: "client", methods: ["GET"])]
-    public function getClientPage(): Response
-    {
-        return $this->renderAudiencePage(Audience::Client, [
-            "offers" => $this->presenter->offers(),
-        ]);
-    }
 
     // ancienne URL par id, conservée pour les liens et l'index existants
     #[
@@ -85,28 +70,6 @@ class ProjectsController extends AbstractController
         #[MapEntity(mapping: ["slug" => "slug"])] Project $project,
     ): Response {
         return $this->renderProjectDetails($project, Audience::Client);
-    }
-
-    /**
-     * Page d'accueil d'un public : ses projets, le parcours et les props propres à la page.
-     *
-     * @param array<string, mixed> $props
-     */
-    private function renderAudiencePage(
-        Audience $audience,
-        array $props = [],
-    ): Response {
-        return $this->inertia->render(
-            Audience::Team === $audience ? "Team" : "Client",
-            [
-                "audience" => $audience->value,
-                "projects" => $this->presenter->projects($audience),
-                "experiences" => $this->presenter->experiences($audience),
-                "reviews" => $this->presenter->reviews(),
-                "seo" => $this->seo->audiencePage($audience),
-                ...$props,
-            ],
-        );
     }
 
     private function renderProjectDetails(

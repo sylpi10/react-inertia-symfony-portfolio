@@ -42,7 +42,7 @@ class Experience
     private ?string $period = null;
 
     // missions, en HTML (éditeur du back-office), version de l'accueil (page équipe) ;
-    // remplacée côté création de site par getDescriptionFor() (ProjectsController)
+    // remplacée côté création de site par getDescriptionFor() (PagePresenter)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(["experience:list"])]
     private ?string $description = null;

@@ -90,8 +90,8 @@ export default function Client({ projects, offers, reviews }: ClientProps) {
                                 ) : (
                                     "lieu d’exposition"
                                 )}
-                                ... {""}
-                                Tous gèrent aujourd’hui leur site en toute
+                                ... <br />
+                                Ils gèrent aujourd’hui leur site en toute
                                 autonomie.
                             </p>
                         </>
