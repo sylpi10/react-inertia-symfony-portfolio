@@ -77,6 +77,22 @@
         {{ vite_entry_script_tags('app', { dependency: 'react' }) }}
         {% endblock %}
 
+        {# Matomo sans cookies (exemption CNIL : pas de bandeau), en production seulement
+           (MATOMO_URL vide ailleurs). Première page comptée ici ; les navigations Inertia,
+           qui ne rechargent pas la page, le sont dans assets/lib/analytics.ts #}
+        {% if matomo_url %}
+        {% set matomo_base = matomo_url|trim('/', 'right') ~ '/' %}
+        <script>
+            var _paq = window._paq = window._paq || [];
+            _paq.push(['disableCookies']);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            _paq.push(['setTrackerUrl', {{ (matomo_base ~ 'matomo.php')|json_encode|raw }}]);
+            _paq.push(['setSiteId', {{ matomo_site_id|json_encode|raw }}]);
+        </script>
+        <script async src="{{ matomo_base }}matomo.js"></script>
+        {% endif %}
+
         {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
         {% if frankenphp_hot_reload %}
         <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">

@@ -1,6 +1,7 @@
 import { createInertiaApp, router } from "@inertiajs/react";
 import { resolvePage } from "./lib/resolvePage";
 import Layout from "./layouts/Layout";
+import { trackPageView } from "./lib/analytics";
 
 createInertiaApp({
     resolve: resolvePage,
@@ -15,6 +16,8 @@ router.on("navigate", (event) => {
     if (seo?.title) {
         document.title = seo.title;
     }
+    // après la mise à jour du titre, repris dans les stats
+    trackPageView(event.detail.page.url, document.title);
 
     // nouvelle page (pas le premier chargement, ni une ancre de la même page) :
     // focus sur le h1, le lecteur d'écran annonce la page au lieu de rester

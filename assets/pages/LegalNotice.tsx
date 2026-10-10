@@ -93,6 +93,27 @@ export default function LegalNotice() {
             </section>
 
             <section>
+                <h2>Mesure d’audience</h2>
+                <p>
+                    La fréquentation du site est mesurée avec Matomo, hébergé
+                    en France sur mon propre serveur (o2switch) : pages vues,
+                    provenance, type d’appareil. Aucun cookie n’est déposé,
+                    votre adresse IP est anonymisée et ces statistiques ne
+                    sont ni recoupées avec d’autres données ni transmises à
+                    des tiers. Cette mesure est donc dispensée de
+                    consentement ; vous pouvez malgré tout{" "}
+                    <a
+                        href="https://stats.sylvainpillet.com/index.php?module=CoreAdminHome&action=optOut&language=fr"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        vous y opposer
+                    </a>
+                    .
+                </p>
+            </section>
+
+            <section>
                 <h2>Cookies</h2>
                 <p>
                     Ce site n’utilise aucun cookie de mesure d’audience ni

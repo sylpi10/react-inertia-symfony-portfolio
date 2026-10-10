@@ -1,5 +1,9 @@
 twig:
     file_name_pattern: '*.twig'
+    globals:
+        # mesure d'audience (base.html.twig) ; URL vide = pas de suivi
+        matomo_url: '%env(MATOMO_URL)%'
+        matomo_site_id: '%env(MATOMO_SITE_ID)%'
 
 when@test:
     twig:
