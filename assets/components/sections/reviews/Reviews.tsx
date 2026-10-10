@@ -118,7 +118,7 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
                     )}
 
                     <p className="share-review-link">
-                        Vous avez travaillé avec moi ? :{" "}
+                        Nous avons travaillés ensemble ?{" "}
                         <Link href={"/avis"}> Laissez un avis </Link>
                     </p>
                 </div>
