@@ -37,6 +37,8 @@
                     a {
                         color: var(--text-strong);
                         text-decoration: underline;
+                        background-color: transparent !important;
+                        padding: unset;
                     }
                 }
             }
