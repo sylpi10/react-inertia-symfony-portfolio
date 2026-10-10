@@ -27,7 +27,7 @@ export default function Pricing() {
             <div className="content">
                 <h2 className="section-title">Tarifs</h2>
                 <p className="pricing-intro">
-                    Des prix indicatifs : chaque projet fait l’objet d’un devis
+                    Prix indicatifs, chaque projet fait l’objet d’un devis
                     détaillé, gratuit et sans engagement.
                 </p>
                 <ul className="pricing-list">

@@ -7,12 +7,12 @@ const skills = [
     {
         title: "Backend",
         description:
-            "Symfony et PHP : modélisation avec Doctrine, API, back-offices EasyAdmin. Développement frontend et fonctionnalités custom sur Magento (e-commerce).",
+            "Symfony et PHP: modélisation avec Doctrine, API, back-offices EasyAdmin. Développement php sur Magento(e- commerce).",
     },
     {
         title: "Méthodes",
         description:
-            "Git et revues de code, travail avec chefs de projet et designers (Trello, ClickUp, Asana, Slack). Architecture en couches (services, interfaces, DTO) sur le Labelmaker chez Ludilabel.",
+            "Git et revues de code, travail avec chefs de projet et designers (Trello, ClickUp, Asana, Slack). Architecture en couches (services, interfaces, DTO).",
     },
     {
         title: "Production",
