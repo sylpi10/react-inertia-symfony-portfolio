@@ -1,7 +1,7 @@
 @use "../variables" as *;
 
 .projects-container {
-    padding: 80px 0;
+    padding: var(--section-top) 0 80px;
     background-color: var(--bg-alt);
     .projects-list {
         display: grid;
@@ -45,6 +45,10 @@
 
                 .item-header {
                     position: relative;
+                    // sans largeur, l'en-tête se cale sur celle du titre tant que
+                    // la vignette n'est pas chargée : elle ne réserve pas sa hauteur
+                    // et la page grandit pendant le défilement vers une ancre
+                    width: 100%;
                     h3 {
                         background-color: var(--strong);
                         color: var(--on-strong);

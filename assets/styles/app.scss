@@ -132,6 +132,12 @@ p a {
     text-decoration: underline;
     text-underline-offset: 0.15em;
 }
+// espace au-dessus du titre de chaque section de l'accueil, le même partout :
+// après un clic sur une ancre du menu, le titre arrive à la même distance du
+// menu fixe (64px), qui recouvre une partie de cet espace
+:root {
+    --section-top: 80px;
+}
 .section-container {
     position: relative;
 }

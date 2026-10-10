@@ -3,7 +3,7 @@
 .section-container.parcours-container {
     .parcours-wrapper {
         display: flex;
-        margin: 60px auto 40px auto;
+        margin: var(--section-top) auto 40px auto;
         justify-content: center;
         position: relative;
         flex-direction: column;

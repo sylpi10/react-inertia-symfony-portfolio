@@ -7,7 +7,7 @@
     .reviews-wrapper {
         max-width: 1100px;
         margin: 0 auto;
-        padding: 60px 0;
+        padding: var(--section-top) 0 60px;
         .reviews-count {
             position: relative;
             display: flex;

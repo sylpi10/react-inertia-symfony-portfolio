@@ -19,7 +19,7 @@
     .contact-wrapper {
         display: flex;
         flex-direction: column;
-        margin: 120px auto 0 auto;
+        margin: var(--section-top) auto 0 auto;
         justify-content: center;
         position: relative;
         padding-bottom: 60px;
