@@ -53,6 +53,7 @@
             {{ {
                 '@context': 'https://schema.org',
                 '@type': 'Person',
+                '@id': url('home') ~ '#sylvain-pillet',
                 'name': 'Sylvain Pillet',
                 'url': url('home'),
                 'image': profile_image,
@@ -61,6 +62,27 @@
                 'knowsAbout': ['React', 'TypeScript', 'JavaScript', 'Développement frontend', 'Performance web', 'SEO technique', 'UI/UX', 'Symfony', 'PHP'],
                 'address': {'@type': 'PostalAddress', 'addressLocality': 'Toulouse', 'addressRegion': 'Occitanie', 'addressCountry': 'FR'},
                 'sameAs': ['https://github.com/sylpi10', 'https://www.linkedin.com/in/sylvain-pillet'],
+            }|json_encode(constant('JSON_UNESCAPED_UNICODE'))|raw }}
+        </script>
+        {# activité, telle que déclarée sur la fiche Google Business : mêmes nom, téléphone
+           et ville que la fiche et les mentions légales (cohérence du référencement local) ;
+           priceRange : premier tarif de la page création de site (Pricing.tsx) #}
+        <script type="application/ld+json">
+            {{ {
+                '@context': 'https://schema.org',
+                '@type': 'ProfessionalService',
+                '@id': url('home') ~ '#activite',
+                'name': 'Sylvain Pillet',
+                'description': 'Développeur web freelance à Toulouse : création de sites vitrines, refontes et applications web React / Symfony.',
+                'url': url('home'),
+                'image': profile_image,
+                'telephone': '+33688103175',
+                'priceRange': 'À partir de 1 500 €',
+                'address': {'@type': 'PostalAddress', 'postalCode': '31400', 'addressLocality': 'Toulouse', 'addressRegion': 'Occitanie', 'addressCountry': 'FR'},
+                'geo': {'@type': 'GeoCoordinates', 'latitude': 43.6045, 'longitude': 1.4442},
+                'areaServed': [{'@type': 'City', 'name': 'Toulouse'}, {'@type': 'Country', 'name': 'France'}],
+                'founder': {'@id': url('home') ~ '#sylvain-pillet'},
+                'sameAs': ['https://share.google/cjVgdToR7DqgAuS4P'],
             }|json_encode(constant('JSON_UNESCAPED_UNICODE'))|raw }}
         </script>
 
