@@ -22,7 +22,11 @@ export default function Footer() {
                     </a>
                     <div className="text">
                         <p className="footer-name">Sylvain Pillet</p>
-                        <p className="footer-role">Développeur à Toulouse</p>
+                        <p className="footer-role">
+                            <Link href="/developpeur-web-toulouse">
+                                Développeur web à Toulouse
+                            </Link>
+                        </p>
                         <a href="mailto:syl.pillet@hotmail.fr">
                             syl.pillet@hotmail.fr
                         </a>

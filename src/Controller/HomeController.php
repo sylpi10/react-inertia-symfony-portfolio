@@ -35,6 +35,18 @@ class HomeController extends AbstractController
         ]);
     }
 
+    // page de référencement local, contenu statique dans assets/pages/LocalToulouse.tsx ;
+    // mode client : même navigation et mêmes pages projet que la page création de site
+    #[Route("/developpeur-web-toulouse", name: "local", methods: ["GET"])]
+    public function getLocalPage(): Response
+    {
+        return $this->inertia->render("LocalToulouse", [
+            "audience" => Audience::Client->value,
+            "projects" => $this->presenter->projects(Audience::Client),
+            "seo" => $this->seo->local(),
+        ]);
+    }
+
     /**
      * Page d'accueil d'un public : ses projets, le parcours, les avis et les props propres à la page.
      *

@@ -20,6 +20,10 @@ final class PageSeo
     // l'offre d'abord, l'expérience ensuite
     private const string CLIENT_DESCRIPTION = "Développeur web freelance à Toulouse : sites vitrines avec back-office, refontes, applications React/Next.js pour indépendants et TPE. 5 ans d’expérience.";
 
+    // page locale : la requête « développeur web freelance Toulouse », sans doublon avec la page création de site
+    private const string LOCAL_TITLE = "Développeur web freelance à Toulouse – Sites et applications | Sylvain Pillet";
+    private const string LOCAL_DESCRIPTION = "Développeur web freelance à Toulouse : création de sites, refontes, applications React / Symfony et référencement local pour les indépendants, TPE et PME.";
+
     public function __construct(
         private readonly ProjectSummary $summary,
         private readonly ProjectShareImage $shareImage,
@@ -36,6 +40,16 @@ final class PageSeo
         return Audience::Team === $audience
             ? ["title" => self::HOME_TITLE, "description" => self::HOME_DESCRIPTION]
             : ["title" => self::CLIENT_TITLE, "description" => self::CLIENT_DESCRIPTION];
+    }
+
+    /**
+     * Page locale « développeur web à Toulouse ».
+     *
+     * @return array{title: string, description: string}
+     */
+    public function local(): array
+    {
+        return ["title" => self::LOCAL_TITLE, "description" => self::LOCAL_DESCRIPTION];
     }
 
     /**
