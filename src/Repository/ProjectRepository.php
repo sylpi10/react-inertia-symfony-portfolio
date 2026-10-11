@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Project;
 use App\Enum\Audience;
+use App\Enum\ReviewPolicy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -31,8 +32,9 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     /**
-     * Projets ouverts aux avis (case « Ouvert aux avis » de l'admin), ceux proposés
-     * dans le formulaire d'avis, qu'ils aient déjà des avis ou non ; limités à $ids si fournis.
+     * Projets proposés dans le formulaire d'avis, selon leur réglage dans l'admin :
+     * « plusieurs avis » toujours, « un seul avis » tant qu'ils n'en ont aucun
+     * (validé ou en attente), « fermé » jamais ; limités à $ids si fournis.
      *
      * @param list<int>|null $ids
      *
@@ -40,15 +42,17 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findReviewable(?array $ids = null): array
     {
-        $criteria = ["reviewable" => true];
+        $query = $this->createQueryBuilder("p")
+            ->andWhere("p.reviewPolicy = :open OR (p.reviewPolicy = :single AND p.reviews IS EMPTY)")
+            ->setParameter("open", ReviewPolicy::Open)
+            ->setParameter("single", ReviewPolicy::Single)
+            ->orderBy("p.teamPosition", "ASC")
+            ->addOrderBy("p.id", "ASC");
         if (null !== $ids) {
-            $criteria["id"] = $ids;
+            $query->andWhere("p.id IN (:ids)")->setParameter("ids", $ids);
         }
 
-        return $this->findBy($criteria, [
-            "teamPosition" => "ASC",
-            "id" => "ASC",
-        ]);
+        return $query->getQuery()->getResult();
     }
 
     /**

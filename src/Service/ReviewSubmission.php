@@ -30,13 +30,13 @@ class ReviewSubmission
     ) {}
 
     /**
-     * @throws ValidationFailedException projet inconnu ou fermé aux avis
+     * @throws ValidationFailedException projet inconnu, fermé aux avis ou ayant déjà son seul avis
      */
     public function submit(ReviewRequest $data): Review
     {
         $ids = array_values(array_unique($data->projects));
         $projects = $ids ? $this->projects->findReviewable($ids) : [];
-        // projet inconnu, ou fermé aux avis depuis l'affichage du formulaire
+        // projet inconnu, ou sorti du formulaire depuis son affichage (fermé, ou avis reçu entre-temps)
         if (\count($projects) !== \count($ids)) {
             throw new ValidationFailedException($data, new ConstraintViolationList([
                 new ConstraintViolation(

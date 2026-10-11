@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Enum\Audience;
+use App\Enum\ReviewPolicy;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -105,9 +106,10 @@ class Project
     #[ORM\ManyToMany(targetEntity: Review::class, mappedBy: "projects")]
     private Collection $reviews;
 
-    // proposé dans le formulaire d'avis ; décoché pour les projets persos (Portfolio…)
-    #[ORM\Column(options: ["default" => true])]
-    private bool $reviewable = true;
+    // place dans le formulaire d'avis : fermé, un seul avis ou plusieurs
+    // (ProjectRepository::findReviewable())
+    #[ORM\Column(length: 10, enumType: ReviewPolicy::class, options: ["default" => "single"])]
+    private ReviewPolicy $reviewPolicy = ReviewPolicy::Single;
 
     // texte court des cartes projet, version de l'accueil (page équipe) ;
     // remplacé côté création de site par getMiniDescriptionFor() (PagePresenter)
@@ -325,14 +327,14 @@ class Project
         return $this;
     }
 
-    public function isReviewable(): bool
+    public function getReviewPolicy(): ReviewPolicy
     {
-        return $this->reviewable;
+        return $this->reviewPolicy;
     }
 
-    public function setReviewable(bool $reviewable): static
+    public function setReviewPolicy(ReviewPolicy $reviewPolicy): static
     {
-        $this->reviewable = $reviewable;
+        $this->reviewPolicy = $reviewPolicy;
 
         return $this;
     }

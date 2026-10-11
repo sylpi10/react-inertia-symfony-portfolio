@@ -3,11 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Project;
+use App\Enum\ReviewPolicy;
 use App\Service\ProjectImageStorage;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -120,9 +122,14 @@ class ProjectCrudController extends AbstractCrudController
             "Du plus petit (affiché en premier) au plus grand. Sert aussi pour précédent/suivant.",
         );
         yield IntegerField::new("position", "Ordre (création de site)");
-        yield BooleanField::new("reviewable", "Ouvert aux avis")
+        yield ChoiceField::new("reviewPolicy", "Avis")
+            ->setChoices([
+                ReviewPolicy::Single->label() => ReviewPolicy::Single,
+                ReviewPolicy::Open->label() => ReviewPolicy::Open,
+                ReviewPolicy::Closed->label() => ReviewPolicy::Closed,
+            ])
             ->setHelp(
-                "Décoché : jamais proposé dans le formulaire d'avis (projets persos).",
+                "Un seul avis : retiré du formulaire d'avis dès qu'il en a un. Plusieurs avis : toujours proposé. Fermé : jamais proposé (projets persos).",
             )
             ->hideOnIndex();
         // côté inverse de la relation : by_reference=false pour passer par

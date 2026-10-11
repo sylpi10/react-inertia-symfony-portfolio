@@ -29,7 +29,7 @@ class ReviewController extends AbstractController
     {
         return $this->inertia->render("Review", [
             "seo" => $this->seo->review(),
-            // projets ouverts aux avis (un projet peut en recevoir plusieurs)
+            // projets proposés selon leur réglage dans l'admin (ReviewPolicy)
             "projects" => array_map(
                 fn(Project $project) => [
                     "id" => $project->getId(),

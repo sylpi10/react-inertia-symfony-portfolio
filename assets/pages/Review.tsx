@@ -13,7 +13,7 @@ type ReviewForm = {
 };
 
 // page à part, dont le lien est envoyé aux clients ; les projets proposés
-// sont ceux ouverts aux avis dans l'admin
+// dépendent du réglage « Avis » de chaque projet dans l'admin
 export default function Review({ projects }: { projects: ReviewProject[] }) {
     const form = useForm<ReviewForm>({
         author: "",
