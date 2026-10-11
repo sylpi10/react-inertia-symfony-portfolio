@@ -15,7 +15,7 @@ final class PageSeo
     // accueil = page équipe (recruteurs, CTO, agences), le cœur de l'activité
     private const string HOME_TITLE = "Sylvain Pillet – Développeur fullstack React / Symfony à Toulouse";
     // 155 caractères max pour ne pas être tronquée
-    private const string HOME_DESCRIPTION = "Développeur fullstack React et Symfony à Toulouse : 5 ans en e-commerce, interfaces, API, tests. Disponible pour renforcer votre équipe.";
+    private const string HOME_DESCRIPTION = "Développeur fullstack React et Symfony à Toulouse ou en full remote : 5 ans en e-commerce, interfaces, API, tests. Disponible pour renforcer votre équipe.";
     private const string CLIENT_TITLE = "Création de site web à Toulouse – Développeur freelance | Sylvain Pillet";
     // l'offre d'abord, l'expérience ensuite
     private const string CLIENT_DESCRIPTION = "Développeur web freelance à Toulouse : sites vitrines avec back-office, refontes, applications React/Next.js pour indépendants et TPE. 5 ans d’expérience.";
@@ -58,13 +58,7 @@ final class PageSeo
     public function project(Project $project, Audience $audience): array
     {
         $seo = [
-            "title" => sprintf(
-                "%s – %s | Sylvain Pillet",
-                $project->getName(),
-                Audience::Team === $audience
-                    ? "Projet web"
-                    : "Création de site web",
-            ),
+            "title" => $this->projectTitle($project, $audience),
             "description" => $this->summary->metaDescription(
                 $project,
                 $audience,
@@ -84,6 +78,22 @@ final class PageSeo
         }
 
         return $seo;
+    }
+
+    // page création de site : le besoin du client d'abord s'il est renseigné
+    // (« Site web pour guide de haute montagne – Directicimes »), pour être trouvée hors de Toulouse
+    private function projectTitle(Project $project, Audience $audience): string
+    {
+        $need = trim((string) $project->getClientSeoTitle());
+        if (Audience::Client === $audience && "" !== $need) {
+            return sprintf("%s – %s | Sylvain Pillet", $need, $project->getName());
+        }
+
+        return sprintf(
+            "%s – %s | Sylvain Pillet",
+            $project->getName(),
+            Audience::Team === $audience ? "Projet web" : "Création de site web",
+        );
     }
 
     /**

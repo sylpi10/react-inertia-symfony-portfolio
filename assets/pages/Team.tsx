@@ -41,7 +41,8 @@ export default function Team({ projects, experiences, reviews }: TeamProps) {
                                 Développeur frontend avec une pratique
                                 fullstack, basé à Toulouse. Je rejoins votre
                                 équipe pour faire avancer vos produits React ou
-                                Symfony.
+                                Symfony, sur place à Toulouse ou en full remote
+                                partout en France.
                             </p>
                             <p>5 ans d’expérience e-commerce chez Ludilabel.</p>
                         </>

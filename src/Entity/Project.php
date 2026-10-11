@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
@@ -76,6 +77,12 @@ class Project
     // version pour la page « création de site » ; vide = celle de l'accueil
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $clientDescription = null;
+
+    // besoin tel qu'un client le cherche (« Site web pour guide de haute montagne ») :
+    // début du <title> de la page « création de site » ; vide = titre générique
+    #[ORM\Column(length: 70, nullable: true)]
+    #[Assert\Length(max: 70)]
+    private ?string $clientSeoTitle = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     #[Groups(["project:detail"])]
@@ -371,6 +378,18 @@ class Project
     public function setClientDescription(?string $clientDescription): static
     {
         $this->clientDescription = $clientDescription;
+
+        return $this;
+    }
+
+    public function getClientSeoTitle(): ?string
+    {
+        return $this->clientSeoTitle;
+    }
+
+    public function setClientSeoTitle(?string $clientSeoTitle): static
+    {
+        $this->clientSeoTitle = $clientSeoTitle;
 
         return $this;
     }

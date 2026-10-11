@@ -98,6 +98,14 @@ class ProjectCrudController extends AbstractCrudController
             ->setHelp(
                 "Vide : la description équipe est reprise, et la page /creation-site-web/projets/… pointe vers celle-ci (canonical).",
             );
+        yield TextField::new(
+            "clientSeoTitle",
+            "Titre Google – page détail (création de site)",
+        )
+            ->hideOnIndex()
+            ->setHelp(
+                "Le besoin tel qu'un client le taperait, ex. « Site web pour guide de haute montagne ». Suivi du nom du projet dans l'onglet et dans Google. Vide : « Nom – Création de site web ».",
+            );
         yield UrlField::new("weblink", "Site")->hideOnIndex();
         yield UrlField::new("githublink", "GitHub")->hideOnIndex();
 
