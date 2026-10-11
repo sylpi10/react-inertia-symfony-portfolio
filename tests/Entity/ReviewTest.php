@@ -25,19 +25,19 @@ final class ReviewTest extends KernelTestCase
 
         // un même avis peut porter sur plusieurs projets
         $review->addProject($ava);
-        $labelmaker->setReview($review);
+        $labelmaker->addReview($review);
 
         self::assertCount(2, $review->getProjects());
-        self::assertSame($review, $ava->getReview());
-        self::assertSame($review, $labelmaker->getReview());
+        self::assertTrue($ava->getReviews()->contains($review));
+        self::assertTrue($labelmaker->getReviews()->contains($review));
 
-        $ava->setReview(null);
+        $ava->removeReview($review);
 
         self::assertFalse($review->getProjects()->contains($ava));
-        self::assertNull($ava->getReview());
+        self::assertCount(0, $ava->getReviews());
     }
 
-    public function testAProjectHasOnlyOneReview(): void
+    public function testAProjectCanHaveSeveralReviews(): void
     {
         $first = new Review();
         $second = new Review();
@@ -46,24 +46,45 @@ final class ReviewTest extends KernelTestCase
         $first->addProject($ava);
         $second->addProject($ava);
 
-        // rattacher le projet au second avis le retire du premier
-        self::assertSame($second, $ava->getReview());
-        self::assertCount(0, $first->getProjects());
+        // le second avis s'ajoute au premier, il ne le remplace pas
+        self::assertSame([$first, $second], $ava->getReviews()->toArray());
+        self::assertCount(1, $first->getProjects());
         self::assertCount(1, $second->getProjects());
     }
 
-    public function testReviewNeedsAuthorTextAndAtLeastOneProject(): void
+    public function testReviewNeedsAuthorAndTextButNoProject(): void
     {
         $validator = self::getContainer()->get(ValidatorInterface::class);
 
         $violations = $validator->validate(new Review());
         $fields = array_map(fn ($v) => $v->getPropertyPath(), iterator_to_array($violations));
-        self::assertEqualsCanonicalizing(['author', 'text', 'projects'], $fields);
+        // le projet est facultatif : avis sur le travail en général
+        self::assertEqualsCanonicalizing(['author', 'text'], $fields);
 
         $review = (new Review())
             ->setAuthor('Marie')
             ->setText('Super travail.')
             ->addProject((new Project())->setName('Ava'));
         self::assertCount(0, $validator->validate($review));
+    }
+
+    public function testGoogleRatingAndLinkAreOptionalButChecked(): void
+    {
+        $validator = self::getContainer()->get(ValidatorInterface::class);
+        $review = (new Review())
+            ->setAuthor('Marie')
+            ->setText('Super travail.')
+            ->addProject((new Project())->setName('Ava'));
+
+        // avis du formulaire, sans équivalent Google
+        self::assertCount(0, $validator->validate($review));
+        self::assertNull($review->getGoogleRating());
+
+        $review->setGoogleRating(5)->setGoogleReviewUrl('https://share.google/abc');
+        self::assertCount(0, $validator->validate($review));
+
+        $review->setGoogleRating(6)->setGoogleReviewUrl('pas un lien');
+        $fields = array_map(fn ($v) => $v->getPropertyPath(), iterator_to_array($validator->validate($review)));
+        self::assertEqualsCanonicalizing(['googleRating', 'googleReviewUrl'], $fields);
     }
 }

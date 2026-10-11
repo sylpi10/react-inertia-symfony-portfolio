@@ -30,17 +30,17 @@ class ReviewSubmission
     ) {}
 
     /**
-     * @throws ValidationFailedException projet inconnu ou ayant déjà un avis
+     * @throws ValidationFailedException projet inconnu ou fermé aux avis
      */
     public function submit(ReviewRequest $data): Review
     {
         $ids = array_values(array_unique($data->projects));
-        $projects = $this->projects->findWithoutReview($ids);
-        // un projet n'a qu'un avis : déjà pris entre l'affichage du formulaire et l'envoi
+        $projects = $ids ? $this->projects->findReviewable($ids) : [];
+        // projet inconnu, ou fermé aux avis depuis l'affichage du formulaire
         if (\count($projects) !== \count($ids)) {
             throw new ValidationFailedException($data, new ConstraintViolationList([
                 new ConstraintViolation(
-                    "Un des projets choisis a déjà reçu un avis, rechargez la page.",
+                    "Un des projets choisis n'est plus ouvert aux avis, rechargez la page.",
                     null,
                     [],
                     $data,
@@ -69,7 +69,8 @@ class ReviewSubmission
     // l'avis est enregistré : un mail perdu ne doit pas faire échouer l'envoi
     private function notify(Review $review): void
     {
-        $projects = implode(", ", $review->getProjects()->map(fn ($p) => $p->getName())->toArray());
+        // avis sans projet : sur le travail en général
+        $projects = implode(", ", $review->getProjects()->map(fn ($p) => $p->getName())->toArray()) ?: "sans projet";
 
         try {
             $this->mailer->send(

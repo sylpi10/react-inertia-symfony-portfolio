@@ -96,10 +96,14 @@ class Project
     #[ORM\ManyToMany(targetEntity: Experience::class, mappedBy: "projects")]
     private Collection $experiences;
 
-    // avis portant sur le projet, validé ou non ; un même avis peut couvrir plusieurs projets
-    #[ORM\ManyToOne(inversedBy: "projects")]
-    #[ORM\JoinColumn(onDelete: "SET NULL")]
-    private ?Review $review = null;
+    /**
+     * Avis portant sur le projet (côté inverse, géré par Review), validés ou non ;
+     * un même avis peut couvrir plusieurs projets.
+     *
+     * @var Collection<int, Review>
+     */
+    #[ORM\ManyToMany(targetEntity: Review::class, mappedBy: "projects")]
+    private Collection $reviews;
 
     // proposé dans le formulaire d'avis ; décoché pour les projets persos (Portfolio…)
     #[ORM\Column(options: ["default" => true])]
@@ -134,6 +138,7 @@ class Project
     public function __construct()
     {
         $this->experiences = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -293,22 +298,29 @@ class Project
         return $this;
     }
 
-    public function getReview(): ?Review
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
     {
-        return $this->review;
+        return $this->reviews;
     }
 
-    public function setReview(?Review $review): static
+    public function addReview(Review $review): static
     {
-        if ($review === $this->review) {
-            return $this;
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->addProject($this);
         }
 
-        // garde les collections des deux avis cohérentes
-        $previous = $this->review;
-        $this->review = $review;
-        $previous?->removeProject($this);
-        $review?->addProject($this);
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            $review->removeProject($this);
+        }
 
         return $this;
     }

@@ -121,7 +121,7 @@ final class PagePresenter
      * Avis validés, les plus récents d'abord ; postedAt en ISO 8601 (formatDay côté front),
      * projets réduits au nom et au slug pour le lien vers leur page.
      *
-     * @return list<array{id: int, author: string, authorRole: ?string, postedAt: string, text: string, projects: list<array{name: string, slug: string}>}>
+     * @return list<array{id: int, author: string, authorRole: ?string, postedAt: string, text: string, googleRating: ?int, googleReviewUrl: ?string, projects: list<array{name: string, slug: string}>}>
      */
     public function reviews(): array
     {
@@ -132,6 +132,9 @@ final class PagePresenter
                 "authorRole" => $review->getAuthorRole(),
                 "postedAt" => $review->getCreatedAt()->format(\DATE_ATOM),
                 "text" => $review->getText(),
+                // avis aussi déposé sur Google : note (1 à 5) et lien vers l'original, sinon null
+                "googleRating" => $review->getGoogleRating(),
+                "googleReviewUrl" => $review->getGoogleReviewUrl(),
                 "projects" => array_map(
                     fn(Project $project) => [
                         "name" => $project->getName(),

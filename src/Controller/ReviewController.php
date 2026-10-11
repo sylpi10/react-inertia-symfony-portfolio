@@ -29,13 +29,13 @@ class ReviewController extends AbstractController
     {
         return $this->inertia->render("Review", [
             "seo" => $this->seo->review(),
-            // un projet n'a qu'un avis : seuls ceux qui n'en ont pas sont proposés
+            // projets ouverts aux avis (un projet peut en recevoir plusieurs)
             "projects" => array_map(
                 fn(Project $project) => [
                     "id" => $project->getId(),
                     "name" => $project->getName(),
                 ],
-                $projects->findWithoutReview(),
+                $projects->findReviewable(),
             ),
         ]);
     }

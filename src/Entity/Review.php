@@ -38,18 +38,13 @@ class Review
     private \DateTimeImmutable $createdAt;
 
     /**
-     * Projets concernés un projet n'a qu'un avis (côté inverse, géré par Project).
+     * Projets concernés, s'il y en a (un avis peut porter sur le travail en général) ;
+     * un projet peut recevoir plusieurs avis.
      *
      * @var Collection<int, Project>
      */
-    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: "review")]
+    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: "reviews")]
     #[ORM\OrderBy(["id" => "ASC"])]
-    #[
-        Assert\Count(
-            min: 1,
-            minMessage: "Un avis doit porter sur au moins un projet.",
-        ),
-    ]
     private Collection $projects;
 
     // false tant que non validé en admin
@@ -59,6 +54,17 @@ class Review
     // accord de publication donné dans le formulaire public ; vide pour un avis saisi en admin
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $consentedAt = null;
+
+    // même avis déposé sur la fiche Google : note et lien saisis à la main en admin,
+    // affichés en étoiles sur le site ; vides si le client n'a pas posté sur Google
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    #[Assert\Range(min: 1, max: 5, notInRangeMessage: "La note Google va de {{ min }} à {{ max }}.")]
+    private ?int $googleRating = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Url(requireTld: true)]
+    #[Assert\Length(max: 255)]
+    private ?string $googleReviewUrl = null;
 
     public function __construct()
     {
@@ -136,7 +142,7 @@ class Review
     {
         if (!$this->projects->contains($project)) {
             $this->projects->add($project);
-            $project->setReview($this);
+            $project->addReview($this);
         }
 
         return $this;
@@ -144,12 +150,8 @@ class Review
 
     public function removeProject(Project $project): static
     {
-        // le projet a pu être rattaché entre-temps à un autre avis
-        if (
-            $this->projects->removeElement($project) &&
-            $project->getReview() === $this
-        ) {
-            $project->setReview(null);
+        if ($this->projects->removeElement($project)) {
+            $project->removeReview($this);
         }
 
         return $this;
@@ -175,6 +177,30 @@ class Review
     public function setConsentedAt(?\DateTimeImmutable $consentedAt): static
     {
         $this->consentedAt = $consentedAt;
+
+        return $this;
+    }
+
+    public function getGoogleRating(): ?int
+    {
+        return $this->googleRating;
+    }
+
+    public function setGoogleRating(?int $googleRating): static
+    {
+        $this->googleRating = $googleRating;
+
+        return $this;
+    }
+
+    public function getGoogleReviewUrl(): ?string
+    {
+        return $this->googleReviewUrl;
+    }
+
+    public function setGoogleReviewUrl(?string $googleReviewUrl): static
+    {
+        $this->googleReviewUrl = $googleReviewUrl;
 
         return $this;
     }

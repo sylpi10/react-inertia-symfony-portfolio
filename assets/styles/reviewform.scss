@@ -15,11 +15,6 @@
         line-height: 1.6;
     }
 
-    .review-empty {
-        text-align: center;
-        color: var(--text);
-    }
-
     .contact-form form {
         .form-help {
             margin-top: 6px;
@@ -78,6 +73,13 @@
         button.email-button:disabled {
             opacity: 0.6;
             cursor: wait;
+        }
+    }
+
+    .google-link {
+        margin-top: 40px;
+        a {
+            color: var(--accent-text);
         }
     }
 }

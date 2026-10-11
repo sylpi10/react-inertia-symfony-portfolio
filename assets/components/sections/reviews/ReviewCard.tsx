@@ -21,6 +21,31 @@ export default function ReviewCard({
                 {review.authorRole && (
                     <p className="review-role">{review.authorRole}</p>
                 )}
+                {/* avis aussi déposé sur Google : sa note, et le lien vers l'original */}
+                {review.googleRating && (
+                    <p className="review-google">
+                        <span className="stars" aria-hidden="true">
+                            {"★".repeat(review.googleRating)}
+                            <span className="empty">
+                                {"★".repeat(5 - review.googleRating)}
+                            </span>
+                        </span>
+                        <span className="visually-hidden">
+                            Note Google : {review.googleRating} sur 5.
+                        </span>{" "}
+                        {review.googleReviewUrl ? (
+                            <a
+                                href={review.googleReviewUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Avis Google
+                            </a>
+                        ) : (
+                            "Avis Google"
+                        )}
+                    </p>
+                )}
                 <p className="review-meta">
                     {review.projects.map((project, i) => (
                         <span key={project.slug}>
@@ -30,7 +55,7 @@ export default function ReviewCard({
                             </Link>
                         </span>
                     ))}
-                    {" · "}
+                    {review.projects.length > 0 && " · "}
                     <time dateTime={review.postedAt}>
                         {formatDay(review.postedAt)}
                     </time>

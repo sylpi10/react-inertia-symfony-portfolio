@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 final readonly class ReviewRequest
 {
     /**
-     * @param list<int> $projects ids des projets concernés
+     * @param list<int> $projects ids des projets concernés, facultatifs
      */
     public function __construct(
         #[Assert\NotBlank(message: "Votre nom est requis.")]
@@ -39,7 +39,6 @@ final readonly class ReviewRequest
             ),
         ]
         public string $text = "",
-        #[Assert\Count(min: 1, minMessage: "Choisissez au moins un projet.")]
         #[Assert\All([new Assert\Type("int")])]
         public array $projects = [],
         #[Assert\IsTrue(message: "Votre accord est nécessaire pour publier l'avis.")]

@@ -31,16 +31,16 @@ class ProjectRepository extends ServiceEntityRepository
     }
 
     /**
-     * Projets ouverts aux avis et encore sans avis (validé ou en attente), ceux
-     * proposés dans le formulaire d'avis ; limités à $ids si fournis.
+     * Projets ouverts aux avis (case « Ouvert aux avis » de l'admin), ceux proposés
+     * dans le formulaire d'avis, qu'ils aient déjà des avis ou non ; limités à $ids si fournis.
      *
      * @param list<int>|null $ids
      *
      * @return list<Project>
      */
-    public function findWithoutReview(?array $ids = null): array
+    public function findReviewable(?array $ids = null): array
     {
-        $criteria = ["review" => null, "reviewable" => true];
+        $criteria = ["reviewable" => true];
         if (null !== $ids) {
             $criteria["id"] = $ids;
         }
