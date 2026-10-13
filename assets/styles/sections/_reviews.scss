@@ -1,9 +1,10 @@
 @use "../ui/variables" as *;
 
 .section-container.reviews-container {
-    width: 94%;
+    // width: 94%;
     margin: auto;
     border-bottom: solid 1px var(--border);
+    background-color: var(--surface);
     .reviews-wrapper {
         max-width: 1100px;
         margin: 0 auto;
@@ -23,14 +24,13 @@
         margin-top: 40px;
     }
 
-    // piste défilante : 2 cartes visibles, 1 sur mobile
+    // slider : 2 cartes visibles, 1 sur mobile
     .reviews-track {
         --gap: 24px;
         display: flex;
         gap: var(--gap);
         margin: 0;
-        // la marge intérieure laisse la place à l'ombre des cartes et à l'anneau de focus
-        padding: 8px 4px 16px;
+        padding: 14px 4px 26px;
         list-style: none;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
@@ -46,16 +46,19 @@
 
     .review-card {
         flex: 0 0 calc((100% - var(--gap)) / 2);
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         margin: 0 auto;
         gap: 24px;
-        padding: 32px;
+        padding: 0;
         border: 1px solid var(--border);
-        border-radius: 12px;
+        border-radius: 11% 6% 2% 13% / 4% 15% 14% 6%;
+
         background-color: var(--surface);
-        box-shadow: 0 4px 16px var(--shadow);
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 25px 20px -20px;
+
         // un slide = 2 cartes : seule la première de chaque paire accroche
         &:nth-child(odd) {
             scroll-snap-align: start;
@@ -66,19 +69,44 @@
             scroll-snap-align: start;
         }
 
+        // note de l'avis Google correspondant
+        .review-google {
+            top: -28px;
+            position: absolute;
+            z-index: 666;
+            background-color: var(--surface);
+            padding: 4px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            .stars {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+                color: var(--accent-text);
+                .empty {
+                    color: var(--border-strong);
+                }
+            }
+            a {
+                color: var(--accent-text);
+                text-decoration: underline;
+            }
+        }
+
         blockquote {
-            margin: 0;
+            margin: 24px;
             position: relative;
-            padding-top: 28px;
             color: var(--text);
             line-height: 1.6;
             height: fit-content;
-            // guillemet décoratif, couleur de la charte
+            // guillemet décoratif
             &::before {
                 content: "“";
                 position: absolute;
-                top: 0;
-                left: -4px;
+                top: -4px;
+                left: -6px;
                 font-family: effortless, serif;
                 font-size: 4rem;
                 line-height: 1;
@@ -87,62 +115,72 @@
             &::after {
                 content: "“";
                 position: absolute;
-                top: auto;
-                bottom: -40%;
-                right: -4px;
+                right: -6px;
                 font-family: effortless, serif;
                 font-size: 4rem;
                 line-height: 1;
                 color: var(--accent);
             }
             p {
-                margin: 0;
+                margin: 10px;
+                padding: 12px 16px;
                 white-space: pre-line;
+                background-color: var(--surface-muted);
+                border-radius: 12% 8% 10% 8% / 14% 9% 10% 8%;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    left: auto;
+                    right: 0;
+                    top: auto;
+                    bottom: -12px;
+                    border: 24px solid;
+                    border-top-color: var(--surface-muted);
+                    border-right-color: var(--surface-muted);
+                    border-bottom-color: var(--surface-muted);
+                    border-left-color: var(--surface-muted);
+                    border-color: transparent transparent transparent
+                        var(--surface-muted);
+                }
             }
         }
 
         footer {
-            background-color: var(--surface-muted);
-            padding: 16px;
-            border-top: 1px solid var(--border);
-            p {
-                margin: 6px 0;
-            }
-            .review-author {
-                font-weight: 700;
-                color: var(--text-strong);
-            }
-            .review-role {
-                font-size: 0.9rem;
-                color: var(--text);
-            }
-            // note de l'avis Google correspondant
-            .review-google {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                font-size: 0.85rem;
-                color: var(--text-muted);
-                .stars {
-                    font-size: 1.1rem;
-                    letter-spacing: 2px;
-                    color: var(--accent-text);
-                    .empty {
-                        color: var(--border-strong);
+            padding: 0;
+            display: flex;
+            position: relative;
+            align-items: flex-end;
+            justify-content: flex-end;
+            border-top: solid 1px var(--border);
+            background-color: transparent;
+            .footer-review {
+                width: 100%;
+                position: relative;
+                padding: 12px 16px;
+                p {
+                    text-align: right;
+                    margin: 6px 0;
+                }
+                .review-author {
+                    color: var(--text-strong);
+                    .author-name {
+                        font-weight: 700;
+                    }
+                    .author-role {
+                        font-size: 0.9rem;
+                        color: var(--text);
                     }
                 }
-                a {
-                    color: var(--accent-text);
-                    text-decoration: underline;
-                }
-            }
-            .review-meta {
-                margin-top: 6px;
-                font-size: 0.85rem;
-                color: var(--text-muted);
-                a {
-                    color: var(--accent-text);
-                    text-decoration: underline;
+                .review-meta {
+                    margin-top: 6px;
+                    font-size: 0.85rem;
+                    color: var(--text-muted);
+                    a {
+                        color: var(--accent-text);
+                        text-decoration: underline;
+                    }
                 }
             }
         }
