@@ -1,22 +1,27 @@
-@use "variables" as *;
-@use "hero";
-@use "services";
-@use "pricing";
+@use "ui/variables" as *;
+@use "ui/button";
+@use "ui/error";
 
-@use "button";
-@use "projects/_projectList";
-@use "projects/_projectDetails";
-@use "reviews.scss";
-@use "about";
-@use "nav";
-@use "parcours";
-@use "contact";
-@use "footer";
-@use "legal";
-@use "local";
-@use "reviewform";
-@use "error";
-@use "parallax";
+@use "sections/hero";
+@use "sections/services";
+@use "sections/pricing";
+
+@use "common/nav";
+@use "common/footer";
+
+@use "projects/projectList";
+@use "projects/projectDetails";
+
+@use "sections/reviews";
+@use "sections/about";
+@use "sections/parcours";
+@use "sections/contact";
+@use "sections/legal";
+@use "sections/local";
+@use "sections/reviewform";
+
+// après sections/hero : décale img.shape (right/bottom) à spécificité égale
+@use "ui/parallax";
 
 // après variables : même spécificité que :root, c'est l'ordre qui tranche
 @use "themes/dark";

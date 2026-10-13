@@ -52,7 +52,7 @@ final class ReviewSubmissionTest extends KernelTestCase
         self::assertFalse($review->isValidated());
         self::assertNotNull($review->getConsentedAt());
         self::assertSame([$this->maha, $this->ava], $review->getProjects()->toArray());
-        self::assertSame($review, $this->maha->getReview());
+        self::assertTrue($this->maha->getReviews()->contains($review));
 
         self::assertSame('Nouvel avis à valider – Marie D. – Maha, Ava', $sent->getSubject());
         self::assertStringStartsWith('Marie D., Gérante, La cuisine de Maha (Maha, Ava) :', $sent->getTextBody());
@@ -60,13 +60,13 @@ final class ReviewSubmissionTest extends KernelTestCase
         self::assertStringContainsString('http://localhost/admin/review/12/edit', $sent->getTextBody());
     }
 
-    public function testProjectAlreadyReviewedIsRefusedWithoutSaving(): void
+    public function testProjectClosedToReviewsIsRefusedWithoutSaving(): void
     {
         $em = $this->createMock(EntityManagerInterface::class);
         $em->expects(self::never())->method('persist');
         $mailer = $this->createMock(MailerInterface::class);
         $mailer->expects(self::never())->method('send');
-        // 9 : déjà un avis, ou inconnu
+        // 9 : fermé aux avis, ou inconnu
         $submission = $this->submission($em, $mailer);
 
         try {
@@ -75,7 +75,25 @@ final class ReviewSubmissionTest extends KernelTestCase
         } catch (ValidationFailedException $e) {
             self::assertSame('projects', $e->getViolations()->get(0)->getPropertyPath());
         }
-        self::assertNull($this->maha->getReview());
+        self::assertCount(0, $this->maha->getReviews());
+    }
+
+    public function testReviewWithoutProjectIsSavedAndAnnouncedAsSuch(): void
+    {
+        $em = $this->createStub(EntityManagerInterface::class);
+        $em->method('persist')->willReturnCallback(function (Review $review) {
+            (new \ReflectionProperty(Review::class, 'id'))->setValue($review, 12);
+        });
+        $sent = null;
+        $mailer = $this->createMock(MailerInterface::class);
+        $mailer->expects(self::once())->method('send')->willReturnCallback(function (Email $email) use (&$sent) {
+            $sent = $email;
+        });
+
+        $review = $this->submission($em, $mailer)->submit($this->request([]));
+
+        self::assertCount(0, $review->getProjects());
+        self::assertSame('Nouvel avis à valider – Marie D. – sans projet', $sent->getSubject());
     }
 
     public function testMailFailureDoesNotLoseTheReview(): void
@@ -96,9 +114,9 @@ final class ReviewSubmissionTest extends KernelTestCase
 
     private function submission(EntityManagerInterface $em, MailerInterface $mailer): ReviewSubmission
     {
-        // projets sans avis : 3 et 7
+        // projets ouverts aux avis : 3 et 7
         $repository = $this->createStub(ProjectRepository::class);
-        $repository->method('findWithoutReview')->willReturnCallback(fn (array $ids) => array_values(array_filter(
+        $repository->method('findReviewable')->willReturnCallback(fn (array $ids) => array_values(array_filter(
             [$this->maha, $this->ava],
             fn (Project $p) => \in_array($p->getId(), $ids, true),
         )));
@@ -118,7 +136,7 @@ final class ReviewSubmissionTest extends KernelTestCase
     private function request(array $projects, string $authorRole = ''): ReviewRequest
     {
         return new ReviewRequest(
-            author: 'Marie D.',
+            author: ' Marie D.  ',
             authorRole: $authorRole,
             text: 'Site livré dans les temps, et je le modifie seule sans difficulté.',
             projects: $projects,

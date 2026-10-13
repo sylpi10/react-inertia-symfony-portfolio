@@ -4,6 +4,7 @@ namespace App\Tests\Entity;
 
 use App\Entity\Project;
 use App\Entity\Review;
+use App\Enum\ReviewPolicy;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -86,5 +87,10 @@ final class ReviewTest extends KernelTestCase
         $review->setGoogleRating(6)->setGoogleReviewUrl('pas un lien');
         $fields = array_map(fn ($v) => $v->getPropertyPath(), iterator_to_array($validator->validate($review)));
         self::assertEqualsCanonicalizing(['googleRating', 'googleReviewUrl'], $fields);
+    }
+
+    public function testNewProjectAcceptsASingleReviewByDefault(): void
+    {
+        self::assertSame(ReviewPolicy::Single, (new Project())->getReviewPolicy());
     }
 }

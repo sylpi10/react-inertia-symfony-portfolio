@@ -1,4 +1,4 @@
-@use "./variables" as *;
+@use "../ui/variables" as *;
 
 #a-propos {
     overflow: hidden;
@@ -137,7 +137,8 @@
             background-color: var(--bg-alt);
             span.info {
                 position: absolute;
-                background: url("../static/images/paint.webp") no-repeat center;
+                background: url("../../static/images/paint.webp") no-repeat
+                    center;
                 background-size: contain;
                 width: 200px;
                 height: 200px;
