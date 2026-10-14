@@ -59,7 +59,11 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
             <div className="reviews-wrapper">
                 <div className="title">
                     <h2 className={"section-title"}>avis de collaborateurs</h2>
-                    <span className="reviews-count">{reviews.length} avis</span>
+                    {reviews.length > 2 && (
+                        <span className="reviews-count">
+                            {reviews.length} avis
+                        </span>
+                    )}
                 </div>
 
                 <div
@@ -118,7 +122,7 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
                     )}
 
                     <p className="share-review-link">
-                        Nous avons travaillés ensemble ?{" "}
+                        Nous avons travaillé ensemble ?{" "}
                         <Link href={"/avis"}> Laissez un avis </Link>
                     </p>
                 </div>
