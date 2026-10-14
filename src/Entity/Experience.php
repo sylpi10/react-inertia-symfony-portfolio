@@ -67,7 +67,7 @@ class Experience
      * @var Collection<int, Project>
      */
     #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: "experiences")]
-    #[ORM\OrderBy(["id" => "ASC"])]
+    #[ORM\OrderBy(["id" => \SortDirection::Ascending])]
     #[Groups(["experience:list"])]
     private Collection $projects;
 

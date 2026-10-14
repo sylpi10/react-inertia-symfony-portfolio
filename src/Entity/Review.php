@@ -44,7 +44,7 @@ class Review
      * @var Collection<int, Project>
      */
     #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: "reviews")]
-    #[ORM\OrderBy(["id" => "ASC"])]
+    #[ORM\OrderBy(["id" => \SortDirection::Ascending])]
     private Collection $projects;
 
     // false tant que non validé en admin

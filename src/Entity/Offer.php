@@ -44,7 +44,7 @@ class Offer
      * @var Collection<int, Project>
      */
     #[ORM\ManyToMany(targetEntity: Project::class)]
-    #[ORM\OrderBy(["id" => "ASC"])]
+    #[ORM\OrderBy(["id" => \SortDirection::Ascending])]
     #[Groups(["offer:list"])]
     private Collection $projects;
 
