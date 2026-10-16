@@ -4,7 +4,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build && npm run build:ssr",
-        "build:ssr": "vite build --config vite.ssr.config.js --ssr assets/ssr.tsx"
+        "build:ssr": "vite build --config vite.ssr.config.js --ssr assets/ssr.tsx",
+        "test": "vitest"
     },
     "devDependencies": {
         "@types/react": "^19.3.0",
@@ -13,7 +14,8 @@
         "sass-embedded": "^1.105.0",
         "typescript": "^7.0.2",
         "vite": "^8.0",
-        "vite-plugin-symfony": "^8.2"
+        "vite-plugin-symfony": "^8.2",
+        "vitest": "^5.0.5"
     },
     "dependencies": {
         "@inertiajs/react": "^3.7.1",

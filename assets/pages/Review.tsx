@@ -1,5 +1,6 @@
 import { useForm, usePage } from "@inertiajs/react";
 import EmainIcon from "../components/ui/EmainIcon";
+import { listError } from "../lib/formErrors";
 
 type ReviewProject = { id: number; name: string };
 
@@ -26,11 +27,7 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
     const { flash } = usePage();
     // erreur sur la liste ou sur un de ses éléments (projects[0]…)
     const errors = form.errors as Record<string, string | undefined>;
-    const projectsError =
-        errors.projects ??
-        Object.entries(errors).find(([key]) =>
-            key.startsWith("projects["),
-        )?.[1];
+    const projectsError = listError(errors, "projects");
 
     const toggleProject = (id: number, checked: boolean) =>
         form.setData(
@@ -96,10 +93,7 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                 complet, comme vous préférez.
                             </div>
                             {form.errors.author && (
-                                <div
-                                    className="form-error"
-                                    id="author-error"
-                                >
+                                <div className="form-error" id="author-error">
                                     {form.errors.author}
                                 </div>
                             )}
@@ -115,10 +109,7 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                 placeholder=""
                                 maxLength={100}
                                 onChange={(e) =>
-                                    form.setData(
-                                        "authorRole",
-                                        e.target.value,
-                                    )
+                                    form.setData("authorRole", e.target.value)
                                 }
                                 aria-invalid={!!form.errors.authorRole}
                                 aria-describedby={
@@ -152,7 +143,9 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                     projectsError ? "projects-error" : undefined
                                 }
                             >
-                                <legend>Projet(s) concerné(s) (facultatif)</legend>
+                                <legend>
+                                    Projet(s) concerné(s) (facultatif)
+                                </legend>
                                 {projects.map((project) => (
                                     <label
                                         key={project.id}
@@ -199,9 +192,7 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                 }
                                 aria-invalid={!!form.errors.text}
                                 aria-describedby={
-                                    form.errors.text
-                                        ? "text-error"
-                                        : undefined
+                                    form.errors.text ? "text-error" : undefined
                                 }
                             ></textarea>
                             <label htmlFor="text">Votre avis</label>
@@ -231,15 +222,12 @@ export default function Review({ projects }: { projects: ReviewProject[] }) {
                                             : undefined
                                     }
                                 />
-                                J’accepte que mon avis et mon nom soient
-                                publiés sur sylvainpillet.com. Je peux
-                                demander son retrait à tout moment.
+                                J’accepte que mon avis et mon nom soient publiés
+                                sur sylvainpillet.com. Je peux demander son
+                                retrait à tout moment.
                             </label>
                             {form.errors.consent && (
-                                <div
-                                    className="form-error"
-                                    id="consent-error"
-                                >
+                                <div className="form-error" id="consent-error">
                                     {form.errors.consent}
                                 </div>
                             )}
