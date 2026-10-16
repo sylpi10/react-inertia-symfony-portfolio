@@ -87,7 +87,7 @@ final class ReviewControllerTest extends WebTestCase
         $this->expectNoSubmission();
         $this->post($client, [
             "projects" => [3],
-            "text" => "text 19 characterss",
+            "text" => "text 21 characterssss",
         ]);
         self::assertResponseStatusCodeSame(303);
         self::assertSame(
