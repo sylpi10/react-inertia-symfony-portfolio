@@ -1,0 +1,30 @@
+name: CI
+
+on:
+    push:
+    pull_request:
+
+jobs:
+    tests:
+        runs-on: ubuntu-latest
+        steps:
+            # récupère ton code sur la machine
+            - uses: actions/checkout@v5
+
+            # installe PHP (8.4 : la version minimale de composer.json, comme en prod)
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "8.4"
+                  coverage: none
+
+            # installe Node
+            - uses: actions/setup-node@v5
+              with:
+                  node-version: 24
+                  cache: npm
+
+            - run: composer install --no-interaction --no-progress
+            - run: npm ci
+            # sans le build, Twig ne trouve pas entrypoints.json → tests en 500
+            - run: npm run build
+            - run: php bin/phpunit

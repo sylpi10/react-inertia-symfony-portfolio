@@ -11,8 +11,7 @@ final readonly class ReviewRequest
      * @param list<int> $projects ids des projets concernés, facultatifs
      */
     public function __construct(
-        #[Assert\NotBlank(message: "Votre nom est requis.")]
-        #[
+        #[Assert\NotBlank(message: "Votre nom est requis.")] #[
             Assert\Length(
                 min: 2,
                 max: 100,
@@ -29,8 +28,7 @@ final readonly class ReviewRequest
             ),
         ]
         public string $authorRole = "",
-        #[Assert\NotBlank(message: "L'avis ne peut pas être vide.")]
-        #[
+        #[Assert\NotBlank(message: "L'avis ne peut pas être vide.")] #[
             Assert\Length(
                 min: 20,
                 max: 1000,
@@ -39,9 +37,12 @@ final readonly class ReviewRequest
             ),
         ]
         public string $text = "",
-        #[Assert\All([new Assert\Type("int")])]
-        public array $projects = [],
-        #[Assert\IsTrue(message: "Votre accord est nécessaire pour publier l'avis.")]
+        #[Assert\All([new Assert\Type("int")])] public array $projects = [],
+        #[
+            Assert\IsTrue(
+                message: "Votre accord est nécessaire pour publier l'avis.",
+            ),
+        ]
         public bool $consent = false,
         // honeypot
         public string $website = "",
