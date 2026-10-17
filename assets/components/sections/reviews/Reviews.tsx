@@ -5,6 +5,7 @@ import { ReviewProps } from "../../../types/reviews";
 import NavArrow from "../../ui/NavArrow";
 import ReviewCard from "./ReviewCard";
 import { Link } from "@inertiajs/react";
+import averageGoogleRating from "../../../lib/averageGoogleRating";
 
 type ReviewsProps = {
     reviews: ReviewProps[];
@@ -52,6 +53,8 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
         setSlide(0);
     }, [perSlide]);
 
+    const googleAverageRating = averageGoogleRating(reviews);
+
     if (reviews.length === 0) return null;
 
     return (
@@ -60,9 +63,16 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
                 <div className="title">
                     <h2 className={"section-title"}>avis de collaborateurs</h2>
                     {reviews.length > 2 && (
-                        <span className="reviews-count">
-                            {reviews.length} avis
-                        </span>
+                        <>
+                            <span className="reviews-count">
+                                {reviews.length} avis
+                            </span>
+                            {googleAverageRating && (
+                                <span className="google-average">
+                                    {googleAverageRating}/5
+                                </span>
+                            )}
+                        </>
                     )}
                 </div>
 
@@ -80,7 +90,11 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
                         tabIndex={0}
                     >
                         {reviews.map((review) => (
-                            <ReviewCard audience={audience} review={review} />
+                            <ReviewCard
+                                key={review.id}
+                                audience={audience}
+                                review={review}
+                            />
                         ))}
                     </ul>
 
