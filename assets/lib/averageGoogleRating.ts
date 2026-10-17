@@ -7,12 +7,12 @@ export default function averageGoogleRating(reviews: ReviewProps[]) {
 
     if (reviewsWithGoogleRating.length === 0) return null;
 
-    let googleAverageRating;
-    let total = 0;
-    reviewsWithGoogleRating.map((rev) => {
-        total += rev.googleRating ? rev.googleRating : 0;
-    });
-    googleAverageRating = total / reviewsWithGoogleRating.length;
+    const total = reviewsWithGoogleRating.reduce(
+        (sum, rev) => sum + (rev.googleRating ?? 0),
+        0,
+    );
+
+    const googleAverageRating = total / reviewsWithGoogleRating.length;
 
     // à la demi-note près : 4,33 → 4,5 ; 4,2 → 4
     const rounded = Math.round(googleAverageRating * 2) / 2;
