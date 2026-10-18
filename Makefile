@@ -63,11 +63,17 @@ build:
 	npm ci
 	npm run build
 
-deploy-test: build
+test:
+	php bin/phpunit
+	npx vitest run
+
+deploy-test: test build
 	rsync -av --itemize-changes --dry-run --delete $(RSYNC_EXCLUDES) \
 		./ $(SERVER_USER)@$(SERVER_HOST):~/$(APP_PATH)
 
-deploy: build
+# choix technique: pas de CD pour séparer git workflow et deploy
+# par contre on lance les test sur la commande make deploy
+deploy: test build
 	rsync -av --itemize-changes --delete $(RSYNC_EXCLUDES) \
 		./ $(SERVER_USER)@$(SERVER_HOST):~/$(APP_PATH)
 	$(MAKE) remote
