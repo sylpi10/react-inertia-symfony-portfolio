@@ -64,7 +64,10 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
                     <h2 className={"section-title"}>avis de collaborateurs</h2>
                     {reviews.length > 6 && (
                         <>
-                            <p className="reviews-count">
+                            <p
+                                className="reviews-count"
+                                data-testid="reviews-count"
+                            >
                                 {googleAverageRating && (
                                     <a
                                         href="https://search.google.com/local/reviews?placeid=PLACE_ID"

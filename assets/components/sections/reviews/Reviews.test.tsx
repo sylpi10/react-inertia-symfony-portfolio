@@ -27,21 +27,28 @@ function renderReviews(count: number) {
 }
 
 describe("Reviews", () => {
+    const reviewsCount = () => screen.queryByTestId("reviews-count");
+
     it("n'affiche pas le total avec 1 seul avis", () => {
         renderReviews(1);
 
-        expect(screen.queryByText("1 avis")).toBeNull();
+        expect(reviewsCount()).toBeNull();
     });
 
     it("n'affiche pas le total avec 2 avis", () => {
         renderReviews(2);
 
-        expect(screen.queryByText("2 avis")).toBeNull();
+        expect(reviewsCount()).toBeNull();
+    });
+    it("n'affiche pas le total avec 6 avis", () => {
+        renderReviews(6);
+
+        expect(reviewsCount()).toBeNull();
     });
 
-    it("affiche le total avec 3 avis", () => {
-        renderReviews(3);
+    it("affiche le total avec 7 avis", () => {
+        renderReviews(7);
 
-        expect(screen.queryByText("3 avis")).not.toBeNull();
+        expect(reviewsCount()).not.toBeNull();
     });
 });
