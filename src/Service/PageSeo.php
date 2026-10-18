@@ -13,15 +13,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final class PageSeo
 {
     // accueil = page équipe (recruteurs, CTO, agences), le cœur de l'activité
-    private const string HOME_TITLE = "Sylvain Pillet – Développeur fullstack React / Symfony à Toulouse";
+    private const string HOME_TITLE = "Sylvain Pillet – Développeur React / Symfony à Toulouse";
     // 155 caractères max pour ne pas être tronquée
     private const string HOME_DESCRIPTION = "Développeur fullstack React et Symfony à Toulouse ou en full remote : 5 ans en e-commerce, interfaces, API, tests. Disponible pour renforcer votre équipe.";
-    private const string CLIENT_TITLE = "Création de site web à Toulouse – Développeur freelance | Sylvain Pillet";
+    private const string CLIENT_TITLE = "Création de sites web à Toulouse | Sylvain Pillet";
     // l'offre d'abord, l'expérience ensuite
     private const string CLIENT_DESCRIPTION = "Développeur web freelance à Toulouse : sites vitrines avec back-office, refontes, applications React/Next.js pour indépendants et TPE. 5 ans d’expérience.";
 
     // page locale : la requête « développeur web freelance Toulouse », sans doublon avec la page création de site
-    private const string LOCAL_TITLE = "Développeur web freelance à Toulouse – Sites et applications | Sylvain Pillet";
+    private const string LOCAL_TITLE = "Développeur web freelance à Toulouse | Sylvain Pillet";
     private const string LOCAL_DESCRIPTION = "Développeur web freelance à Toulouse : création de sites, refontes, applications React / Symfony et référencement local pour les indépendants, TPE et PME.";
 
     public function __construct(
@@ -38,8 +38,14 @@ final class PageSeo
     public function audiencePage(Audience $audience): array
     {
         return Audience::Team === $audience
-            ? ["title" => self::HOME_TITLE, "description" => self::HOME_DESCRIPTION]
-            : ["title" => self::CLIENT_TITLE, "description" => self::CLIENT_DESCRIPTION];
+            ? [
+                "title" => self::HOME_TITLE,
+                "description" => self::HOME_DESCRIPTION,
+            ]
+            : [
+                "title" => self::CLIENT_TITLE,
+                "description" => self::CLIENT_DESCRIPTION,
+            ];
     }
 
     /**
@@ -49,7 +55,10 @@ final class PageSeo
      */
     public function local(): array
     {
-        return ["title" => self::LOCAL_TITLE, "description" => self::LOCAL_DESCRIPTION];
+        return [
+            "title" => self::LOCAL_TITLE,
+            "description" => self::LOCAL_DESCRIPTION,
+        ];
     }
 
     /**
@@ -86,13 +95,19 @@ final class PageSeo
     {
         $need = trim((string) $project->getClientSeoTitle());
         if (Audience::Client === $audience && "" !== $need) {
-            return sprintf("%s – %s | Sylvain Pillet", $need, $project->getName());
+            return sprintf(
+                "%s – %s | Sylvain Pillet",
+                $need,
+                $project->getName(),
+            );
         }
 
         return sprintf(
             "%s – %s | Sylvain Pillet",
             $project->getName(),
-            Audience::Team === $audience ? "Projet web" : "Création de site web",
+            Audience::Team === $audience
+                ? "Projet web"
+                : "Création de site web",
         );
     }
 
@@ -105,7 +120,8 @@ final class PageSeo
     {
         return [
             "title" => "Mentions légales | Sylvain Pillet",
-            "description" => "Mentions légales du site de Sylvain Pillet, développeur web à Toulouse : éditeur, hébergeur, données personnelles.",
+            "description" =>
+                "Mentions légales du site de Sylvain Pillet, développeur web à Toulouse : éditeur, hébergeur, données personnelles.",
             "robots" => "noindex, follow",
         ];
     }
@@ -119,7 +135,8 @@ final class PageSeo
     {
         return [
             "title" => "Laisser un avis | Sylvain Pillet",
-            "description" => "Donnez votre avis sur le site ou l'application réalisé avec Sylvain Pillet, développeur web à Toulouse.",
+            "description" =>
+                "Donnez votre avis sur le site ou l'application réalisé avec Sylvain Pillet, développeur web à Toulouse.",
             "robots" => "noindex, nofollow",
         ];
     }
