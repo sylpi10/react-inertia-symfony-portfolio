@@ -22,7 +22,8 @@ final class ProjectShareImage
     public function __construct(
         #[Autowire('%kernel.project_dir%/public')]
         private readonly string $publicDir,
-    ) {}
+    ) {
+    }
 
     /**
      * Chemin public du visuel, ou null s'il n'a pas encore été généré.

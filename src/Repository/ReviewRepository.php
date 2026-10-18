@@ -24,12 +24,12 @@ class ReviewRepository extends ServiceEntityRepository
      */
     public function findValidated(): array
     {
-        return $this->createQueryBuilder("r")
-            ->addSelect("p")
-            ->leftJoin("r.projects", "p")
-            ->andWhere("r.validated = true")
-            ->orderBy("r.createdAt", "DESC")
-            ->addOrderBy("p.id", "ASC")
+        return $this->createQueryBuilder('r')
+            ->addSelect('p')
+            ->leftJoin('r.projects', 'p')
+            ->andWhere('r.validated = true')
+            ->orderBy('r.createdAt', 'DESC')
+            ->addOrderBy('p.id', 'ASC')
             ->getQuery()
             ->getResult();
     }

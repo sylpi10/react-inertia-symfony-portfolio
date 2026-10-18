@@ -6,18 +6,18 @@ namespace App\Enum;
 enum ReviewPolicy: string
 {
     // jamais proposé : projets persos (Portfolio…)
-    case Closed = "closed";
+    case Closed = 'closed';
     // proposé tant qu'il n'a aucun avis (validé ou en attente), retiré ensuite
-    case Single = "single";
+    case Single = 'single';
     // toujours proposé, quel que soit le nombre d'avis
-    case Open = "open";
+    case Open = 'open';
 
     public function label(): string
     {
         return match ($this) {
-            self::Closed => "Fermé aux avis",
-            self::Single => "Un seul avis",
-            self::Open => "Plusieurs avis",
+            self::Closed => 'Fermé aux avis',
+            self::Single => 'Un seul avis',
+            self::Open => 'Plusieurs avis',
         };
     }
 }

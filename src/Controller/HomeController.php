@@ -17,33 +17,34 @@ class HomeController extends AbstractController
         private readonly Inertia $inertia,
         private readonly PagePresenter $presenter,
         private readonly PageSeo $seo,
-    ) {}
+    ) {
+    }
 
     // accueil = page équipe (recruteurs, CTO, agences)
-    #[Route("/", name: "home", methods: ["GET"])]
+    #[Route('/', name: 'home', methods: ['GET'])]
     public function getHome(): Response
     {
         return $this->renderAudiencePage(Audience::Team);
     }
 
     // même portfolio, présenté aux indépendants et TPE qui cherchent un site
-    #[Route("/creation-site-web", name: "client", methods: ["GET"])]
+    #[Route('/creation-site-web', name: 'client', methods: ['GET'])]
     public function getClientPage(): Response
     {
         return $this->renderAudiencePage(Audience::Client, [
-            "offers" => $this->presenter->offers(),
+            'offers' => $this->presenter->offers(),
         ]);
     }
 
     // page de référencement local, contenu statique dans assets/pages/LocalToulouse.tsx ;
     // mode client : même navigation et mêmes pages projet que la page création de site
-    #[Route("/developpeur-web-toulouse", name: "local", methods: ["GET"])]
+    #[Route('/developpeur-web-toulouse', name: 'local', methods: ['GET'])]
     public function getLocalPage(): Response
     {
-        return $this->inertia->render("LocalToulouse", [
-            "audience" => Audience::Client->value,
-            "projects" => $this->presenter->projects(Audience::Client),
-            "seo" => $this->seo->local(),
+        return $this->inertia->render('LocalToulouse', [
+            'audience' => Audience::Client->value,
+            'projects' => $this->presenter->projects(Audience::Client),
+            'seo' => $this->seo->local(),
         ]);
     }
 
@@ -57,13 +58,13 @@ class HomeController extends AbstractController
         array $props = [],
     ): Response {
         return $this->inertia->render(
-            Audience::Team === $audience ? "Team" : "Client",
+            Audience::Team === $audience ? 'Team' : 'Client',
             [
-                "audience" => $audience->value,
-                "projects" => $this->presenter->projects($audience),
-                "experiences" => $this->presenter->experiences($audience),
-                "reviews" => $this->presenter->reviews(),
-                "seo" => $this->seo->audiencePage($audience),
+                'audience' => $audience->value,
+                'projects' => $this->presenter->projects($audience),
+                'experiences' => $this->presenter->experiences($audience),
+                'reviews' => $this->presenter->reviews(),
+                'seo' => $this->seo->audiencePage($audience),
                 ...$props,
             ],
         );

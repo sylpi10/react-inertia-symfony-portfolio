@@ -16,13 +16,13 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                "label" => false
+                'label' => false,
             ])
             ->add('email', EmailType::class, [
-                "label" => false
+                'label' => false,
             ])
             ->add('message', TextareaType::class, [
-                "label" => false,
+                'label' => false,
                 'attr' => [
                     'cols' => 20,
                     'rows' => 10,
@@ -42,7 +42,7 @@ class ContactType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Contact::class,
             'csrf_protection' => false,
-            'allow_extra_fields' => true
+            'allow_extra_fields' => true,
         ]);
     }
 }

@@ -18,60 +18,56 @@ class Project
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    #[
-        Groups([
-            "project:list",
-            "project:detail",
-            "experience:list",
-            "offer:list",
-        ]),
-    ]
+    #[Groups([
+            'project:list',
+            'project:detail',
+            'experience:list',
+            'offer:list',
+        ]),]
     private string $name;
 
     // segment d'URL (/projets/{slug}), généré depuis le nom à la création
     #[ORM\Column(length: 100, unique: true)]
-    #[
-        Groups([
-            "project:list",
-            "project:detail",
-            "experience:list",
-            "offer:list",
-        ]),
-    ]
+    #[Groups([
+            'project:list',
+            'project:detail',
+            'experience:list',
+            'offer:list',
+        ]),]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?string $date = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?string $technos = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?string $weblink = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?string $githublink = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(["project:detail"])]
+    #[Groups(['project:detail'])]
     private ?string $detailPic = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?string $background = null;
 
     // description longue de l'accueil (page équipe) ; remplacée côté création
     // de site par getDescriptionFor() (PagePresenter)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["project:detail"])]
+    #[Groups(['project:detail'])]
     private ?string $description = null;
 
     // version pour la page « création de site » ; vide = celle de l'accueil
@@ -85,7 +81,7 @@ class Project
     private ?string $clientSeoTitle = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    #[Groups(["project:detail"])]
+    #[Groups(['project:detail'])]
     private ?string $detail_pic_mobile = null;
 
     // ordre d'affichage sur la page « création de site », du plus petit au plus grand
@@ -101,7 +97,7 @@ class Project
      *
      * @var Collection<int, Experience>
      */
-    #[ORM\ManyToMany(targetEntity: Experience::class, mappedBy: "projects")]
+    #[ORM\ManyToMany(targetEntity: Experience::class, mappedBy: 'projects')]
     private Collection $experiences;
 
     /**
@@ -110,18 +106,18 @@ class Project
      *
      * @var Collection<int, Review>
      */
-    #[ORM\ManyToMany(targetEntity: Review::class, mappedBy: "projects")]
+    #[ORM\ManyToMany(targetEntity: Review::class, mappedBy: 'projects')]
     private Collection $reviews;
 
     // place dans le formulaire d'avis : fermé, un seul avis ou plusieurs
     // (ProjectRepository::findReviewable())
-    #[ORM\Column(length: 10, enumType: ReviewPolicy::class, options: ["default" => "single"])]
+    #[ORM\Column(length: 10, enumType: ReviewPolicy::class, options: ['default' => 'single'])]
     private ReviewPolicy $reviewPolicy = ReviewPolicy::Single;
 
     // texte court des cartes projet, version de l'accueil (page équipe) ;
     // remplacé côté création de site par getMiniDescriptionFor() (PagePresenter)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["project:list"])]
+    #[Groups(['project:list'])]
     private ?string $miniDescription = null;
 
     // version pour la page « création de site » ; vide = celle de l'accueil
@@ -129,19 +125,19 @@ class Project
     private ?string $miniClientDescription = null;
 
     #[ORM\Column(length: 100, nullable: true)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?string $pagespeedCapture = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?string $perfText = null;
 
     #[ORM\Column]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?bool $auditMade = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    #[Groups(["project:list", "project:detail"])]
+    #[Groups(['project:list', 'project:detail'])]
     private ?\DateTime $lastAuditDate = null;
 
     public function __construct()
@@ -152,7 +148,7 @@ class Project
 
     public function __toString(): string
     {
-        return $this->name ?? "";
+        return $this->name ?? '';
     }
 
     public function getId(): ?int
@@ -396,7 +392,7 @@ class Project
 
     public function hasClientDescription(): bool
     {
-        return "" !== trim(strip_tags((string) $this->clientDescription));
+        return '' !== trim(strip_tags((string) $this->clientDescription));
     }
 
     // texte de la page d'un public, celui de l'accueil à défaut
@@ -435,8 +431,8 @@ class Project
     // texte court de la page d'un public, celui de l'accueil à défaut
     public function getMiniDescriptionFor(Audience $audience): ?string
     {
-        return Audience::Client === $audience &&
-            "" !== trim(strip_tags((string) $this->miniClientDescription))
+        return Audience::Client === $audience
+            && '' !== trim(strip_tags((string) $this->miniClientDescription))
             ? $this->miniClientDescription
             : $this->miniDescription;
     }

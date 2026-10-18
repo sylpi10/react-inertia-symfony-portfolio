@@ -3,17 +3,17 @@
 namespace App\Controller;
 
 use App\Dto\ContactRequest;
+use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
+use Nytodev\InertiaBundle\Service\Inertia;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Routing\Attribute\Route;
-use Nytodev\InertiaBundle\Service\Inertia;
-use App\Entity\Contact;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Attribute\Route;
 
 class ContactController extends AbstractController
 {
@@ -21,19 +21,21 @@ class ContactController extends AbstractController
         protected MailerInterface $mailer,
         protected EntityManagerInterface $em,
         private readonly Inertia $inertia,
-    ) {}
+    ) {
+    }
 
-    #[Route("/contact", name: "app_contact", methods: ["POST"])]
+    #[Route('/contact', name: 'app_contact', methods: ['POST'])]
     public function contact(
         #[MapRequestPayload] ContactRequest $data,
         Request $request,
     ): Response {
         // honeypot rempli = robot : même réponse qu'un succès, sans rien faire
-        if ("" !== $data->website) {
+        if ('' !== $data->website) {
             $this->inertia->flash(
-                "success",
-                "Message envoyé, je vous réponds vite !",
+                'success',
+                'Message envoyé, je vous réponds vite !',
             );
+
             return $this->back($request, $data);
         }
 
@@ -51,12 +53,12 @@ class ContactController extends AbstractController
         try {
             $this->mailer->send(
                 new Email()
-                    ->to("syl.pillet@hotmail.fr")
-                    ->from("sylpi@sylvainpillet.com")
+                    ->to('syl.pillet@hotmail.fr')
+                    ->from('sylpi@sylvainpillet.com')
                     ->replyTo($data->email)
                     ->subject(
                         sprintf(
-                            "Nouveau message du portfolio – %s – %s",
+                            'Nouveau message du portfolio – %s – %s',
                             $data->audience->label(),
                             $data->name,
                         ),
@@ -64,12 +66,12 @@ class ContactController extends AbstractController
                     ->text($this->mailBody($data)),
             );
             $this->inertia->flash(
-                "success",
-                "Message envoyé, je reviens vite vers vous !",
+                'success',
+                'Message envoyé, je reviens vite vers vous !',
             );
         } catch (TransportExceptionInterface) {
             $this->inertia->flash(
-                "error",
+                'error',
                 "L'envoi a échoué, réessayez un peu plus tard.",
             );
         }
@@ -81,9 +83,9 @@ class ContactController extends AbstractController
     private function mailBody(ContactRequest $data): string
     {
         $quote = array_filter([
-            "Type de projet" => $data->projectType?->label(),
-            "Budget indicatif" => $data->budget?->label(),
-            "Délai souhaité" => $data->deadline?->label(),
+            'Type de projet' => $data->projectType?->label(),
+            'Budget indicatif' => $data->budget?->label(),
+            'Délai souhaité' => $data->deadline?->label(),
         ]);
         if (!$quote) {
             return $data->message;
@@ -95,20 +97,20 @@ class ContactController extends AbstractController
             $quote,
         );
 
-        return implode("\n", $lines) . "\n\n" . $data->message;
+        return implode("\n", $lines)."\n\n".$data->message;
     }
 
     // retour à la page du formulaire (accueil, création de site ou page projet) ;
     // referer absent ou d'un autre site : page d'accueil du mode
     private function back(Request $request, ContactRequest $data): Response
     {
-        $referer = (string) $request->headers->get("referer");
+        $referer = (string) $request->headers->get('referer');
         if ($request->getHost() === parse_url($referer, \PHP_URL_HOST)) {
             $query = parse_url($referer, \PHP_URL_QUERY);
 
             return $this->redirect(
-                (parse_url($referer, \PHP_URL_PATH) ?: "/") .
-                    ($query ? "?" . $query : ""),
+                (parse_url($referer, \PHP_URL_PATH) ?: '/').
+                    ($query ? '?'.$query : ''),
             );
         }
 

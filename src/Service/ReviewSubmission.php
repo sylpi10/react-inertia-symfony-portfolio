@@ -27,7 +27,8 @@ class ReviewSubmission
         private readonly MailerInterface $mailer,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     /**
      * @throws ValidationFailedException projet inconnu, fermé aux avis ou ayant déjà son seul avis
@@ -38,21 +39,12 @@ class ReviewSubmission
         $projects = $ids ? $this->projects->findReviewable($ids) : [];
         // projet inconnu, ou sorti du formulaire depuis son affichage (fermé, ou avis reçu entre-temps)
         if (\count($projects) !== \count($ids)) {
-            throw new ValidationFailedException($data, new ConstraintViolationList([
-                new ConstraintViolation(
-                    "Un des projets choisis n'est plus ouvert aux avis, rechargez la page.",
-                    null,
-                    [],
-                    $data,
-                    "projects",
-                    $data->projects,
-                ),
-            ]));
+            throw new ValidationFailedException($data, new ConstraintViolationList([new ConstraintViolation("Un des projets choisis n'est plus ouvert aux avis, rechargez la page.", null, [], $data, 'projects', $data->projects)]));
         }
 
         $review = new Review()
             ->setAuthor(trim($data->author))
-            ->setAuthorRole("" !== trim($data->authorRole) ? trim($data->authorRole) : null)
+            ->setAuthorRole('' !== trim($data->authorRole) ? trim($data->authorRole) : null)
             ->setText($data->text)
             ->setConsentedAt(new \DateTimeImmutable());
         foreach ($projects as $project) {
@@ -70,29 +62,29 @@ class ReviewSubmission
     private function notify(Review $review): void
     {
         // avis sans projet : sur le travail en général
-        $projects = implode(", ", $review->getProjects()->map(fn ($p) => $p->getName())->toArray()) ?: "sans projet";
+        $projects = implode(', ', $review->getProjects()->map(fn ($p) => $p->getName())->toArray()) ?: 'sans projet';
 
         try {
             $this->mailer->send(
                 new Email()
-                    ->to("syl.pillet@hotmail.fr")
-                    ->from("sylpi@sylvainpillet.com")
-                    ->subject(sprintf("Nouvel avis à valider – %s – %s", $review->getAuthor(), $projects))
+                    ->to('syl.pillet@hotmail.fr')
+                    ->from('sylpi@sylvainpillet.com')
+                    ->subject(sprintf('Nouvel avis à valider – %s – %s', $review->getAuthor(), $projects))
                     ->text(sprintf(
                         "%s%s (%s) :\n\n%s\n\nValider : %s",
                         $review->getAuthor(),
-                        $review->getAuthorRole() ? ", ".$review->getAuthorRole() : "",
+                        $review->getAuthorRole() ? ', '.$review->getAuthorRole() : '',
                         $projects,
                         $review->getText(),
                         $this->urlGenerator->generate(
-                            "admin_review_edit",
-                            ["entityId" => $review->getId()],
+                            'admin_review_edit',
+                            ['entityId' => $review->getId()],
                             UrlGeneratorInterface::ABSOLUTE_URL,
                         ),
                     )),
             );
         } catch (TransportExceptionInterface $e) {
-            $this->logger->error("Mail de nouvel avis non envoyé", ["exception" => $e, "review" => $review->getId()]);
+            $this->logger->error('Mail de nouvel avis non envoyé', ['exception' => $e, 'review' => $review->getId()]);
         }
     }
 }

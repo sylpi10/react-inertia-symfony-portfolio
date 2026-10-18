@@ -20,31 +20,31 @@ class Experience
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["experience:list"])]
+    #[Groups(['experience:list'])]
     private ?int $id = null;
 
     // intitulé du poste ou de la formation
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank]
-    #[Groups(["experience:list"])]
+    #[Groups(['experience:list'])]
     private ?string $title = null;
 
     // entreprise, école ou "Freelance"
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank]
-    #[Groups(["experience:list"])]
+    #[Groups(['experience:list'])]
     private ?string $organization = null;
 
     // texte libre affiché tel quel : "2021/2026", "2020"…
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank]
-    #[Groups(["experience:list"])]
+    #[Groups(['experience:list'])]
     private ?string $period = null;
 
     // missions, en HTML (éditeur du back-office), version de l'accueil (page équipe) ;
     // remplacée côté création de site par getDescriptionFor() (PagePresenter)
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(["experience:list"])]
+    #[Groups(['experience:list'])]
     private ?string $description = null;
 
     // version pour la page « création de site » ; vide = celle de l'accueil
@@ -53,7 +53,7 @@ class Experience
 
     // séparées par des virgules, comme pour les projets
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(["experience:list"])]
+    #[Groups(['experience:list'])]
     private ?string $technos = null;
 
     // ordre dans la timeline, du plus petit (en haut) au plus grand
@@ -66,9 +66,9 @@ class Experience
      *
      * @var Collection<int, Project>
      */
-    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: "experiences")]
-    #[ORM\OrderBy(["id" => \SortDirection::Ascending])]
-    #[Groups(["experience:list"])]
+    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'experiences')]
+    #[ORM\OrderBy(['id' => \SortDirection::Ascending])]
+    #[Groups(['experience:list'])]
     private Collection $projects;
 
     public function __construct()
@@ -78,7 +78,7 @@ class Experience
 
     public function __toString(): string
     {
-        return sprintf("%s – %s (%s)", $this->title, $this->organization, $this->period);
+        return sprintf('%s – %s (%s)', $this->title, $this->organization, $this->period);
     }
 
     public function getId(): ?int

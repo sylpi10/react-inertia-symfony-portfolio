@@ -8,14 +8,14 @@ namespace App\Enum;
  */
 enum Audience: string
 {
-    case Client = "client";
-    case Team = "team";
+    case Client = 'client';
+    case Team = 'team';
 
     public function label(): string
     {
         return match ($this) {
-            self::Client => "Un site pour mon activité",
-            self::Team => "Un développeur pour votre équipe",
+            self::Client => 'Un site pour mon activité',
+            self::Team => 'Un développeur pour votre équipe',
         };
     }
 
@@ -23,8 +23,8 @@ enum Audience: string
     public function route(): string
     {
         return match ($this) {
-            self::Team => "home",
-            self::Client => "client",
+            self::Team => 'home',
+            self::Client => 'client',
         };
     }
 }

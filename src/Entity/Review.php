@@ -43,12 +43,12 @@ class Review
      *
      * @var Collection<int, Project>
      */
-    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: "reviews")]
-    #[ORM\OrderBy(["id" => \SortDirection::Ascending])]
+    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'reviews')]
+    #[ORM\OrderBy(['id' => \SortDirection::Ascending])]
     private Collection $projects;
 
     // false tant que non validé en admin
-    #[ORM\Column(options: ["default" => false])]
+    #[ORM\Column(options: ['default' => false])]
     private bool $validated = false;
 
     // accord de publication donné dans le formulaire public ; vide pour un avis saisi en admin
@@ -58,7 +58,7 @@ class Review
     // même avis déposé sur la fiche Google : note et lien saisis à la main en admin,
     // affichés en étoiles sur le site ; vides si le client n'a pas posté sur Google
     #[ORM\Column(type: Types::SMALLINT, nullable: true)]
-    #[Assert\Range(min: 1, max: 5, notInRangeMessage: "La note Google va de {{ min }} à {{ max }}.")]
+    #[Assert\Range(min: 1, max: 5, notInRangeMessage: 'La note Google va de {{ min }} à {{ max }}.')]
     private ?int $googleRating = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -74,7 +74,7 @@ class Review
 
     public function __toString(): string
     {
-        return $this->author ?? "";
+        return $this->author ?? '';
     }
 
     public function getId(): ?int

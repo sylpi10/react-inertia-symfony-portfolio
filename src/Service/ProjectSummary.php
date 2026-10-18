@@ -24,7 +24,7 @@ final class ProjectSummary
     {
         $text = $this->plainText($project, $audience);
         $summary = sprintf(
-            "Projet %s réalisé par Sylvain Pillet, développeur web freelance à Toulouse, de la conception à la mise en ligne. Technologies : %s.",
+            'Projet %s réalisé par Sylvain Pillet, développeur web freelance à Toulouse, de la conception à la mise en ligne. Technologies : %s.',
             $project->getName(),
             $project->getTechnos(),
         );
@@ -32,11 +32,11 @@ final class ProjectSummary
         if ($text->isEmpty()) {
             $text = u($summary);
         } elseif ($text->length() < self::META_MIN_LENGTH) {
-            $text = $text->trimEnd(" .")->append(". ", $summary);
+            $text = $text->trimEnd(' .')->append('. ', $summary);
         }
 
         return $text
-            ->truncate(self::META_MAX_LENGTH, "…", TruncateMode::WordBefore)
+            ->truncate(self::META_MAX_LENGTH, '…', TruncateMode::WordBefore)
             ->toString();
     }
 
@@ -47,10 +47,10 @@ final class ProjectSummary
         $text = $this->plainText($project, $audience);
         $sentence = $text->isEmpty()
             ? u((string) $project->getTechnos())
-            : u(preg_split('/(?<=[.!?])\s/u', $text->toString(), 2)[0])->trimEnd(" .");
+            : u(preg_split('/(?<=[.!?])\s/u', $text->toString(), 2)[0])->trimEnd(' .');
 
         return $sentence
-            ->truncate(self::TEASER_MAX_LENGTH, "…", TruncateMode::WordBefore)
+            ->truncate(self::TEASER_MAX_LENGTH, '…', TruncateMode::WordBefore)
             ->toString();
     }
 

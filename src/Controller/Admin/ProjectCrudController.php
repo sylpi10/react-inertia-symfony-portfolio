@@ -27,7 +27,8 @@ class ProjectCrudController extends AbstractCrudController
     public function __construct(
         private readonly ProjectImageStorage $imageStorage,
         private readonly SluggerInterface $slugger,
-    ) {}
+    ) {
+    }
 
     public static function getEntityFqcn(): string
     {
@@ -37,100 +38,100 @@ class ProjectCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInSingular("Projet")
-            ->setEntityLabelInPlural("Projets")
-            ->setDefaultSort(["id" => "ASC"])
-            ->setSearchFields(["name", "technos"]);
+            ->setEntityLabelInSingular('Projet')
+            ->setEntityLabelInPlural('Projets')
+            ->setDefaultSort(['id' => 'ASC'])
+            ->setSearchFields(['name', 'technos']);
     }
 
     public function configureFields(string $pageName): iterable
     {
-        yield IdField::new("id")->onlyOnIndex();
+        yield IdField::new('id')->onlyOnIndex();
 
         yield FormField::addColumn(8);
-        yield TextField::new("name", "Nom");
+        yield TextField::new('name', 'Nom');
         // généré depuis le nom à la création, puis figé : le changer casserait les URLs
-        yield TextField::new("slug", "URL")->hideOnForm();
-        yield TextField::new("slug", "URL (/projets/…)")
+        yield TextField::new('slug', 'URL')->hideOnForm();
+        yield TextField::new('slug', 'URL (/projets/…)')
             ->onlyWhenUpdating()
             ->setDisabled()
             ->setHelp(
-                "Fixée à la création pour ne pas casser les liens existants.",
+                'Fixée à la création pour ne pas casser les liens existants.',
             );
-        yield TextField::new("date", "Année")->hideOnIndex();
-        yield TextField::new("technos", "Technos")
-            ->setHelp("Séparées par des virgules.")
+        yield TextField::new('date', 'Année')->hideOnIndex();
+        yield TextField::new('technos', 'Technos')
+            ->setHelp('Séparées par des virgules.')
             ->hideOnIndex();
         // cartes de la liste des projets (accueil et création de site)
         yield TextEditorField::new(
-            "miniDescription",
-            "Mini description – carte (équipe, accueil)",
+            'miniDescription',
+            'Mini description – carte (équipe, accueil)',
         )
             ->hideOnIndex()
             ->setNumOfRows(5);
         yield TextEditorField::new(
-            "miniClientDescription",
-            "Mini description – carte (création de site)",
+            'miniClientDescription',
+            'Mini description – carte (création de site)',
         )
             ->hideOnIndex()
             ->setNumOfRows(5)
-            ->setHelp("Vide : la mini description équipe est reprise.");
+            ->setHelp('Vide : la mini description équipe est reprise.');
         // page détail du projet
         yield TextEditorField::new(
-            "description",
-            "Description longue – page détail (équipe, /projets/…)",
+            'description',
+            'Description longue – page détail (équipe, /projets/…)',
         )
             ->hideOnIndex()
             // le bouton "titre" de l'éditeur produit un h2 : le h1 est le nom du projet
             ->setTrixEditorConfig([
-                "blockAttributes" => ["heading1" => ["tagName" => "h2"]],
+                'blockAttributes' => ['heading1' => ['tagName' => 'h2']],
             ])
             ->setNumOfRows(20);
         yield TextEditorField::new(
-            "clientDescription",
-            "Description longue – page détail (création de site)",
+            'clientDescription',
+            'Description longue – page détail (création de site)',
         )
             ->hideOnIndex()
             ->setTrixEditorConfig([
-                "blockAttributes" => ["heading1" => ["tagName" => "h2"]],
+                'blockAttributes' => ['heading1' => ['tagName' => 'h2']],
             ])
             ->setNumOfRows(20)
             ->setHelp(
-                "Vide : la description équipe est reprise, et la page /creation-site-web/projets/… pointe vers celle-ci (canonical).",
+                'Vide : la description équipe est reprise, et la page /creation-site-web/projets/… pointe vers celle-ci (canonical).',
             );
         yield TextField::new(
-            "clientSeoTitle",
-            "Titre Google – page détail (création de site)",
+            'clientSeoTitle',
+            'Titre Google – page détail (création de site)',
         )
             ->hideOnIndex()
             ->setHelp(
                 "Le besoin tel qu'un client le taperait, ex. « Site web pour guide de haute montagne ». Suivi du nom du projet dans l'onglet et dans Google. Vide : « Nom – Création de site web ».",
             );
-        yield UrlField::new("weblink", "Site")->hideOnIndex();
-        yield UrlField::new("githublink", "GitHub")->hideOnIndex();
+        yield UrlField::new('weblink', 'Site')->hideOnIndex();
+        yield UrlField::new('githublink', 'GitHub')->hideOnIndex();
 
-        yield BooleanField::new("auditMade", "audit fait?")->hideOnIndex();
+        yield BooleanField::new('auditMade', 'audit fait?')->hideOnIndex();
         yield DateField::new(
-            "lastAuditDate",
-            "Date du dernier audit",
+            'lastAuditDate',
+            'Date du dernier audit',
         )->hideOnIndex();
-        yield TextEditorField::new("perfText", "Description des perfs")
+        yield TextEditorField::new('perfText', 'Description des perfs')
             ->hideOnIndex()
             ->setTrixEditorConfig([
-                "blockAttributes" => ["heading1" => ["tagName" => "h2"]],
+                'blockAttributes' => ['heading1' => ['tagName' => 'h2']],
             ]);
         yield $this->imageField(
-            "pagespeedCapture",
-            "Capture pageSpeed",
+            'pagespeedCapture',
+            'Capture pageSpeed',
             $pageName,
         )->hideOnIndex();
 
         yield FormField::addColumn(4);
-        yield IntegerField::new("teamPosition", "Ordre (accueil)")->setHelp(
-            "Du plus petit (affiché en premier) au plus grand. Sert aussi pour précédent/suivant.",
+        yield IntegerField::new('teamPosition', 'Ordre (accueil)')->setHelp(
+            'Du plus petit (affiché en premier) au plus grand. Sert aussi pour précédent/suivant.',
         );
-        yield IntegerField::new("position", "Ordre (création de site)");
-        yield ChoiceField::new("reviewPolicy", "Avis")
+        yield IntegerField::new('position', 'Ordre (création de site)');
+        yield ChoiceField::new('reviewPolicy', 'Avis')
             ->setChoices([
                 ReviewPolicy::Single->label() => ReviewPolicy::Single,
                 ReviewPolicy::Open->label() => ReviewPolicy::Open,
@@ -142,19 +143,19 @@ class ProjectCrudController extends AbstractCrudController
             ->hideOnIndex();
         // côté inverse de la relation : by_reference=false pour passer par
         // addExperience()/removeExperience(), qui mettent à jour Experience
-        yield AssociationField::new("experiences", "Étapes du parcours")
+        yield AssociationField::new('experiences', 'Étapes du parcours')
             ->autocomplete()
-            ->setFormTypeOption("by_reference", false)
+            ->setFormTypeOption('by_reference', false)
             ->hideOnIndex();
-        yield $this->imageField("background", "Vignette (accueil)", $pageName);
+        yield $this->imageField('background', 'Vignette (accueil)', $pageName);
         yield $this->imageField(
-            "detailPic",
-            "Capture desktop (pleine page)",
+            'detailPic',
+            'Capture desktop (pleine page)',
             $pageName,
         )->hideOnIndex();
         yield $this->imageField(
-            "detail_pic_mobile",
-            "Capture mobile",
+            'detail_pic_mobile',
+            'Capture mobile',
             $pageName,
             required: false,
         )->hideOnIndex();
@@ -170,8 +171,8 @@ class ProjectCrudController extends AbstractCrudController
             ->setBasePath(ProjectImageStorage::BASE_PATH)
             ->setUploadDir(ProjectImageStorage::UPLOAD_DIR)
             ->setUploadedFileNamePattern(
-                fn(UploadedFile $file): string => sprintf(
-                    "%s-%s.webp",
+                fn (UploadedFile $file): string => sprintf(
+                    '%s-%s.webp',
                     $this->slugger
                         ->slug(
                             pathinfo(
@@ -183,14 +184,14 @@ class ProjectCrudController extends AbstractCrudController
                     bin2hex(random_bytes(4)),
                 ),
             )
-            ->setFormTypeOption("upload_new", $this->imageStorage->store(...))
+            ->setFormTypeOption('upload_new', $this->imageStorage->store(...))
             // un même fichier peut servir à deux champs (vignette et capture) :
             // ne jamais supprimer l'ancien au remplacement
             ->keepReplacedFile()
             ->setFileConstraints(
                 new Image(
-                    maxSize: "10M",
-                    mimeTypes: ["image/jpeg", "image/png", "image/webp"],
+                    maxSize: '10M',
+                    mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
                 ),
             )
             ->setRequired($required && Crud::PAGE_NEW === $pageName);

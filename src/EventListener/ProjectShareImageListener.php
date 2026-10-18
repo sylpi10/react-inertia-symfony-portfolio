@@ -12,7 +12,9 @@ use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 // capture desktop a pu changer
 final class ProjectShareImageListener
 {
-    public function __construct(private readonly ProjectShareImage $shareImage) {}
+    public function __construct(private readonly ProjectShareImage $shareImage)
+    {
+    }
 
     #[AsEventListener]
     public function onPersisted(AfterEntityPersistedEvent $event): void

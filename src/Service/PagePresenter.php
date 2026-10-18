@@ -24,7 +24,8 @@ final class PagePresenter
         private readonly ProjectSummary $summary,
         private readonly ProjectShareImage $shareImage,
         private readonly ReviewRepository $reviewRepository,
-    ) {}
+    ) {
+    }
 
     /**
      * Cartes projet, dans l'ordre de la page, avec le texte court du public de la page ;
@@ -38,13 +39,13 @@ final class PagePresenter
         $projects = $this->projectRepository->findOrderedFor($audience);
         $data = $this->normalizer->normalize(
             $projects,
-            context: ["groups" => ["project:list"]],
+            context: ['groups' => ['project:list']],
         );
         foreach ($projects as $i => $project) {
-            $data[$i]["miniDescription"] = $project->getMiniDescriptionFor(
+            $data[$i]['miniDescription'] = $project->getMiniDescriptionFor(
                 $audience,
             );
-            $data[$i]["thumbnail"] = $this->shareImage->thumbnailPath($project);
+            $data[$i]['thumbnail'] = $this->shareImage->thumbnailPath($project);
         }
 
         return $data;
@@ -60,10 +61,10 @@ final class PagePresenter
         $timeline = $this->experienceRepository->findForTimeline();
         $experiences = $this->normalizer->normalize(
             $timeline,
-            context: ["groups" => ["experience:list"]],
+            context: ['groups' => ['experience:list']],
         );
         foreach ($timeline as $i => $experience) {
-            $experiences[$i]["description"] = $experience->getDescriptionFor(
+            $experiences[$i]['description'] = $experience->getDescriptionFor(
                 $audience,
             );
         }
@@ -80,7 +81,7 @@ final class PagePresenter
     {
         return $this->normalizer->normalize(
             $this->offerRepository->findForHome(),
-            context: ["groups" => ["offer:list"]],
+            context: ['groups' => ['offer:list']],
         );
     }
 
@@ -93,9 +94,9 @@ final class PagePresenter
     {
         $data = $this->normalizer->normalize(
             $project,
-            context: ["groups" => ["project:detail"]],
+            context: ['groups' => ['project:detail']],
         );
-        $data["description"] = $project->getDescriptionFor($audience);
+        $data['description'] = $project->getDescriptionFor($audience);
 
         return $data;
     }
@@ -109,10 +110,10 @@ final class PagePresenter
     {
         return $project
             ? [
-                "slug" => $project->getSlug(),
-                "name" => $project->getName(),
-                "teaser" => $this->summary->teaser($project, $audience),
-                "background" => $project->getBackground(),
+                'slug' => $project->getSlug(),
+                'name' => $project->getName(),
+                'teaser' => $this->summary->teaser($project, $audience),
+                'background' => $project->getBackground(),
             ]
             : null;
     }
@@ -126,19 +127,19 @@ final class PagePresenter
     public function reviews(): array
     {
         return array_map(
-            fn(Review $review) => [
-                "id" => $review->getId(),
-                "author" => $review->getAuthor(),
-                "authorRole" => $review->getAuthorRole(),
-                "postedAt" => $review->getCreatedAt()->format(\DATE_ATOM),
-                "text" => $review->getText(),
+            fn (Review $review) => [
+                'id' => $review->getId(),
+                'author' => $review->getAuthor(),
+                'authorRole' => $review->getAuthorRole(),
+                'postedAt' => $review->getCreatedAt()->format(\DATE_ATOM),
+                'text' => $review->getText(),
                 // avis aussi déposé sur Google : note (1 à 5) et lien vers l'original, sinon null
-                "googleRating" => $review->getGoogleRating(),
-                "googleReviewUrl" => $review->getGoogleReviewUrl(),
-                "projects" => array_map(
-                    fn(Project $project) => [
-                        "name" => $project->getName(),
-                        "slug" => $project->getSlug(),
+                'googleRating' => $review->getGoogleRating(),
+                'googleReviewUrl' => $review->getGoogleReviewUrl(),
+                'projects' => array_map(
+                    fn (Project $project) => [
+                        'name' => $project->getName(),
+                        'slug' => $project->getSlug(),
                     ],
                     $review->getProjects()->getValues(),
                 ),

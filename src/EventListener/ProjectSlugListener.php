@@ -12,7 +12,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[AsEntityListener(event: Events::prePersist, entity: Project::class)]
 final class ProjectSlugListener
 {
-    public function __construct(private readonly SluggerInterface $slugger) {}
+    public function __construct(private readonly SluggerInterface $slugger)
+    {
+    }
 
     public function prePersist(Project $project): void
     {

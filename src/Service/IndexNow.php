@@ -19,7 +19,8 @@ final class IndexNow
         private readonly UrlGeneratorInterface $urlGenerator,
         #[Autowire('%env(INDEXNOW_KEY)%')]
         private readonly string $key,
-    ) {}
+    ) {
+    }
 
     public function getKey(): string
     {

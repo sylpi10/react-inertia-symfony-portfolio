@@ -19,7 +19,8 @@ final class IndexNowSubmitCommand
         private readonly IndexNow $indexNow,
         private readonly ProjectRepository $projects,
         private readonly UrlGeneratorInterface $urlGenerator,
-    ) {}
+    ) {
+    }
 
     public function __invoke(SymfonyStyle $io): int
     {

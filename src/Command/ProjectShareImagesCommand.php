@@ -18,7 +18,8 @@ final class ProjectShareImagesCommand
     public function __construct(
         private readonly ProjectRepository $projects,
         private readonly ProjectShareImage $shareImage,
-    ) {}
+    ) {
+    }
 
     public function __invoke(
         SymfonyStyle $io,

@@ -27,7 +27,7 @@ class ProjectRepository extends ServiceEntityRepository
     {
         return $this->findBy(
             [],
-            [self::orderField($audience) => "ASC", "id" => "ASC"],
+            [self::orderField($audience) => 'ASC', 'id' => 'ASC'],
         );
     }
 
@@ -42,14 +42,14 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findReviewable(?array $ids = null): array
     {
-        $query = $this->createQueryBuilder("p")
-            ->andWhere("p.reviewPolicy = :open OR (p.reviewPolicy = :single AND p.reviews IS EMPTY)")
-            ->setParameter("open", ReviewPolicy::Open)
-            ->setParameter("single", ReviewPolicy::Single)
-            ->orderBy("p.teamPosition", "ASC")
-            ->addOrderBy("p.id", "ASC");
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.reviewPolicy = :open OR (p.reviewPolicy = :single AND p.reviews IS EMPTY)')
+            ->setParameter('open', ReviewPolicy::Open)
+            ->setParameter('single', ReviewPolicy::Single)
+            ->orderBy('p.teamPosition', 'ASC')
+            ->addOrderBy('p.id', 'ASC');
         if (null !== $ids) {
-            $query->andWhere("p.id IN (:ids)")->setParameter("ids", $ids);
+            $query->andWhere('p.id IN (:ids)')->setParameter('ids', $ids);
         }
 
         return $query->getQuery()->getResult();
@@ -71,46 +71,46 @@ class ProjectRepository extends ServiceEntityRepository
 
         // ordre de la page, puis id pour départager les égalités
         $previous =
-            $this->createQueryBuilder("p")
+            $this->createQueryBuilder('p')
                 ->andWhere(
                     "p.$field < :position OR (p.$field = :position AND p.id < :id)",
                 )
-                ->setParameter("position", $position)
-                ->setParameter("id", $project->getId())
-                ->orderBy("p.$field", "DESC")
-                ->addOrderBy("p.id", "DESC")
+                ->setParameter('position', $position)
+                ->setParameter('id', $project->getId())
+                ->orderBy("p.$field", 'DESC')
+                ->addOrderBy('p.id', 'DESC')
                 ->setMaxResults(1)
                 ->getQuery()
                 ->getOneOrNullResult() ??
             // premier projet : on boucle sur le dernier
-            $this->findOneBy([], [$field => "DESC", "id" => "DESC"]);
+            $this->findOneBy([], [$field => 'DESC', 'id' => 'DESC']);
 
         $next =
-            $this->createQueryBuilder("p")
+            $this->createQueryBuilder('p')
                 ->andWhere(
                     "p.$field > :position OR (p.$field = :position AND p.id > :id)",
                 )
-                ->setParameter("position", $position)
-                ->setParameter("id", $project->getId())
-                ->orderBy("p.$field", "ASC")
-                ->addOrderBy("p.id", "ASC")
+                ->setParameter('position', $position)
+                ->setParameter('id', $project->getId())
+                ->orderBy("p.$field", 'ASC')
+                ->addOrderBy('p.id', 'ASC')
                 ->setMaxResults(1)
                 ->getQuery()
                 ->getOneOrNullResult() ??
             // dernier projet : on boucle sur le premier
-            $this->findOneBy([], [$field => "ASC", "id" => "ASC"]);
+            $this->findOneBy([], [$field => 'ASC', 'id' => 'ASC']);
 
         // un seul projet en base : pas de navigation vers lui-même
         return [
-            "previous" => $previous === $project ? null : $previous,
-            "next" => $next === $project ? null : $next,
+            'previous' => $previous === $project ? null : $previous,
+            'next' => $next === $project ? null : $next,
         ];
     }
 
     // champ d'ordre de chaque page : teamPosition pour l'accueil
     private static function orderField(Audience $audience): string
     {
-        return Audience::Team === $audience ? "teamPosition" : "position";
+        return Audience::Team === $audience ? 'teamPosition' : 'position';
     }
 
     //    /**

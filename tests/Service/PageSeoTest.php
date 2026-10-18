@@ -15,19 +15,19 @@ final class PageSeoTest extends KernelTestCase
      */
     public static function pages(): iterable
     {
-        yield "accueil" => [
-            fn(PageSeo $seo) => $seo->audiencePage(Audience::Team),
+        yield 'accueil' => [
+            fn (PageSeo $seo) => $seo->audiencePage(Audience::Team),
         ];
-        yield "création de site" => [
-            fn(PageSeo $seo) => $seo->audiencePage(Audience::Client),
+        yield 'création de site' => [
+            fn (PageSeo $seo) => $seo->audiencePage(Audience::Client),
         ];
-        yield "page locale" => [fn(PageSeo $seo) => $seo->local()];
+        yield 'page locale' => [fn (PageSeo $seo) => $seo->local()];
     }
 
-    #[DataProvider("pages")]
+    #[DataProvider('pages')]
     public function testTitleLengthIsWithinSeoLimits(\Closure $page): void
     {
-        $title = $page(static::getContainer()->get(PageSeo::class))["title"];
+        $title = $page(static::getContainer()->get(PageSeo::class))['title'];
 
         self::assertGreaterThanOrEqual(30, mb_strlen($title), $title);
         self::assertLessThanOrEqual(60, mb_strlen($title), $title);

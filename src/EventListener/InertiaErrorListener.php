@@ -18,18 +18,19 @@ final class InertiaErrorListener
     public function __construct(
         private readonly Inertia $inertia,
         private readonly PageSeo $seo,
-        #[Autowire("%kernel.debug%")]
+        #[Autowire('%kernel.debug%')]
         private readonly bool $debug,
-    ) {}
+    ) {
+    }
 
     public function __invoke(ExceptionEvent $event): void
     {
         $request = $event->getRequest();
         // back-office (EasyAdmin) et fichiers sitemap.xml, llms.txt… : erreurs Symfony
         if (
-            !$event->isMainRequest() ||
-            "html" !== $request->getRequestFormat() ||
-            str_starts_with($request->getPathInfo(), "/admin")
+            !$event->isMainRequest()
+            || 'html' !== $request->getRequestFormat()
+            || str_starts_with($request->getPathInfo(), '/admin')
         ) {
             return;
         }
@@ -44,9 +45,9 @@ final class InertiaErrorListener
             return;
         }
 
-        $response = $this->inertia->render("Error", [
-            "status" => $status,
-            "seo" => $this->seo->error($status),
+        $response = $this->inertia->render('Error', [
+            'status' => $status,
+            'seo' => $this->seo->error($status),
         ]);
         $response->setStatusCode($status);
         $event->setResponse($response);

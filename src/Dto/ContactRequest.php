@@ -14,33 +14,27 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 final readonly class ContactRequest
 {
     public function __construct(
-        #[Assert\NotBlank(message: "Votre nom est requis.")] #[
-            Assert\Length(
-                min: 3,
-                max: 100,
-                minMessage: "Votre nom doit faire au moins {{ limit }} caractères.",
-                maxMessage: "Votre nom ne peut pas dépasser {{ limit }} caractères.",
-            ),
-        ]
-        public string $name = "",
-        #[Assert\NotBlank(message: "Votre email est requis.")] #[
-            Assert\Email(message: "Votre email n'est pas valide."),
+        #[Assert\NotBlank(message: 'Votre nom est requis.')] #[Assert\Length(
+            min: 3,
+            max: 100,
+            minMessage: 'Votre nom doit faire au moins {{ limit }} caractères.',
+            maxMessage: 'Votre nom ne peut pas dépasser {{ limit }} caractères.',
+        ),]
+        public string $name = '',
+        #[Assert\NotBlank(message: 'Votre email est requis.')] #[Assert\Email(message: "Votre email n'est pas valide."),
             Assert\Length(
                 max: 100,
-                maxMessage: "Votre email ne peut pas dépasser {{ limit }} caractères.",
-            ),
-        ]
-        public string $email = "",
-        #[Assert\NotBlank(message: "Le message ne peut pas être vide.")] #[
-            Assert\Length(
-                min: 10,
-                max: 400,
-                minMessage: "Votre message doit faire au moins {{ limit }} caractères.",
-                maxMessage: "Votre message ne peut pas dépasser {{ limit }} caractères.",
-            ),
-        ]
-        public string $message = "",
-        public string $website = "",
+                maxMessage: 'Votre email ne peut pas dépasser {{ limit }} caractères.',
+            ),]
+        public string $email = '',
+        #[Assert\NotBlank(message: 'Le message ne peut pas être vide.')] #[Assert\Length(
+            min: 10,
+            max: 400,
+            minMessage: 'Votre message doit faire au moins {{ limit }} caractères.',
+            maxMessage: 'Votre message ne peut pas dépasser {{ limit }} caractères.',
+        ),]
+        public string $message = '',
+        public string $website = '',
         // page d'où vient le message (accueil ou page équipe)
         public Audience $audience = Audience::Client,
         // demande de devis, page création de site : type et délai requis (validateQuote), budget facultatif
@@ -59,13 +53,13 @@ final readonly class ContactRequest
             return;
         }
         if (null === $this->projectType) {
-            $context->buildViolation("Précisez le type de projet.")
-                ->atPath("projectType")
+            $context->buildViolation('Précisez le type de projet.')
+                ->atPath('projectType')
                 ->addViolation();
         }
         if (null === $this->deadline) {
-            $context->buildViolation("Précisez le délai souhaité.")
-                ->atPath("deadline")
+            $context->buildViolation('Précisez le délai souhaité.')
+                ->atPath('deadline')
                 ->addViolation();
         }
     }

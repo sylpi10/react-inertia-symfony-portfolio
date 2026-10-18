@@ -15,14 +15,14 @@ final class ProjectSlugListenerTest extends TestCase
      */
     public static function names(): iterable
     {
-        yield "espaces et majuscules" => [
-            "Toulouse Sport Club",
-            "toulouse-sport-club",
+        yield 'espaces et majuscules' => [
+            'Toulouse Sport Club',
+            'toulouse-sport-club',
         ];
-        yield "apostrophe et underscore" => ["l'exemple_31", "l-exemple-31"];
+        yield 'apostrophe et underscore' => ["l'exemple_31", 'l-exemple-31'];
     }
 
-    #[DataProvider("names")]
+    #[DataProvider('names')]
     public function testSlugIsBuiltFromNameWhenMissing(
         string $name,
         string $expected,
@@ -37,11 +37,11 @@ final class ProjectSlugListenerTest extends TestCase
     // un slug déjà fourni (migration, import…) n'est jamais remplacé
     public function testExistingSlugIsKept(): void
     {
-        $project = new Project()->setName("Test")->setSlug("mon-slug");
+        $project = new Project()->setName('Test')->setSlug('mon-slug');
 
         $this->listener()->prePersist($project);
 
-        self::assertSame("mon-slug", $project->getSlug());
+        self::assertSame('mon-slug', $project->getSlug());
     }
 
     private function listener(): ProjectSlugListener

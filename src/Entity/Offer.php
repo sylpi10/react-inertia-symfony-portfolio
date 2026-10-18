@@ -20,18 +20,18 @@ class Offer
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(["offer:list"])]
+    #[Groups(['offer:list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank]
-    #[Groups(["offer:list"])]
+    #[Groups(['offer:list'])]
     private ?string $title = null;
 
     // texte court, en HTML (éditeur du back-office)
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
-    #[Groups(["offer:list"])]
+    #[Groups(['offer:list'])]
     private ?string $description = null;
 
     // ordre d'affichage, du plus petit au plus grand
@@ -44,8 +44,8 @@ class Offer
      * @var Collection<int, Project>
      */
     #[ORM\ManyToMany(targetEntity: Project::class)]
-    #[ORM\OrderBy(["id" => \SortDirection::Ascending])]
-    #[Groups(["offer:list"])]
+    #[ORM\OrderBy(['id' => \SortDirection::Ascending])]
+    #[Groups(['offer:list'])]
     private Collection $projects;
 
     public function __construct()

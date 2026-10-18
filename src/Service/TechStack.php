@@ -9,6 +9,6 @@ final class TechStack
      */
     public function getStack(): array
     {
-        return ["Symfony", "Inertia.js", "React", "TypeScript", "SSR", "Sass"];
+        return ['Symfony', 'Inertia.js', 'React', 'TypeScript', 'SSR', 'Sass'];
     }
 }

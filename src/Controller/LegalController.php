@@ -13,14 +13,15 @@ class LegalController extends AbstractController
     public function __construct(
         private readonly Inertia $inertia,
         private readonly PageSeo $seo,
-    ) {}
+    ) {
+    }
 
     // contenu statique, dans assets/pages/LegalNotice.tsx
-    #[Route("/mentions-legales", name: "legal", methods: ["GET"])]
+    #[Route('/mentions-legales', name: 'legal', methods: ['GET'])]
     public function legalNotice(): Response
     {
-        return $this->inertia->render("LegalNotice", [
-            "seo" => $this->seo->legalNotice(),
+        return $this->inertia->render('LegalNotice', [
+            'seo' => $this->seo->legalNotice(),
         ]);
     }
 }

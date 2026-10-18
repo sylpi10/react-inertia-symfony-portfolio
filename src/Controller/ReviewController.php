@@ -22,51 +22,52 @@ class ReviewController extends AbstractController
     public function __construct(
         private readonly Inertia $inertia,
         private readonly PageSeo $seo,
-    ) {}
+    ) {
+    }
 
-    #[Route("/avis", name: "review", methods: ["GET"])]
+    #[Route('/avis', name: 'review', methods: ['GET'])]
     public function form(ProjectRepository $projects): Response
     {
-        return $this->inertia->render("Review", [
-            "seo" => $this->seo->review(),
+        return $this->inertia->render('Review', [
+            'seo' => $this->seo->review(),
             // projets proposés selon leur réglage dans l'admin (ReviewPolicy)
-            "projects" => array_map(
-                fn(Project $project) => [
-                    "id" => $project->getId(),
-                    "name" => $project->getName(),
+            'projects' => array_map(
+                fn (Project $project) => [
+                    'id' => $project->getId(),
+                    'name' => $project->getName(),
                 ],
                 $projects->findReviewable(),
             ),
         ]);
     }
 
-    #[Route("/avis", name: "review_submit", methods: ["POST"])]
+    #[Route('/avis', name: 'review_submit', methods: ['POST'])]
     public function submit(
         #[MapRequestPayload] ReviewRequest $data,
         Request $request,
         ReviewSubmission $submission,
-        #[Target("review_form")] RateLimiterFactoryInterface $limiter,
+        #[Target('review_form')] RateLimiterFactoryInterface $limiter,
     ): Response {
         if (
             !$limiter->create($request->getClientIp())->consume()->isAccepted()
         ) {
             $this->inertia->flash(
-                "error",
+                'error',
                 "Trop d'envois, réessayez dans une heure.",
             );
 
-            return $this->redirectToRoute("review");
+            return $this->redirectToRoute('review');
         }
 
         // honeypot rempli = robot : même réponse qu'un succès, sans rien faire
-        if ("" === $data->website) {
+        if ('' === $data->website) {
             $submission->submit($data);
         }
         $this->inertia->flash(
-            "success",
-            "Merci pour votre avis ! Il sera publié après relecture.",
+            'success',
+            'Merci pour votre avis ! Il sera publié après relecture.',
         );
 
-        return $this->redirectToRoute("review");
+        return $this->redirectToRoute('review');
     }
 }
