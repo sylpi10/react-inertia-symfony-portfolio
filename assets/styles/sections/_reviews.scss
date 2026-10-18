@@ -64,7 +64,7 @@
         }
         @media screen and (max-width: 768px) {
             flex-basis: 100%;
-            padding: 16px;
+            padding: 16px 8px;
             scroll-snap-align: start;
         }
 
@@ -101,9 +101,7 @@
             color: var(--text);
             line-height: 1.6;
             height: fit-content;
-            @media screen and (max-width: 600px) {
-                margin: 0;
-            }
+
             // guillemet décoratif
             &::before {
                 content: "“";
@@ -124,23 +122,32 @@
                 line-height: 1;
                 color: var(--accent);
             }
+            @media screen and (max-width: 600px) {
+                margin: 0;
+                &:before {
+                    left: 0;
+                    top: 0;
+                }
+                &:after {
+                    right: 0;
+                }
+            }
             p {
                 margin: 10px;
                 padding: 12px 16px;
                 white-space: pre-line;
                 background-color: var(--surface-muted);
-                // border-radius: 12% 8% 10% 8% / 14% 9% 10% 8%;
                 border-radius: 6% 20% 20% 8% / 19% 9% 10% 8%;
-                // border: 1px solid black;
+                z-index: 666;
                 &::after {
                     content: "";
                     position: absolute;
                     width: 0;
                     height: 0;
                     left: auto;
-                    right: 30px;
+                    right: 0;
                     top: auto;
-                    bottom: -12px;
+                    bottom: -8px;
                     border: 24px solid;
                     border-top-color: var(--surface-muted);
                     border-right-color: var(--surface-muted);
@@ -148,8 +155,19 @@
                     border-left-color: var(--surface-muted);
                     border-color: transparent transparent transparent
                         var(--surface-muted);
+                    z-index: 4;
                 }
             }
+        }
+        .read-more {
+            background: none;
+            border: 0;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            color: var(--accent-text);
+            text-decoration: underline;
+            font-size: 0.85rem;
         }
 
         footer {
