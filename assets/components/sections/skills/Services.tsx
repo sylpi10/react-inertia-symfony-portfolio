@@ -8,7 +8,7 @@ import { projectPath } from "../../../lib/paths";
 export default function Services({ offers }: { offers: OfferProps[] }) {
     return (
         <div className="section-container services-container">
-            <h2 className="section-title">Ce que je peux faire pour vous</h2>
+            <h2 className="section-title">Mes services</h2>
             <p className="services-intro">
                 Développeur freelance à Toulouse, j’accompagne les indépendants,
                 TPE et PME, de la création de site vitrine à l’application web

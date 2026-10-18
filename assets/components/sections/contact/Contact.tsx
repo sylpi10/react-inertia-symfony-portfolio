@@ -38,6 +38,11 @@ export default function Contact({ audience }: { audience: Audience }) {
         <div className="section-container">
             <div className="section-wrapper contact-wrapper">
                 <h2 className={"section-title"}>On discute ?</h2>
+                <p className="contact-intro">
+                    {audience === "team"
+                        ? "Un poste, une mission ou juste un échange : écrivez-moi."
+                        : "Décrivez votre projet en quelques lignes, je reviens vers vous rapidement, sans engagement."}
+                </p>
                 <div className="contact-form">
                     {/* zone toujours présente : les messages qui y apparaissent sont lus */}
                     <div className="status-wrapper" aria-live="polite">

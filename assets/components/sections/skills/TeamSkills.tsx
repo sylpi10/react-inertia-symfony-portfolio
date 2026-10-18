@@ -31,7 +31,7 @@ const skills = [
 export default function TeamSkills() {
     return (
         <div className="section-container services-container">
-            <h2 className="section-title">Ce que j’apporte à une équipe</h2>
+            <h2 className="section-title">Mon rôle en équipe</h2>
             <p className="services-intro">
                 5 ans dans une équipe e-commerce, de la refonte d’une boutique à
                 un outil de personnalisation en production : je sais m’intégrer

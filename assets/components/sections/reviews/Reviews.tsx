@@ -57,11 +57,15 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
 
     if (reviews.length === 0) return null;
 
+    // page équipe : collègues et managers ; page création de site : clients
+    const title =
+        audience === "team" ? "Ils ont travaillé avec moi" : "Avis clients";
+
     return (
         <div className="section-container reviews-container">
             <div className="reviews-wrapper">
                 <div className="title">
-                    <h2 className={"section-title"}>avis de collaborateurs</h2>
+                    <h2 className={"section-title"}>{title}</h2>
                     {reviews.length > 6 && (
                         <>
                             <p
@@ -89,7 +93,7 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
                     className="reviews-slider"
                     role="group"
                     aria-roledescription="carrousel"
-                    aria-label="Avis de collaborateurs"
+                    aria-label={title}
                 >
                     <ul
                         className="reviews-track"
