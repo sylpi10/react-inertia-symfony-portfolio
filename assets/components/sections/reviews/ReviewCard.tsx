@@ -17,9 +17,7 @@ export default function ReviewCard({
 }) {
     const [expanded, setExpanded] = useState(false);
     const isLong = review.text.length > TEXT_MAX_LENGTH;
-    const truncatedText: string = truncate(review.text, 200);
-    const isTruncated: boolean =
-        truncatedText.split("").length < review.text.split("").length;
+
     return (
         <li className="review-card" key={review.id}>
             {/* avis aussi déposé sur Google : sa note, et le lien vers l'original */}

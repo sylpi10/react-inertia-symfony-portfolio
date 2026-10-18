@@ -274,7 +274,11 @@
 
     .share-review-link {
         margin-top: 20px;
+        margin: 20px 12px 0 12px;
         text-align: right;
+        @media screen and (max-width: 768px) {
+            text-align: center;
+        }
         a {
             color: var(--accent-text);
         }
