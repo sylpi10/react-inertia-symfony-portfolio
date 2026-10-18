@@ -39,6 +39,7 @@ jobs:
                   cache: npm
 
             - run: composer install --no-interaction --no-progress
+            - run: vendor/bin/php-cs-fixer fix --dry-run --diff
             - run: npm ci
             # sans le build, Twig ne trouve pas entrypoints.json → tests en 500
             - run: npm run build
