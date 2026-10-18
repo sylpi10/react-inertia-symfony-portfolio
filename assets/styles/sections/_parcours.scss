@@ -1,6 +1,8 @@
 @use "../ui/variables" as *;
-
+@use "minitimeline";
 .section-container.parcours-container {
+    // remontée à l'ouverture du détail (mobile) : on s'arrête sous le header fixe
+    scroll-margin-top: 70px;
     .parcours-wrapper {
         display: flex;
         margin: var(--section-top) auto 40px auto;
@@ -14,6 +16,23 @@
             align-items: center;
         }
 
+        .toggle-timeline {
+            width: fit-content;
+            height: 48px;
+            width: fit-content;
+            display: grid;
+            align-items: center;
+            color: var(--button-text);
+            margin: auto;
+            cursor: pointer;
+            padding: 0 16px;
+            transition: ease 0.3s;
+            font-weight: bold;
+            &:hover {
+                padding: 0 24px;
+                color: var(--button-hover-text);
+            }
+        }
         .timeline {
             margin: 0 20px;
             ul {
@@ -73,11 +92,7 @@
                         flex-wrap: wrap;
                         margin: 16px;
                         border-top: 1px solid
-                            color-mix(
-                                in srgb,
-                                var(--accent) 28%,
-                                transparent
-                            );
+                            color-mix(in srgb, var(--accent) 28%, transparent);
                         padding-top: 16px;
                         li {
                             @include tech-pill;
@@ -200,116 +215,6 @@
                     border-bottom-left-radius: 0;
                 }
             }
-        }
-    }
-
-    // .toolkit-wrapper {
-    //     background-color: $main_color;
-    //     display: flex;
-    //     @media screen and (min-width: 768px) {
-    //         justify-content: flex-start;
-    //     }
-    //     @media screen and (max-width: 768px) {
-    //         flex-direction: column;
-    //         justify-content: center;
-    //     }
-    //     align-items: center;
-    //     flex-wrap: wrap;
-    //     .toolkit {
-    //         margin-left: 60px;
-    //         width: 23%;
-    //         min-width: 180px;
-    //         display: flex;
-    //         justify-content: center;
-    //         align-items: center;
-    //         height: 200px;
-    //         background: url("/assets/images/curved_shape.webp") no-repeat center;
-    //         background-size: contain;
-    //         @media screen and (max-width: 768px) {
-    //             margin-left: 0;
-    //         }
-    //         span {
-    //             font-size: 1.6rem;
-    //             color: $main_color;
-    //             font-weight: bold;
-    //             transform: rotate(-12deg);
-    //         }
-    //     }
-    // }
-
-    .tag-list {
-        @media screen and (min-width: 768px) {
-            width: 60%;
-        }
-        @media screen and (max-width: 768px) {
-            width: 100%;
-        }
-        min-width: 300px;
-        max-width: 90vw;
-        display: flex;
-        flex-shrink: 0;
-        flex-direction: column;
-        gap: 1rem 0;
-        position: relative;
-        padding: 1.5rem 0;
-        overflow: hidden;
-        margin: auto;
-    }
-
-    .loop-slider {
-        .inner {
-            display: flex;
-            width: fit-content;
-            animation-name: loop;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
-            animation-direction: var(--direction);
-            animation-duration: var(--duration);
-        }
-    }
-
-    .tag {
-        display: flex;
-        align-items: center;
-        min-width: 130px;
-        justify-content: center;
-        gap: 0 0.2rem;
-        color: var(--on-strong);
-        font-size: 0.9rem;
-        background-color: var(--strong);
-        border-radius: 0.4rem;
-        padding: 0.7rem 1rem;
-        margin-right: 1rem; // Must used margin-right instead of gap for the loop to be smooth
-        box-shadow:
-            0 0.1rem 0.2rem var(--shadow),
-            0 0.1rem 0.5rem var(--shadow),
-            0 0.2rem 1.5rem var(--shadow-strong);
-
-        span {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-        }
-    }
-
-    .fade {
-        pointer-events: none;
-        background: linear-gradient(
-            90deg,
-            var(--bg),
-            transparent 10%,
-            transparent 20%,
-            var(--bg)
-        );
-        position: absolute;
-        inset: 0;
-    }
-
-    @keyframes loop {
-        0% {
-            transform: translateX(10%);
-        }
-        100% {
-            transform: translateX(0%);
         }
     }
 }

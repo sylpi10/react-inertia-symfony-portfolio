@@ -1,0 +1,127 @@
+@use "../ui/variables" as *;
+// vue d'ensemble : une ligne avec un point par étape,
+// verticale sur mobile
+//
+
+// repli animé en hauteur : la ligne de grille passe de 0fr à 1fr,
+// ce qui anime vers la hauteur réelle du contenu (impossible avec height: auto)
+.collapsible {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    justify-items: center;
+    // margin: 40px auto;
+    transition:
+        grid-template-rows 0.4s ease,
+        opacity 0.3s ease;
+    &.is-open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+    .collapsible-inner {
+        overflow: hidden;
+        min-height: 0;
+        .mini-timeline {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            list-style: none;
+            margin: 40px auto;
+            gap: 40px;
+            padding: 0;
+
+            .mini-timeline-item {
+                position: relative;
+                flex: 1;
+                max-width: 220px;
+                padding: 28px 10px 12px;
+                text-align: center;
+                transition: ease 0.4s;
+                border-radius: 10px;
+                // le trait, continu d'une étape à l'autre
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 7px;
+                    left: 0;
+                    right: 0;
+                    height: 4px;
+                    background: linear-gradient(
+                        to right,
+                        var(--text-strong) 0%,
+                        #8398cc 100%
+                    );
+                }
+
+                // le point de l'étape
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    translate: -50% 0;
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    background-color: var(--accent);
+                    border: 3px solid var(--bg);
+                }
+                &:hover {
+                    box-shadow:
+                        rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+                        rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+                }
+            }
+
+            .mini-timeline-date {
+                font-size: 0.85rem;
+                color: var(--text-muted);
+            }
+
+            .mini-timeline-title {
+                margin: 6px 0 2px;
+                font-weight: bold;
+                line-height: 1.2em;
+            }
+
+            .mini-timeline-organization {
+                margin: 0;
+                font-size: 0.9rem;
+            }
+
+            @media screen and (max-width: 1024px) {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            @media screen and (max-width: 768px) {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+                .mini-timeline-item {
+                    max-width: none;
+                    padding: 0 0 20px 32px;
+                    text-align: left;
+
+                    &::before {
+                        top: 0;
+                        bottom: 0;
+                        left: 7px;
+                        right: auto;
+                        width: 3px;
+                        height: auto;
+                        background: linear-gradient(
+                            to bottom,
+                            var(--text-strong) 0%,
+                            #8398cc 100%
+                        );
+                    }
+
+                    &::after {
+                        left: 0;
+                        translate: none;
+                    }
+                }
+            }
+            @media screen and (max-width: 620px) {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}
