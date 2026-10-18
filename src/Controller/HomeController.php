@@ -28,7 +28,7 @@ class HomeController extends AbstractController
     }
 
     // même portfolio, présenté aux indépendants et TPE qui cherchent un site
-    #[Route('/creation-site-web', name: "client", methods: ['GET'])]
+    #[Route('/creation-site-web', name: 'client', methods: ['GET'])]
     public function getClientPage(): Response
     {
         return $this->renderAudiencePage(Audience::Client, [
