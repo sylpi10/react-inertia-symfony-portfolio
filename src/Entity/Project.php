@@ -23,21 +23,21 @@ class Project
 
     #[ORM\Column(length: 50)]
     #[Groups([
-            'project:list',
-            'project:detail',
-            'experience:list',
-            'offer:list',
-        ]),]
+        'project:list',
+        'project:detail',
+        'experience:list',
+        'offer:list',
+    ]),]
     private string $name;
 
     // segment d'URL (/projets/{slug}), généré depuis le nom à la création
     #[ORM\Column(length: 100, unique: true)]
     #[Groups([
-            'project:list',
-            'project:detail',
-            'experience:list',
-            'offer:list',
-        ]),]
+        'project:list',
+        'project:detail',
+        'experience:list',
+        'offer:list',
+    ]),]
     private ?string $slug = null;
 
     #[ORM\Column(length: 255)]
