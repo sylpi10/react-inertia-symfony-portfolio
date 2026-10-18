@@ -62,16 +62,22 @@ export default function Reviews({ reviews, audience }: ReviewsProps) {
             <div className="reviews-wrapper">
                 <div className="title">
                     <h2 className={"section-title"}>avis de collaborateurs</h2>
-                    {reviews.length > 2 && (
+                    {reviews.length > 6 && (
                         <>
-                            <span className="reviews-count">
-                                {reviews.length} avis
-                            </span>
-                            {googleAverageRating && (
-                                <span className="google-average">
-                                    {googleAverageRating}/5
-                                </span>
-                            )}
+                            <p className="reviews-count">
+                                {googleAverageRating && (
+                                    <a
+                                        href="https://search.google.com/local/reviews?placeid=PLACE_ID"
+                                        target="_blank"
+                                        title="Voir tous les avis google"
+                                        aria-title="Voir tous les avis google"
+                                        className="google-average"
+                                    >
+                                        {googleAverageRating}/5 {" sur google"}
+                                    </a>
+                                )}
+                                {"    "}( {reviews.length} avis )
+                            </p>
                         </>
                     )}
                 </div>
