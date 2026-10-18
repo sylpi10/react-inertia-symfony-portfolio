@@ -5,7 +5,22 @@ on:
     pull_request:
 
 jobs:
-    tests:
+    front:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+
+            - uses: actions/setup-node@v5
+              with:
+                  node-version: 24
+                  cache: npm
+
+            - run: npm ci
+            # types TypeScript : ni Vite ni Vitest ne les vérifient
+            - run: npm run typecheck
+            - run: npx vitest run
+
+    back:
         runs-on: ubuntu-latest
         steps:
             # récupère ton code sur la machine

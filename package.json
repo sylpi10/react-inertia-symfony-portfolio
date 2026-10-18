@@ -5,7 +5,8 @@
         "dev": "vite",
         "build": "vite build && npm run build:ssr",
         "build:ssr": "vite build --config vite.ssr.config.js --ssr assets/ssr.tsx",
-        "test": "vitest"
+        "test": "vitest",
+        "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
         "@testing-library/react": "^16.3.3",
