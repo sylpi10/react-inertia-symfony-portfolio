@@ -5,9 +5,12 @@
 .homepage .hero-area {
     --mx: 0;
     --my: 0;
-    // la forme déborde un peu pour que ses bords ne se voient jamais ;
-    // clip-path (et non overflow) car elle est positionnée hors du hero
-    clip-path: inset(0);
+    // la forme déborde un peu pour que ses bords ne se voient jamais :
+    // positionnée par rapport au hero, et coupée par lui. Un clip-path ne
+    // suffit pas : il masque l'affichage, mais le débordement compte toujours
+    // dans la largeur de la page (20 px de défilement horizontal)
+    position: relative;
+    overflow: hidden;
 
     .person,
     .picture-name-container,

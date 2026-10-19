@@ -34,8 +34,8 @@ export default function TeamSkills() {
             <h2 className="section-title">Mon rôle en équipe</h2>
             <p className="services-intro">
                 5 ans dans une équipe e-commerce, de la refonte d’une boutique à
-                un outil de personnalisation en production : je sais m’intégrer
-                à une base de code existante et la faire avancer.
+                un outil de personnalisation en production. Je sais m’intégrer à
+                une équipe et faire avancer un projet existant.
             </p>
 
             <ul className="services-list">

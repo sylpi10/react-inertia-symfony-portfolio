@@ -10,9 +10,9 @@ export default function Services({ offers }: { offers: OfferProps[] }) {
         <div className="section-container services-container">
             <h2 className="section-title">Mes services</h2>
             <p className="services-intro">
-                Développeur freelance à Toulouse, j’accompagne les indépendants,
-                TPE et PME, de la création de site vitrine à l’application web
-                sur mesure, partout en France.
+                Développeur freelance basé à Toulouse, j’accompagne les
+                indépendants, TPE et PME, sur place ou à distance, de la
+                création de site vitrine à l’application web sur mesure.
             </p>
             <ul className="services-list">
                 {offers.map((offer, index) => (
