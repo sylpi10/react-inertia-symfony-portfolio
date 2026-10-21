@@ -1,4 +1,4 @@
-.PHONY: help dev stop logs build deploy deploy-test remote
+.PHONY: help dev stop logs build deploy deploy-test remote backup
 
 # Variables de déploiement (non versionnées) : SERVER_USER, SERVER_HOST, APP_PATH
 ifneq (,$(wildcard .env.deploy))
@@ -46,7 +46,8 @@ help:
 	@echo "make logs         suit les logs du serveur, de Vite et du SSR"
 	@echo "make build        build Vite client + SSR (public/build, bootstrap/ssr)"
 	@echo "make deploy-test  build + rsync --dry-run : affiche ce qui partirait"
-	@echo "make deploy       build + rsync + composer install + cache + migrations"
+	@echo "make backup       dump gzippé de la base de prod dans ~/backups/portfolio/ (serveur)"
+	@echo "make deploy       test + build + backup + rsync + composer install + cache + migrations"
 
 # dev local : les workers (Vite, SSR) sont déclarés dans .symfony.local.yaml
 dev:
@@ -71,9 +72,16 @@ deploy-test: test build
 	rsync -av --itemize-changes --dry-run --delete $(RSYNC_EXCLUDES) \
 		./ $(SERVER_USER)@$(SERVER_HOST):~/$(APP_PATH)
 
+# Dump gzippé de la base de prod dans ~/backups/portfolio/ sur le serveur (15 derniers conservés).
+# Le script est envoyé par ssh : rien à installer côté serveur.
+backup:
+	$(SSH) 'PHP=$(PHP) bash -s' -- "$(APP_PATH)" 15 portfolio < scripts/db-backup.sh
+
 # choix technique: pas de CD pour séparer git workflow et deploy
 # par contre on lance les test sur la commande make deploy
 deploy: test build
+	# le backup passe avant le rsync : s'il échoue, le déploiement s'arrête
+	$(MAKE) backup
 	rsync -av --itemize-changes --delete $(RSYNC_EXCLUDES) \
 		./ $(SERVER_USER)@$(SERVER_HOST):~/$(APP_PATH)
 	$(MAKE) remote
