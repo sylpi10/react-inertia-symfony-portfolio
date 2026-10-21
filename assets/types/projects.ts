@@ -1,3 +1,5 @@
+import { ReviewProps } from "./reviews";
+
 export type ProjectProps = {
     id: number;
     slug: string;
@@ -16,6 +18,8 @@ export type ProjectProps = {
     lastAuditDate: string | null;
     pagespeedCapture: string | null;
     perfText: string | null;
+    // avis validés du projet, les plus récents d'abord ; [] si aucun
+    reviews: ReviewProps[];
 };
 
 export type ProjectDetailsProps = Omit<

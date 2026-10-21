@@ -3,7 +3,7 @@ import { Audience } from "../../../types/audience";
 import { ProjectPreviewProps } from "../../../types/projects";
 import CheckIcon from "../../ui/CheckIcon";
 
-export default function ProjectPreview({
+export default function ProjectPreviewTab({
     audience,
     project,
 }: {

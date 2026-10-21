@@ -45,6 +45,7 @@ final class PagePresenter
             $data[$i]['miniDescription'] = $project->getMiniDescriptionFor(
                 $audience,
             );
+            $data[$i]['reviews'] = $this->projectReviews($project);
             $data[$i]['thumbnail'] = $this->shareImage->thumbnailPath($project);
         }
 
@@ -97,6 +98,7 @@ final class PagePresenter
             context: ['groups' => ['project:detail']],
         );
         $data['description'] = $project->getDescriptionFor($audience);
+        $data['reviews'] = $this->projectReviews($project);
 
         return $data;
     }
@@ -127,24 +129,49 @@ final class PagePresenter
     public function reviews(): array
     {
         return array_map(
-            fn (Review $review) => [
-                'id' => $review->getId(),
-                'author' => $review->getAuthor(),
-                'authorRole' => $review->getAuthorRole(),
-                'postedAt' => $review->getCreatedAt()->format(\DATE_ATOM),
-                'text' => $review->getText(),
-                // avis aussi déposé sur Google : note (1 à 5) et lien vers l'original, sinon null
-                'googleRating' => $review->getGoogleRating(),
-                'googleReviewUrl' => $review->getGoogleReviewUrl(),
-                'projects' => array_map(
-                    fn (Project $project) => [
-                        'name' => $project->getName(),
-                        'slug' => $project->getSlug(),
-                    ],
-                    $review->getProjects()->getValues(),
-                ),
-            ],
+            $this->review(...),
             $this->reviewRepository->findValidated(),
         );
+    }
+
+    /**
+     * Avis validés d'un projet, les plus récents d'abord.
+     *
+     * @return list<array<string, mixed>>
+     */
+    private function projectReviews(Project $project): array
+    {
+        $reviews = $project->getReviews()
+            ->filter(fn (Review $review) => $review->isValidated())
+            ->getValues();
+        usort($reviews, fn (Review $a, Review $b) => $b->getCreatedAt() <=> $a->getCreatedAt());
+
+        return array_map($this->review(...), $reviews);
+    }
+
+    /**
+     * Un avis au format ReviewProps du front.
+     *
+     * @return array{id: int, author: string, authorRole: ?string, postedAt: string, text: string, googleRating: ?int, googleReviewUrl: ?string, projects: list<array{name: string, slug: string}>}
+     */
+    private function review(Review $review): array
+    {
+        return [
+            'id' => $review->getId(),
+            'author' => $review->getAuthor(),
+            'authorRole' => $review->getAuthorRole(),
+            'postedAt' => $review->getCreatedAt()->format(\DATE_ATOM),
+            'text' => $review->getText(),
+            // avis aussi déposé sur Google : note (1 à 5) et lien vers l'original, sinon null
+            'googleRating' => $review->getGoogleRating(),
+            'googleReviewUrl' => $review->getGoogleReviewUrl(),
+            'projects' => array_map(
+                fn (Project $project) => [
+                    'name' => $project->getName(),
+                    'slug' => $project->getSlug(),
+                ],
+                $review->getProjects()->getValues(),
+            ),
+        ];
     }
 }

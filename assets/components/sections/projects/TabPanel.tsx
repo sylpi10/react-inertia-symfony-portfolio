@@ -1,11 +1,5 @@
 import { ReactNode } from "react";
-
-const TABS = [
-    { id: "description", label: "Description" },
-    { id: "preview", label: "Aperçu" },
-    { id: "audit", label: "Audit" },
-] as const;
-type TabId = (typeof TABS)[number]["id"];
+import type { TabId } from "./ProjectTabs";
 
 export default function TabPanel({
     id,

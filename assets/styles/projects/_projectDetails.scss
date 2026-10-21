@@ -4,6 +4,7 @@
 @use "projectAudit";
 @use "projectPreview";
 @use "projectDetailsNav";
+@use "projectReviewTab";
 
 .project-container {
     padding-top: 80px;
@@ -27,7 +28,9 @@
         width: fit-content;
         display: grid;
         gap: 4px;
-        grid-template-columns: 1fr 1fr 1fr;
+        // une colonne par onglet affiché (2 à 4), toutes de même largeur
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
 
         button {
             border-top-left-radius: 18px;

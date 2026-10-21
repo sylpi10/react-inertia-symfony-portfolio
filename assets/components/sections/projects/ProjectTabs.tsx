@@ -4,17 +4,19 @@
 import { useRef, useState } from "react";
 import { Audience } from "../../../types/audience";
 import { ProjectDetailsProps } from "../../../types/projects";
-import ProjectInfosDetails from "./ProjectInfosDetails";
+import ProjectInfosDetailsTab from "./ProjectInfosDetailsTab";
 import TabPanel from "./TabPanel";
-import ProjectPreview from "./ProjectPreview";
-import ProjectPerf from "./ProjectPerf";
+import ProjectPerfTab from "./ProjectPerfTab";
+import ProjectReviewTab from "./ProjectReviewTab";
+import ProjectPreviewTab from "./ProjectPreviewTab";
 
 const TABS = [
     { id: "description", label: "Description" },
     { id: "preview", label: "Aperçu" },
     { id: "audit", label: "Audit" },
+    { id: "reviews", label: "Avis" },
 ] as const;
-type TabId = (typeof TABS)[number]["id"];
+export type TabId = (typeof TABS)[number]["id"];
 
 // panneaux restent dans le HTML (masqués par hidden) : indexés par Google
 export default function ProjectTabs({
@@ -24,8 +26,12 @@ export default function ProjectTabs({
     audience: Audience;
     project: ProjectDetailsProps;
 }) {
-    // l'onglet audit seulement si un audit a été fait
-    const tabs = TABS.filter((tab) => tab.id !== "audit" || project.auditMade);
+    // onglets audit et avis seulement s'il y a un audit / des avis validés
+    const tabs = TABS.filter(
+        (tab) =>
+            (tab.id !== "audit" || project.auditMade) &&
+            (tab.id !== "reviews" || project.reviews.length > 0),
+    );
     const [activeTab, setActiveTab] = useState<TabId>("description");
     const tabRefs = useRef<Partial<Record<TabId, HTMLButtonElement | null>>>(
         {},
@@ -91,15 +97,19 @@ export default function ProjectTabs({
                         />
                     </div>
                 )}
-
-                <ProjectInfosDetails audience={audience} project={project} />
+                <ProjectInfosDetailsTab audience={audience} project={project} />
             </TabPanel>
             <TabPanel id="preview" activeTab={activeTab}>
-                <ProjectPreview project={project} audience={audience} />
+                <ProjectPreviewTab project={project} audience={audience} />
             </TabPanel>
             {project.auditMade && (
                 <TabPanel id="audit" activeTab={activeTab}>
-                    <ProjectPerf project={project} />
+                    <ProjectPerfTab project={project} />
+                </TabPanel>
+            )}
+            {project.reviews.length > 0 && (
+                <TabPanel id="reviews" activeTab={activeTab}>
+                    <ProjectReviewTab project={project} />
                 </TabPanel>
             )}
         </>

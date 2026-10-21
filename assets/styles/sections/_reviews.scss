@@ -76,23 +76,6 @@
             z-index: 666;
             background-color: var(--surface);
             padding: 4px 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            .stars {
-                font-size: 1.1rem;
-                letter-spacing: 2px;
-                color: var(--accent-text);
-                .empty {
-                    color: var(--border-strong);
-                }
-            }
-            a {
-                color: var(--accent-text);
-                text-decoration: underline;
-            }
         }
 
         blockquote {
@@ -101,7 +84,6 @@
             color: var(--text);
             line-height: 1.6;
             height: fit-content;
-
             // guillemet décoratif
             &::before {
                 content: "“";

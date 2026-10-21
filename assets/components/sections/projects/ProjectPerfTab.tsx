@@ -2,7 +2,7 @@ import { formatDay } from "../../../lib/dates";
 import { projectImageUrl } from "../../../lib/images";
 import { ProjectPerfProps } from "../../../types/projects";
 
-export default function ProjectPerf({
+export default function ProjectPerfTab({
     project,
 }: {
     project: Pick<

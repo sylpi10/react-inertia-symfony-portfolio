@@ -1,0 +1,21 @@
+// note de l'avis Google correspondant
+.review-google {
+    z-index: 666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    .stars {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        color: var(--accent-text);
+        .empty {
+            color: var(--border-strong);
+        }
+    }
+    a {
+        color: var(--accent-text);
+        text-decoration: underline;
+    }
+}

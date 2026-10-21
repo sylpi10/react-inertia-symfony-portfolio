@@ -57,6 +57,7 @@ class HomeController extends AbstractController
         Audience $audience,
         array $props = [],
     ): Response {
+
         return $this->inertia->render(
             Audience::Team === $audience ? 'Team' : 'Client',
             [

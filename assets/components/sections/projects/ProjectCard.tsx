@@ -5,6 +5,7 @@ import { projectPath } from "../../../lib/paths";
 import { Audience } from "../../../types/audience";
 import PlusIcon from "../../ui/PlusIcon";
 import WebIcon from "../../ui/WebIcon";
+import ReviewBlockquote from "../reviews/ReviewBlockquote";
 
 // carte d'un projet dans la liste des pages d'accueil (équipe et création de site)
 export default function ProjectCard({
@@ -104,6 +105,16 @@ export default function ProjectCard({
                         </Link>
                     </div>
                 </div>
+                {project.reviews.length > 0 &&
+                    project.reviews.map((review) => (
+                        <div className="footer-review" key={review.id}>
+                            <ReviewBlockquote review={review} limit={120} />
+                            <p className="review-author">
+                                <span>{review.author}</span> {"-"}
+                                <span>{review.authorRole}</span>
+                            </p>
+                        </div>
+                    ))}
             </div>
         </div>
     );

@@ -5,7 +5,7 @@ import WebIcon from "../../ui/WebIcon";
 
 // encart de la page détail : technos et liens pour une équipe ; fiche, lien vers le site
 // et appel au contact pour un client
-export default function ProjectInfosDetails({
+export default function ProjectInfosDetailsTab({
     audience,
     project,
 }: {
