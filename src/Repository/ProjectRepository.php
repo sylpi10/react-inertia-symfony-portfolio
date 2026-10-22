@@ -25,7 +25,6 @@ class ProjectRepository extends ServiceEntityRepository
      */
     public function findOrderedFor(Audience $audience): array
     {
-
         return $this->findBy(
             [],
             [self::orderField($audience) => 'ASC', 'id' => 'ASC'],
