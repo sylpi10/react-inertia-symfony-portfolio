@@ -5,6 +5,12 @@ framework:
     # Note that the session will be started ONLY if you read or write from it.
     session: true
 
+    # l'alerte ntfy part pendant la requête du visiteur : un ntfy lent ne doit pas la bloquer
+    http_client:
+        default_options:
+            timeout: 5
+            max_duration: 10
+
     #esi: true
     #fragments: true
 

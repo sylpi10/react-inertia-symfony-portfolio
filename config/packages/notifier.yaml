@@ -1,0 +1,5 @@
+framework:
+    notifier:
+        # alertes push sur le téléphone (MailAlert) ; null://null tant que NTFY_DSN n'est pas réglé
+        texter_transports:
+            ntfy: '%env(NTFY_DSN)%'

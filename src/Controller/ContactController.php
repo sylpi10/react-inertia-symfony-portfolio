@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Dto\ContactRequest;
 use App\Entity\Contact;
+use App\Service\MailAlert;
 use Doctrine\ORM\EntityManagerInterface;
 use Nytodev\InertiaBundle\Service\Inertia;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,6 +26,7 @@ class ContactController extends AbstractController
         /** @var list<string> */
         #[Autowire(env: 'csv:NOTIFICATION_EMAIL')]
         private readonly array $notificationEmails,
+        private readonly MailAlert $mailAlert,
     ) {
     }
 
@@ -68,11 +70,13 @@ class ContactController extends AbstractController
                     )
                     ->text($this->mailBody($data)),
             );
+            $this->mailAlert->sent(sprintf('Message de contact n°%d', $contact->getId()));
             $this->inertia->flash(
                 'success',
                 'Message envoyé, je reviens vite vers vous !',
             );
-        } catch (TransportExceptionInterface) {
+        } catch (TransportExceptionInterface $e) {
+            $this->mailAlert->failed(sprintf('Message de contact n°%d', $contact->getId()), $e);
             $this->inertia->flash(
                 'error',
                 "L'envoi a échoué, réessayez un peu plus tard.",

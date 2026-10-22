@@ -31,6 +31,7 @@ class ReviewSubmission
         /** @var list<string> */
         #[Autowire(env: 'csv:NOTIFICATION_EMAIL')]
         private readonly array $notificationEmails,
+        private readonly MailAlert $mailAlert,
     ) {
     }
 
@@ -86,8 +87,10 @@ class ReviewSubmission
                         ),
                     )),
             );
+            $this->mailAlert->sent(sprintf('Avis n°%d à valider', $review->getId()));
         } catch (TransportExceptionInterface $e) {
             $this->logger->error('Mail de nouvel avis non envoyé', ['exception' => $e, 'review' => $review->getId()]);
+            $this->mailAlert->failed(sprintf('Avis n°%d à valider', $review->getId()), $e);
         }
     }
 }

@@ -199,6 +199,27 @@
             "config/packages/monolog.yaml"
         ]
     },
+    "symfony/notifier": {
+        "version": "8.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.0",
+            "ref": "b912054fd9639f5fad62493cc24439048c2fd045"
+        },
+        "files": [
+            "config/packages/notifier.yaml"
+        ]
+    },
+    "symfony/ntfy-notifier": {
+        "version": "8.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.4",
+            "ref": "0d5e496659d7361bb4e6648eb8332f8cf097533d"
+        }
+    },
     "symfony/property-info": {
         "version": "8.1",
         "recipe": {

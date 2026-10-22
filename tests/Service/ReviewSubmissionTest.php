@@ -6,6 +6,7 @@ use App\Dto\ReviewRequest;
 use App\Entity\Project;
 use App\Entity\Review;
 use App\Repository\ProjectRepository;
+use App\Service\MailAlert;
 use App\Service\ReviewSubmission;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\NullLogger;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Notifier\TexterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 
@@ -132,6 +134,7 @@ final class ReviewSubmissionTest extends KernelTestCase
             self::getContainer()->get(UrlGeneratorInterface::class),
             new NullLogger(),
             ['moi@example.com', 'contact@example.com'],
+            new MailAlert($this->createStub(TexterInterface::class), new NullLogger()),
         );
     }
 
