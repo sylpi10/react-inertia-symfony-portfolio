@@ -1,13 +1,17 @@
+import { usePage } from "@inertiajs/react";
+
 // TODO à compléter avant la mise enligne (obligatoire pour un professionnel, loi LCEN art. 6)
 const publisher = {
     status: "Entrepreneur individuel",
     siret: "87864762700032",
     address: "rue Henri de Sahuque, 31400, Toulouse",
     phone: "0688103175",
-    email: "syl.pillet@hotmail.fr",
 };
 
 export default function LegalNotice() {
+    // adresse affichée sur le site, PUBLIC_EMAIL du .env
+    const { publicEmail } = usePage().props;
+
     return (
         <div className="section-container legal-container">
             <h1 className="section-title">Mentions légales</h1>
@@ -21,8 +25,7 @@ export default function LegalNotice() {
                     <br />
                     {publisher.address}
                     <br />
-                    Email :{" "}
-                    <a href={`mailto:${publisher.email}`}>{publisher.email}</a>
+                    Email : <a href={`mailto:${publicEmail}`}>{publicEmail}</a>
                     <br />
                     Téléphone : {publisher.phone}
                 </p>
@@ -79,8 +82,8 @@ export default function LegalNotice() {
                     Conformément au RGPD, vous disposez d’un droit d’accès, de
                     rectification, d’effacement, d’opposition et de limitation
                     du traitement de vos données. Pour l’exercer, écrivez à{" "}
-                    <a href={`mailto:${publisher.email}`}>{publisher.email}</a>.
-                    Vous pouvez aussi adresser une réclamation à la{" "}
+                    <a href={`mailto:${publicEmail}`}>{publicEmail}</a>. Vous
+                    pouvez aussi adresser une réclamation à la{" "}
                     <a
                         href="https://www.cnil.fr"
                         target="_blank"
@@ -95,13 +98,13 @@ export default function LegalNotice() {
             <section>
                 <h2>Mesure d’audience</h2>
                 <p>
-                    La fréquentation du site est mesurée avec Matomo, hébergé
-                    en France sur mon propre serveur (o2switch) : pages vues,
+                    La fréquentation du site est mesurée avec Matomo, hébergé en
+                    France sur mon propre serveur (o2switch) : pages vues,
                     provenance, type d’appareil. Aucun cookie n’est déposé,
-                    votre adresse IP est anonymisée et ces statistiques ne
-                    sont ni recoupées avec d’autres données ni transmises à
-                    des tiers. Cette mesure est donc dispensée de
-                    consentement ; vous pouvez malgré tout{" "}
+                    votre adresse IP est anonymisée et ces statistiques ne sont
+                    ni recoupées avec d’autres données ni transmises à des
+                    tiers. Cette mesure est donc dispensée de consentement ;
+                    vous pouvez malgré tout{" "}
                     <a
                         href="https://stats.sylvainpillet.com/index.php?module=CoreAdminHome&action=optOut&language=fr"
                         target="_blank"

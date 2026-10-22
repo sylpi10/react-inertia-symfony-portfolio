@@ -54,6 +54,10 @@ final class ReviewSubmissionTest extends KernelTestCase
         self::assertSame([$this->maha, $this->ava], $review->getProjects()->toArray());
         self::assertTrue($this->maha->getReviews()->contains($review));
 
+        self::assertSame(
+            ['moi@example.com', 'contact@example.com'],
+            array_map(fn ($address) => $address->getAddress(), $sent->getTo()),
+        );
         self::assertSame('Nouvel avis à valider – Marie D. – Maha, Ava', $sent->getSubject());
         self::assertStringStartsWith('Marie D., Gérante, La cuisine de Maha (Maha, Ava) :', $sent->getTextBody());
         self::assertStringContainsString('Site livré dans les temps', $sent->getTextBody());
@@ -127,6 +131,7 @@ final class ReviewSubmissionTest extends KernelTestCase
             $mailer,
             self::getContainer()->get(UrlGeneratorInterface::class),
             new NullLogger(),
+            ['moi@example.com', 'contact@example.com'],
         );
     }
 

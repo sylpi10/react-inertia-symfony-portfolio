@@ -16,8 +16,8 @@ export default function AboutTeamText() {
                 frontend et l'<b>UX/UI</b> de la refonte du site, puis développé
                 le Labelmaker, l'outil de personnalisation d'étiquettes intégré
                 à la boutique, un projet qui m'a permis de travailler à la fois
-                le <b>backend</b> et le <b>frontend</b> avec <b>Symfony</b>
-                et <b>React</b>.
+                le <b>backend</b> et le <b>frontend</b> avec <b>Symfony</b> et{" "}
+                <b>React</b>.
             </p>
             <p>
                 Aujourd'hui, je suis développeur web freelance à Toulouse.
@@ -35,9 +35,9 @@ export default function AboutTeamText() {
             </p>
 
             <p>
-                Sinon je suis aussi passionné de <b>Cinéma</b>
-                ou de sport, j'ai pratiqué le <b>foot</b> pendant 16 ans et je
-                pratique maintenant <b>l'escalade</b> depuis 6 ans.
+                Sinon je suis aussi passionné de <b>Cinéma</b> ou de sport, j'ai
+                pratiqué le <b>foot</b> pendant 16 ans et je pratique maintenant{" "}
+                <b>l'escalade</b> depuis 6 ans.
                 <br />
             </p>
             <p>

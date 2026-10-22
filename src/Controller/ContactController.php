@@ -7,6 +7,7 @@ use App\Entity\Contact;
 use Doctrine\ORM\EntityManagerInterface;
 use Nytodev\InertiaBundle\Service\Inertia;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
@@ -21,6 +22,9 @@ class ContactController extends AbstractController
         protected MailerInterface $mailer,
         protected EntityManagerInterface $em,
         private readonly Inertia $inertia,
+        /** @var list<string> */
+        #[Autowire(env: 'csv:NOTIFICATION_EMAIL')]
+        private readonly array $notificationEmails,
     ) {
     }
 
@@ -53,8 +57,7 @@ class ContactController extends AbstractController
         try {
             $this->mailer->send(
                 new Email()
-                    ->to('syl.pillet@hotmail.fr')
-                    ->from('sylpi@sylvainpillet.com')
+                    ->to(...$this->notificationEmails)
                     ->replyTo($data->email)
                     ->subject(
                         sprintf(

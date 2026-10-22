@@ -7,6 +7,7 @@ use App\Entity\Review;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -27,6 +28,9 @@ class ReviewSubmission
         private readonly MailerInterface $mailer,
         private readonly UrlGeneratorInterface $urlGenerator,
         private readonly LoggerInterface $logger,
+        /** @var list<string> */
+        #[Autowire(env: 'csv:NOTIFICATION_EMAIL')]
+        private readonly array $notificationEmails,
     ) {
     }
 
@@ -67,8 +71,7 @@ class ReviewSubmission
         try {
             $this->mailer->send(
                 new Email()
-                    ->to('syl.pillet@hotmail.fr')
-                    ->from('sylpi@sylvainpillet.com')
+                    ->to(...$this->notificationEmails)
                     ->subject(sprintf('Nouvel avis à valider – %s – %s', $review->getAuthor(), $projects))
                     ->text(sprintf(
                         "%s%s (%s) :\n\n%s\n\nValider : %s",

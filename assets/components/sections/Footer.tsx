@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import logo from "../../static/images/logo.webp";
 import cv from "../../static/documents/CV_Sylvain_Pillet_fullstack_2026.pdf";
 import CvIcon from "../ui/CvIcon";
@@ -6,6 +6,7 @@ import CvIcon from "../ui/CvIcon";
 export default function Footer() {
     const today: Date = new Date();
     const actualYear: number = today.getFullYear();
+    const { publicEmail } = usePage().props;
 
     return (
         <footer>
@@ -27,9 +28,7 @@ export default function Footer() {
                                 Développeur web à Toulouse
                             </Link>
                         </p>
-                        <a href="mailto:syl.pillet@hotmail.fr">
-                            syl.pillet@hotmail.fr
-                        </a>
+                        <a href={`mailto:${publicEmail}`}>{publicEmail}</a>
                     </div>
                 </div>
                 <div className="links">

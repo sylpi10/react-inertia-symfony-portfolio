@@ -1,3 +1,6 @@
 framework:
     mailer:
-        dsn: '%env(MAILER_DSN)%'
+        dsn: "%env(MAILER_DSN)%"
+        # expéditeur par défaut : ajouté aux mails qui n'ont pas de from()
+        headers:
+            From: "%env(MAILER_FROM)%"
