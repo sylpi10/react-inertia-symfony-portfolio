@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, ReactNode } from "react";
 import { Audience } from "../types/audience";
 import ThemeSwitcher from "../components/ui/ThemeSwitcher";
 import { ThemeProvider } from "../contexts/ThemeContexts";
+import ArrowUpIcon from "../components/ui/ArrowUpIcon";
 
 const CLIENT_PATH = "/creation-site-web";
 
@@ -40,6 +41,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const headerRef = useRef(null);
     const burgerRef = useRef<HTMLButtonElement>(null);
+    const [hasScrolledPast, setHasScrolledPast] = useState(false);
 
     // menu mobile ouvert : Échap le ferme et rend le focus au bouton
     useEffect(() => {
@@ -58,6 +60,16 @@ export default function Layout({ children }: { children: ReactNode }) {
     const handleLinkClick = () => {
         setIsMobileOpen(false);
     };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrolled = window.scrollY > 200;
+            setHasScrolledPast(scrolled);
+        };
+        window.addEventListener("scroll", handleScroll);
+        // Nettoyage de l'event listener
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
         <ThemeProvider>
@@ -135,6 +147,16 @@ export default function Layout({ children }: { children: ReactNode }) {
             <main id="contenu" tabIndex={-1} inert={isMobileOpen}>
                 {children}
             </main>
+
+            {hasScrolledPast && (
+                <a
+                    href={"#home"}
+                    className="back-to-top"
+                    aria-label="Retour en haut de page"
+                >
+                    <ArrowUpIcon />
+                </a>
+            )}
         </ThemeProvider>
     );
 }

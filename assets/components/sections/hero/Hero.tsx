@@ -3,7 +3,6 @@ import shape from "../../../static/images/shape.webp";
 import { ReactNode, useEffect, useState } from "react";
 import { Audience } from "../../../types/audience";
 import { AudienceSwitch } from "./AudienceSwitch";
-import ArrowUpIcon from "../../ui/ArrowUpIcon";
 import useMouseParallax from "../../../hooks/useMouseParallax";
 import NavArrow from "../../ui/NavArrow";
 
@@ -47,19 +46,8 @@ export default function Hero({
     const cursorLine: number =
         lineStarts.filter((start) => start <= index).length - 1;
 
-    const [hasScrolledPast, setHasScrolledPast] = useState(false);
+    // const [hasScrolledPast, setHasScrolledPast] = useState(false);
     const heroRef = useMouseParallax<HTMLDivElement>();
-
-    // scroll for sticky nav
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrolled = window.scrollY > 200;
-            setHasScrolledPast(scrolled);
-        };
-        window.addEventListener("scroll", handleScroll);
-        // Nettoyage de l'event listener
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
 
     return (
         <>
@@ -135,16 +123,6 @@ export default function Hero({
                     />
                 </div>
             </div>
-
-            {hasScrolledPast && (
-                <a
-                    href={"#home"}
-                    className="back-to-top"
-                    aria-label="Retour en haut de page"
-                >
-                    <ArrowUpIcon />
-                </a>
-            )}
         </>
     );
 }
