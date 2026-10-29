@@ -74,7 +74,23 @@ jobs:
 
             - run: make build
 
-            # 2 steps "installe la clé SSH" et "autorise l'IP du runner", sans changement ...
+            - name: installe la clé SSH
+              run: |
+                  mkdir -p ~/.ssh
+                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+                  chmod 600 ~/.ssh/id_ed25519
+                  echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+            # le pare-feu o2switch n'accepte le SSH que depuis des IP en liste blanche
+            - name: autorise l'IP du runner
+              env:
+                  AUTH: "Authorization: cpanel ${{ vars.SERVER_USER }}:${{ secrets.CPANEL_TOKEN }}"
+              run: |
+                  IP=$(curl -s https://api.ipify.org)
+                  echo "IP=$IP" >> "$GITHUB_ENV"
+                  # l'API répond 200 même en cas d'erreur : on vérifie "status" dans le JSON
+                  curl -sm 45 -H "$AUTH" "https://${{ vars.SERVER_HOST }}:2083/execute/SshWhitelist/add?address=$IP&port=22" \
+                      | tee /dev/stderr | jq -e '.status == 1'
 
             - name: rsync à blanc
               if: inputs.dry_run
@@ -83,3 +99,13 @@ jobs:
             - name: déploie
               if: ${{ !inputs.dry_run }}
               run: make backup sync remote
+
+            # always() : on retire l'IP même si le deploy a échoué (limite de 5 IP chez o2switch)
+            - name: retire l'IP du runner
+              if: always() && env.IP != ''
+              env:
+                  AUTH: "Authorization: cpanel ${{ vars.SERVER_USER }}:${{ secrets.CPANEL_TOKEN }}"
+              run: |
+                  for dir in in out; do
+                      curl -sm 45 -H "$AUTH" "https://${{ vars.SERVER_HOST }}:2083/execute/SshWhitelist/remove?address=$IP&port=22&direction=$dir"
+                  done
