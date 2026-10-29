@@ -23,7 +23,6 @@ jobs:
     back:
         runs-on: ubuntu-latest
         steps:
-            # récupère ton code sur la machine
             - uses: actions/checkout@v5
 
             # installe PHP (8.4 : la version minimale de composer.json, comme en prod)
