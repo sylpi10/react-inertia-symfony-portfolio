@@ -3,6 +3,13 @@ name: CI
 on:
     push:
     pull_request:
+    # bouton "Run workflow" dans l'onglet Actions
+    workflow_dispatch:
+        inputs:
+            dry_run:
+                description: "dry run : affiche ce qui partirait, sans rien envoyer"
+                type: boolean
+                default: true
 
 jobs:
     front:
@@ -44,39 +51,35 @@ jobs:
             - run: npm run build
             - run: php bin/phpunit
 
-    ssh-check:
-        # ne tourne que si la CI est verte
+    deploy:
         needs: [front, back]
+        # seulement au clic sur le bouton, et seulement depuis master
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
         runs-on: ubuntu-latest
         environment: production
-        timeout-minutes: 2
+        # jamais deux déploiements en même temps
+        concurrency: production
+        timeout-minutes: 10
+        env:
+            SERVER_USER: ${{ vars.SERVER_USER }}
+            SERVER_HOST: ${{ vars.SERVER_HOST }}
+            APP_PATH: ${{ vars.APP_PATH }}
         steps:
-            - name: installe la clé SSH
-              run: |
-                  mkdir -p ~/.ssh
-                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-                  chmod 600 ~/.ssh/id_ed25519
-                  echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+            - uses: actions/checkout@v5
 
-            # le pare-feu o2switch n'accepte le SSH que depuis des IP en liste blanche
-            - name: autorise l'IP du runner
-              env:
-                  AUTH: "Authorization: cpanel ${{ vars.SERVER_USER }}:${{ secrets.CPANEL_TOKEN }}"
-              run: |
-                  IP=$(curl -s https://api.ipify.org)
-                  echo "IP=$IP" >> "$GITHUB_ENV"
-                  # l'API répond 200 même en cas d'erreur : on vérifie "status" dans le JSON
-                  curl -sm 45 -H "$AUTH" "https://${{ vars.SERVER_HOST }}:2083/execute/SshWhitelist/add?address=$IP&port=22" \
-                      | tee /dev/stderr | jq -e '.status == 1'
+            - uses: actions/setup-node@v5
+              with:
+                  node-version: 24
+                  cache: npm
 
-            - run: ssh -o ConnectTimeout=15 ${{ vars.SERVER_USER }}@${{ vars.SERVER_HOST }} 'echo ok'
+            - run: make build
 
-            # always() : on retire l'IP même si le ssh a échoué (limite de 5 IP chez o2switch)
-            - name: retire l'IP du runner
-              if: always() && env.IP != ''
-              env:
-                  AUTH: "Authorization: cpanel ${{ vars.SERVER_USER }}:${{ secrets.CPANEL_TOKEN }}"
-              run: |
-                  for dir in in out; do
-                      curl -sm 45 -H "$AUTH" "https://${{ vars.SERVER_HOST }}:2083/execute/SshWhitelist/remove?address=$IP&port=22&direction=$dir"
-                  done
+            # 2 steps "installe la clé SSH" et "autorise l'IP du runner", sans changement ...
+
+            - name: rsync à blanc
+              if: inputs.dry_run
+              run: make sync RSYNC_DRY=--dry-run
+
+            - name: déploie
+              if: ${{ !inputs.dry_run }}
+              run: make backup sync remote

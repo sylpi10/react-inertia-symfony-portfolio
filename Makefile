@@ -1,4 +1,4 @@
-.PHONY: help dev stop logs build deploy deploy-test remote backup
+.PHONY: help dev stop logs build deploy deploy-test remote backup sync
 
 # Variables de déploiement (non versionnées) : SERVER_USER, SERVER_HOST, APP_PATH
 ifneq (,$(wildcard .env.deploy))
@@ -68,23 +68,25 @@ test:
 	php bin/phpunit
 	npx vitest run
 
-deploy-test: test build
-	rsync -av --itemize-changes --dry-run --delete $(RSYNC_EXCLUDES) \
+# RSYNC_DRY=--dry-run pour voir ce qui partirait sans rien envoyer
+sync:
+	rsync -av --itemize-changes --delete $(RSYNC_DRY) $(RSYNC_EXCLUDES) \
 		./ $(SERVER_USER)@$(SERVER_HOST):~/$(APP_PATH)
+
+deploy-test: test build
+	$(MAKE) sync RSYNC_DRY=--dry-run
+
+deploy: test build
+	# le backup passe avant le rsync : s'il échoue, le déploiement s'arrête
+	$(MAKE) backup
+	$(MAKE) sync
+	$(MAKE) remote
+
 
 # Dump gzippé de la base de prod dans ~/backups/portfolio/ sur le serveur (15 derniers conservés).
 # Le script est envoyé par ssh : rien à installer côté serveur.
 backup:
 	$(SSH) 'PHP=$(PHP) bash -s' -- "$(APP_PATH)" 15 portfolio < scripts/db-backup.sh
-
-# choix technique: pas de CD pour séparer git workflow et deploy
-# par contre on lance les test sur la commande make deploy
-deploy: test build
-	# le backup passe avant le rsync : s'il échoue, le déploiement s'arrête
-	$(MAKE) backup
-	rsync -av --itemize-changes --delete $(RSYNC_EXCLUDES) \
-		./ $(SERVER_USER)@$(SERVER_HOST):~/$(APP_PATH)
-	$(MAKE) remote
 
 remote:
 	$(SSH) 'cd ~/$(APP_PATH) && APP_ENV=prod $(COMPOSER) install --no-dev --optimize-autoloader --classmap-authoritative --no-interaction'
