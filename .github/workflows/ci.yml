@@ -57,5 +57,26 @@ jobs:
                   echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
                   chmod 600 ~/.ssh/id_ed25519
                   echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-            # ConnectTimeout : si o2switch bloque l'IP, on échoue en 15 s au lieu d'attendre
+
+            # le pare-feu o2switch n'accepte le SSH que depuis des IP en liste blanche
+            - name: autorise l'IP du runner
+              env:
+                  AUTH: "Authorization: cpanel ${{ vars.SERVER_USER }}:${{ secrets.CPANEL_TOKEN }}"
+              run: |
+                  IP=$(curl -s https://api.ipify.org)
+                  echo "IP=$IP" >> "$GITHUB_ENV"
+                  # l'API répond 200 même en cas d'erreur : on vérifie "status" dans le JSON
+                  curl -sm 45 -H "$AUTH" "https://${{ vars.SERVER_HOST }}:2083/execute/SshWhitelist/add?address=$IP&port=22" \
+                      | tee /dev/stderr | jq -e '.status == 1'
+
             - run: ssh -o ConnectTimeout=15 ${{ vars.SERVER_USER }}@${{ vars.SERVER_HOST }} 'echo ok'
+
+            # always() : on retire l'IP même si le ssh a échoué (limite de 5 IP chez o2switch)
+            - name: retire l'IP du runner
+              if: always() && env.IP != ''
+              env:
+                  AUTH: "Authorization: cpanel ${{ vars.SERVER_USER }}:${{ secrets.CPANEL_TOKEN }}"
+              run: |
+                  for dir in in out; do
+                      curl -sm 45 -H "$AUTH" "https://${{ vars.SERVER_HOST }}:2083/execute/SshWhitelist/remove?address=$IP&port=22&direction=$dir"
+                  done
