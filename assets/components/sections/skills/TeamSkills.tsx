@@ -12,12 +12,12 @@ const skills = [
     {
         title: "Méthodes",
         description:
-            "Git et revues de code, travail avec chefs de projet, PO et designers (Trello, ClickUp, Asana, Slack). Architecture en couches (services, interfaces, DTO).",
+            "Travail avec chefs de projet, PO et designers (Trello, ClickUp, Asana, Slack). Architecture en couches (services, interfaces, DTO). Git et revues de code, tests automatisés (PHPUnit, Vitest).",
     },
     {
         title: "Production",
         description:
-            "Déploiement, hébergement, redirections, messagerie. SEO technique et suivi des Core Web Vitals.",
+            "Déploiement scripté (Makefile) et CI/CD avec GitHub Actions, hébergement, redirections, messagerie. SEO technique et suivi des Core Web Vitals.",
     },
     {
         title: "IA",
