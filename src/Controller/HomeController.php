@@ -48,6 +48,20 @@ class HomeController extends AbstractController
         ]);
     }
 
+    // page « prix d'un site vitrine » : contenu statique dans assets/pages/PrixSiteVitrine.tsx ;
+    // l'année vient du serveur pour que le titre et le h1 ne vieillissent pas
+    #[Route('/creation-site-web/prix-site-vitrine', name: 'pricing', methods: ['GET'])]
+    public function getPricingPage(): Response
+    {
+        $year = (int) date('Y');
+
+        return $this->inertia->render('PrixSiteVitrine', [
+            'audience' => Audience::Client->value,
+            'year' => $year,
+            'seo' => $this->seo->pricing($year),
+        ]);
+    }
+
     /**
      * Page d'accueil d'un public : ses projets, le parcours, les avis et les props propres à la page.
      *

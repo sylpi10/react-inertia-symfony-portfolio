@@ -21,7 +21,6 @@ export default function LocalToulouse({
 
     const servicesPath: string = `${CLIENT_PATH}#services`;
     const projectsPath: string = `${CLIENT_PATH}#projects`;
-    const tarifsPath: string = `${CLIENT_PATH}#tarifs`;
 
     return (
         <>
@@ -90,26 +89,41 @@ export default function LocalToulouse({
                     <section>
                         <h2>Réalisations à Toulouse</h2>
                         <ul className="local-cards">
-                            {localProjects.map((project) => (
+                            {localProjects.map((project, index) => (
                                 <li key={project.slug} className="local-card">
-                                    <h3>{project.name}</h3>
-                                    {project.miniDescription && (
-                                        <div
-                                            className="local-card-text"
-                                            dangerouslySetInnerHTML={{
-                                                __html: project.miniDescription,
-                                            }}
-                                        />
-                                    )}
-                                    <Link
-                                        href={projectPath(
-                                            project.slug,
-                                            "client",
+                                    <div className="local-card-title">
+                                        <span
+                                            className="local-card-number"
+                                            aria-hidden="true"
+                                        >
+                                            {String(index + 1).padStart(2, "0")}
+                                        </span>
+                                        <h3>{project.name}</h3>
+                                    </div>
+                                    <div className="local-card-body">
+                                        {project.miniDescription && (
+                                            <div
+                                                className="local-card-text"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: project.miniDescription,
+                                                }}
+                                            />
                                         )}
-                                        aria-label={`Voir le projet ${project.name}`}
-                                    >
-                                        Voir le projet
-                                    </Link>
+                                        <p className="local-card-footer">
+                                            <Link
+                                                href={projectPath(
+                                                    project.slug,
+                                                    "client",
+                                                )}
+                                            >
+                                                Voir le projet
+                                                <span className="visually-hidden">
+                                                    {" "}
+                                                    {project.name}
+                                                </span>
+                                            </Link>
+                                        </p>
+                                    </div>
                                 </li>
                             ))}
                         </ul>
@@ -124,11 +138,11 @@ export default function LocalToulouse({
                 <section className="local-cta">
                     <p>
                         Un projet à Toulouse ? Un site vitrine démarre à partir
-                        de 1 500 €, et le devis est gratuit et sans engagement.
+                        de 1 200 €, et le devis est gratuit et sans engagement.
                     </p>
                     <div className="local-actions">
                         <Link
-                            href={tarifsPath}
+                            href="/creation-site-web/prix-site-vitrine"
                             className="local-button secondary"
                         >
                             Voir les tarifs

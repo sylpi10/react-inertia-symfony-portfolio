@@ -1,25 +1,5 @@
-// tarifs de la page création de site ; repères du marché (Codeur) : vitrine
-// simple ~1 000 €, vitrine marketing 1 200 à 3 000 €, sur mesure 1 500 à 4 000 €
-const plans = [
-    {
-        title: "Site vitrine essentiel",
-        description:
-            "Quelques pages pour présenter votre activité, et un espace d’administration simple pour modifier vos textes et vos photos.",
-        price: "à partir de 1 500 €",
-    },
-    {
-        title: "Site vitrine sur mesure",
-        description:
-            "Un design personnalisé, un back-office complet pour gérer tous vos contenus et un référencement soigné.",
-        price: "à partir de 2 500 €",
-    },
-    {
-        title: "Refonte ou application sur mesure",
-        description:
-            "Reprise d’un site existant pour le moderniser, ou outil adapté à votre façon de travailler.",
-        price: "sur devis",
-    },
-];
+import { Link } from "@inertiajs/react";
+import { plans } from "../../../lib/pricing";
 
 export default function Pricing() {
     return (
@@ -28,7 +8,10 @@ export default function Pricing() {
                 <h2 className="section-title">Tarifs</h2>
                 <p className="pricing-intro">
                     Prix indicatifs, chaque projet fait l’objet d’un devis
-                    détaillé, gratuit et sans engagement.
+                    détaillé, gratuit et sans engagement.{" "}
+                    <Link href="/creation-site-web/prix-site-vitrine">
+                        Ce qui fait varier le prix d’un site vitrine
+                    </Link>
                 </p>
                 <ul className="pricing-list">
                     {plans.map((plan) => (

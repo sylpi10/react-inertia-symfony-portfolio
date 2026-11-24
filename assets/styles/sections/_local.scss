@@ -1,4 +1,5 @@
 @use "../ui/variables" as *;
+@use "../ui/card" as *;
 
 // page de référencement local (développeur web à Toulouse) : texte, sous l'en-tête fixe
 .section-container.local-container {
@@ -18,9 +19,14 @@
     }
 
     h2 {
+        padding: 6px 24px;
+        text-align: center;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
         font-size: 1.4rem;
-        color: var(--text-strong);
+        background-color: var(--accent);
         margin-bottom: 8px;
+        color: var(--text);
     }
 
     p a,
@@ -40,29 +46,45 @@
         }
 
         .local-card {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            padding: 20px 24px;
-            border: 1px solid var(--border);
-            border-bottom: 3px solid var(--accent);
-            border-radius: 12px;
-            background-color: var(--surface);
-            h3 {
-                margin: 0;
-                font-size: 1.2rem;
-                color: var(--text-strong);
+            @include title-card("local-card");
+
+            // corps étiré : lien ou prix toujours en bas de la carte
+            .local-card-body {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
             }
             .local-card-text {
                 flex: 1;
+                margin: 0;
                 p {
                     margin: 0;
                 }
+            }
+            .local-card-footer {
+                margin: 0;
             }
             a {
                 font-weight: bold;
             }
         }
+    }
+
+    // listes à puces (le reset global les retire), page prix
+    .local-list {
+        list-style-type: disc;
+        padding-left: 24px;
+        li {
+            margin-bottom: 8px;
+        }
+    }
+
+    // questions de la FAQ, page prix
+    .local-faq h3 {
+        font-size: 1.1rem;
+        color: var(--text-strong);
+        margin: 20px 0 4px;
     }
 
     .local-cta {

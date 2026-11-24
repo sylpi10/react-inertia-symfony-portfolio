@@ -63,6 +63,22 @@ final class PageSeo
     }
 
     /**
+     * Page « prix d'un site vitrine » : la requête « combien coûte un site vitrine ».
+     *
+     * @return array{title: string, description: string}
+     */
+    public function pricing(int $year): array
+    {
+        return [
+            'title' => sprintf('Prix d’un site vitrine en %d | Sylvain Pillet', $year),
+            'description' => sprintf(
+                'Combien coûte un site vitrine en %d ? Mes tarifs : dès 1 200 €, dès 2 200 € sur mesure. Ce qui fait varier le prix et les frais après la mise en ligne.',
+                $year,
+            ),
+        ];
+    }
+
+    /**
      * @return array<string, mixed>
      */
     public function project(Project $project, Audience $audience): array

@@ -69,7 +69,7 @@ final class ProjectsControllerSeoTest extends WebTestCase
         self::assertSame('Sylvain Pillet', $business['name']);
         self::assertSame('+33688103175', $business['telephone']);
         self::assertSame('31400', $business['address']['postalCode']);
-        self::assertSame('À partir de 1 500 €', $business['priceRange']);
+        self::assertSame('À partir de 1 200 €', $business['priceRange']);
         self::assertSame($person['@id'], $business['founder']['@id']);
         self::assertSame(
             ['https://share.google/cjVgdToR7DqgAuS4P'],

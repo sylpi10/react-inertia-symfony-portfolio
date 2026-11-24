@@ -1,0 +1,63 @@
+// carte à bandeau de titre (numéro + h3 sur fond foncé), filet jaune au survol ;
+// partagée par les services (.service) et les pages Toulouse / prix (.local-card).
+// $prefix : préfixe des classes internes (#{$prefix}-title, -number, -body)
+@mixin title-card($prefix) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: var(--surface);
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+    // filet jaune qui se déploie au survol
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 12px;
+        right: 12px;
+        height: 3px;
+        border-radius: 0 0 3px 3px;
+        background-color: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+    }
+    &:hover {
+        border-color: var(--border-strong);
+        box-shadow: 0 12px 30px var(--shadow);
+        transform: translateY(-2px);
+        &::before {
+            transform: scaleX(1);
+        }
+    }
+
+    .#{$prefix}-title {
+        background-color: var(--strong);
+        display: flex;
+        gap: 14px;
+        padding: 6px 12px;
+        .#{$prefix}-number {
+            font-family: effortless, serif;
+            font-size: 1.6rem;
+            line-height: 1;
+            color: var(--accent);
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--on-strong);
+        }
+    }
+
+    .#{$prefix}-body {
+        padding: 14px 20px 20px;
+    }
+}

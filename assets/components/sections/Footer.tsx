@@ -28,6 +28,11 @@ export default function Footer() {
                                 Développeur web à Toulouse
                             </Link>
                         </p>
+                        <p className="footer-role">
+                            <Link href="/creation-site-web/prix-site-vitrine">
+                                Prix d’un site vitrine
+                            </Link>
+                        </p>
                         <a href={`mailto:${publicEmail}`}>{publicEmail}</a>
                     </div>
                 </div>
