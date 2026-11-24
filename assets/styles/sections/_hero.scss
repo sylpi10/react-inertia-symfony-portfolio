@@ -88,6 +88,10 @@
                         margin-left: 4px;
                         // largeur nette nulle : le curseur ne pousse pas le texte
                         margin-right: -16px;
+                        // caractère hors du DOM : Google ne le lit pas dans le h1
+                        &::before {
+                            content: "|";
+                        }
                     }
                     .typewriter-rest {
                         visibility: hidden;

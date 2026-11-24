@@ -73,9 +73,8 @@ export default function Hero({
                                             {/* retiré une fois le texte tapé : pas de clignotement sans fin */}
                                             {i === cursorLine &&
                                                 index < text.length && (
-                                                    <span className="cursor">
-                                                        |
-                                                    </span>
+                                                    // « | » dessiné en CSS (::before) : pas dans le texte du h1
+                                                    <span className="cursor" />
                                                 )}
                                             <span className="typewriter-rest">
                                                 {line.slice(typed)}

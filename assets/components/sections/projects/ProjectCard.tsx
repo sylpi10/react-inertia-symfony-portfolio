@@ -28,11 +28,13 @@ export default function ProjectCard({
         <div className="item-content card-item">
             {/* couvre toute la carte (projects.scss) : la carte entière mène aux
                 détails ; la rangée de liens Site / Github passe au-dessus */}
-            <Link
-                href={detailsUrl}
-                className="card-link"
-                aria-label={`Voir le projet ${project.name}`}
-            />
+            {/* texte masqué plutôt qu'aria-label : lu par les lecteurs d'écran
+                et pris comme texte du lien par Google */}
+            <Link href={detailsUrl} className="card-link">
+                <span className="visually-hidden">
+                    Voir le projet {project.name}
+                </span>
+            </Link>
             <div className="item-header">
                 {/* ratio des vignettes générées : réserve la place (pas de CLS) */}
                 <h3>{project.name}</h3>
@@ -70,10 +72,12 @@ export default function ProjectCard({
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="see-more"
-                                aria-label={`Site de ${project.name} (nouvel onglet)`}
                             >
                                 <WebIcon />
-                                <span> Site</span>
+                                <span>Site</span>{" "}
+                                <span className="visually-hidden">
+                                    de {project.name} (nouvel onglet)
+                                </span>
                             </a>
                         </div>
                     )}
@@ -84,10 +88,12 @@ export default function ProjectCard({
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="see-more"
-                                aria-label={`GitHub de ${project.name} (nouvel onglet)`}
                             >
                                 <WebIcon />
-                                <span>Github</span>
+                                <span>Github</span>{" "}
+                                <span className="visually-hidden">
+                                    de {project.name} (nouvel onglet)
+                                </span>
                             </a>
                         </div>
                     )}
