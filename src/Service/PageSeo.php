@@ -22,7 +22,7 @@ final class PageSeo
 
     // page locale : la requête « développeur web freelance Toulouse », sans doublon avec la page création de site
     private const string LOCAL_TITLE = 'Développeur web freelance à Toulouse | Sylvain Pillet';
-    private const string LOCAL_DESCRIPTION = 'Développeur web freelance à Toulouse : création de sites, refontes, applications React / Symfony et référencement local pour les indépendants, TPE et PME.';
+    private const string LOCAL_DESCRIPTION = 'Développeur web freelance à Toulouse : sites et applications sur mesure, référencement SEO inclus, refontes, pour les indépendants, TPE et PME.';
 
     public function __construct(
         private readonly ProjectSummary $summary,

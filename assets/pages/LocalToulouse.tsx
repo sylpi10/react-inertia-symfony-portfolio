@@ -28,16 +28,78 @@ export default function LocalToulouse({
                 <h1 className="section-title">
                     Développeur web freelance à Toulouse
                 </h1>
+                {/* sur mesure et SEO dès l'intro : les deux arguments de la page */}
                 <p className="local-intro">
-                    Installé à Toulouse, je crée et fais évoluer des sites et
-                    des applications web pour les indépendants, TPE et PME de la
-                    ville et de son agglomération : Blagnac, Colomiers, Balma,
-                    Ramonville, Labège, Tournefeuille. <br />
+                    Installé à Toulouse, je crée des sites et des applications
+                    web <strong>sur mesure</strong>, pensés dès le départ pour
+                    être <strong>trouvés sur Google</strong>. Pour les
+                    indépendants, TPE et PME de la ville et de son agglomération
+                    : Blagnac, Colomiers, Balma, Ramonville, Labège,
+                    Tournefeuille. <br />
                     Nous pouvons nous rencontrer sur place ou échanger en visio.
                 </p>
 
                 <section>
-                    <h2>Création de site web à Toulouse</h2>
+                    <h2>Un site sur mesure, référencé dès la mise en ligne</h2>
+                    <ul className="local-cards">
+                        <li className="local-card">
+                            <div className="local-card-title">
+                                <span
+                                    className="local-card-number"
+                                    aria-hidden="true"
+                                >
+                                    01
+                                </span>
+                                <h3>Sur mesure</h3>
+                            </div>
+                            <div className="local-card-body">
+                                <p className="local-card-text">
+                                    Pas de modèle tout fait : le design, les
+                                    pages et l’espace d’administration sont
+                                    construits pour votre activité et vos
+                                    contenus. Le site évolue ensuite avec vous,
+                                    nouvelles pages ou nouvelles fonctions, sans
+                                    repartir de zéro.
+                                </p>
+                            </div>
+                        </li>
+                        <li className="local-card">
+                            <div className="local-card-title">
+                                <span
+                                    className="local-card-number"
+                                    aria-hidden="true"
+                                >
+                                    02
+                                </span>
+                                <h3>Référencement (SEO) inclus</h3>
+                            </div>
+                            <div className="local-card-body">
+                                <ul className="local-list">
+                                    <li>un site qui s’affiche vite</li>
+                                    <li>
+                                        des titres et descriptions écrits pour
+                                        chaque page
+                                    </li>
+                                    <li>
+                                        des données structurées que Google
+                                        comprend
+                                    </li>
+                                    <li>
+                                        des pages dédiées à votre zone
+                                        d’activité
+                                    </li>
+                                    <li>
+                                        une fiche d’établissement Google
+                                        cohérente avec le site
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Création de site web sur mesure à Toulouse</h2>
                     <p>
                         Un site vitrine 100 % sur mesure, rapide et bien
                         référencé, avec un espace d’administration pour modifier
@@ -51,6 +113,19 @@ export default function LocalToulouse({
                 </section>
 
                 <section>
+                    <h2>Référencement naturel (SEO) à Toulouse</h2>
+                    <p>
+                        Le référencement ne s’ajoute pas après coup : il se
+                        prépare pendant la construction du site. Être trouvé par
+                        les clients de votre secteur se joue sur des points
+                        précis, de la vitesse d’affichage aux pages dédiées à
+                        votre zone d’activité. Chaque projet est contrôlé page
+                        par page avec les outils de Google, et les résultats de
+                        performance sont présentés sur plusieurs pages projet.
+                    </p>
+                </section>
+
+                <section>
                     <h2>Refonte et application web sur mesure</h2>
                     <p>
                         Un site lent, daté ou difficile à faire évoluer ? Je le
@@ -59,18 +134,6 @@ export default function LocalToulouse({
                         une plateforme, je développe en React, Next.js et
                         Symfony, avec cinq ans d’expérience sur une boutique en
                         ligne à fort trafic.
-                    </p>
-                </section>
-
-                <section>
-                    <h2>Référencement local à Toulouse</h2>
-                    <p>
-                        Être trouvé par les clients de votre secteur se joue sur
-                        des points précis : un site qui s’affiche vite, des
-                        pages dédiées à votre zone d’activité, des données
-                        structurées que Google comprend et une fiche
-                        d’établissement cohérente avec le site. Chaque projet
-                        est contrôlé page par page avec les outils de Google.
                     </p>
                 </section>
 
